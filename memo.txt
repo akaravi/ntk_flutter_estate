@@ -1,0 +1,26 @@
+flutter pub get 
+flutter pub run build_runner build --delete-conflicting-outputs
+flutter analyze
+
+==== https://docs.flutter.dev/reference/flutter-cli
+=================================================Here’s how you might use the flutter tool to create, analyze, test, and run an app:
+flutter create my_app
+cd my_app
+flutter analyze
+flutter test
+flutter run lib/main.dart
+=================================================To run pub commands using the flutter tool:
+flutter pub get
+flutter pub outdated
+flutter pub upgrade
+=================================================
+ flutter --help --verbose
+ flutter --version
+======================================================Show information about the installed tooling.
+flutter doctor
+======================================================Runs Flutter Driver tests for the current project.
+flutter drive
+======================================================List, launch and create emulators.
+flutter emulators	
+======================================================Upgrade your copy of Flutter.
+flutter upgrade	

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
+import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 
 void main() async {
   //prevent from crash on start
@@ -26,11 +27,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: const [Locale("fa")],
+      locale: const Locale("fa"),
       title: "الونک",
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Splash(),
+      home: const SplashScreen(),
       // home: ( ArticleList()),
     );
   }
