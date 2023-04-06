@@ -93,7 +93,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 Expanded(
                   child: Container(),
-                  flex: 2,
+                  flex: 4,
                 ),
                 ScaleTransition(
                   scale: animation,
@@ -102,8 +102,8 @@ class _SplashScreenState extends State<SplashScreen>
                         horizontal: 42, vertical: 16),
                     child: LinearProgressIndicator(
                       value: data.progress,
-                      color: Colors.amber,
-                      backgroundColor: s[800],
+                      color:GlobalColor.colorAccent,
+                      backgroundColor: GlobalColor.colorPrimary,
                       semanticsLabel: 'Linear progress indicator',
                     ),
                   ),
@@ -112,7 +112,7 @@ class _SplashScreenState extends State<SplashScreen>
                   opacity: animation,
                   child: Text(
                     data.title,
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                    style: const TextStyle(color: GlobalColor.colorPrimary, fontSize: 14),
                   ),
                 ),
                 Expanded(

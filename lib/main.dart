@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 
 void main() async {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale("fa"),
       title: "الونک",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       home: const SplashScreen(),
       // home: ( ArticleList()),
