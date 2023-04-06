@@ -20,7 +20,7 @@ packages:
   base:
     dependency: "direct dev"
     description:
-      path: "../Ntk.Flutter.Base"
+      path: "../ntk_flutter_base"
       relative: true
     source: path
     version: "1.0.0+1"

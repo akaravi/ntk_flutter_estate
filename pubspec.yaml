@@ -41,7 +41,7 @@ dev_dependencies:
     sdk: flutter
 #  base api
   base:
-    path: ..\Ntk.Flutter.Base
+    path: ..\ntk_flutter_base
 #  lottie
   lottie: ^2.3.1
   # The "flutter_lints" package below contains a set of recommended lints to
