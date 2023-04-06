@@ -74,6 +74,8 @@ flutter:
     - assets/drawable/empty-box.png
     - assets/drawable/confused-face.png
     - assets/drawable/frustrated-face.png
+    - assets/lottie/circle_reval.json
+    - assets/lottie/splash_logo.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

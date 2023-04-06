@@ -2,6 +2,7 @@ import 'package:base/src/controller/base/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -61,35 +62,24 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Widget splash(SplashProgress data) {
-    final background = Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/drawable/splash_background.jpg"),
-              fit: BoxFit.cover)),
-    );
-    final greenOpacity = Container(
-      color: Colors.black26.withAlpha(150),
-    );
-    final logo = Image.asset(
-      "assets/drawable/app_logo.png",
-      width: 180,
-      height: 180,
-    );
-    const appTitle = Text(
-      GlobalData.appName,
-      style: TextStyle(color: Colors.white),
-    );
+    final background =
+        Lottie.asset('assets/lottie/circle_reval.json', repeat: false, fit: BoxFit.fill, );
+
+    final logo = Lottie.asset('assets/lottie/splash_logo.json');
 
     var cortTextStyle = const TextStyle(
       fontSize: 12,
-      color: Colors.white,
+      color: GlobalColor.colorTextPrimary,
     );
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
-          background,
-          greenOpacity,
+          OverflowBox(
+              maxWidth: double.infinity,
+              alignment: Alignment.center,
+              child: background),
+          logo,
           SafeArea(
               child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -100,16 +90,6 @@ class _SplashScreenState extends State<SplashScreen>
                 Expanded(
                   child: Container(),
                   flex: 1,
-                ),
-                ScaleTransition(scale: animation, child: logo),
-                FadeTransition(
-                  opacity: animation,
-                  child: SlideTransition(
-                    child: appTitle,
-                    position: Tween<Offset>(
-                            begin: const Offset(0.0, -1.0), end: Offset.zero)
-                        .animate(controller),
-                  ),
                 ),
                 Expanded(
                   child: Container(),
