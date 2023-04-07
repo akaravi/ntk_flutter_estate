@@ -38,7 +38,12 @@ class GlobalString {
   static String enterMobileString = 'شماره تلفن همراه';
 
   static const String confirmMobile = "تایید شماره";
+  static const String confirmSmsCode = "تایید شماره تلفن همراه";
   static const String notInterested = "تمایلی ندارم";
+  static const String enterSmsCode = "کد ارسال شده";
   static const String enterCaptcha = "کد امنیتی";
+
+
+
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
 import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 
 import 'screen/auth/auth_sms_screen.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       // home: const SplashScreen(),
-      home: AuthSmsScreen(),
+      home: AuthSmsConfirmScreen("09132131542"),
       // home: ( ArticleList()),
     );
   }
