@@ -24,3 +24,8 @@ flutter drive
 flutter emulators	
 ======================================================Upgrade your copy of Flutter.
 flutter upgrade	
+
+======================================================you can solve this running below commands. Not all the time chatgpt gives you rigth answer.
+flutter clean
+flutter pub upgrade
+flutter pub get
