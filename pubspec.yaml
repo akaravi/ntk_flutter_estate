@@ -39,10 +39,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-#  base api
+  #  base api
   base:
     path: ..\ntk_flutter_base
-#  lottie
+  #   locale
+  flutter_localizations:
+    sdk: flutter
+  #  lottie
   lottie: ^2.3.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -69,13 +72,16 @@ flutter:
   assets:
     - assets/drawable/app_logo.png
     - assets/drawable/splash_background.jpg
-    - assets/drawable/load_captcha.png
+    - assets/drawable/captcha_holder.png
     - assets/drawable/error_captcha.png
     - assets/drawable/empty-box.png
     - assets/drawable/confused-face.png
     - assets/drawable/frustrated-face.png
+    #   lottie file
     - assets/lottie/circle_reval.json
     - assets/lottie/splash_logo.json
+    - assets/lottie/auth_sms.json
+    - assets/lottie/auth_confirm_sms.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

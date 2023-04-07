@@ -1,9 +1,11 @@
 import 'dart:async';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/splash_screen.dart';
+
+import 'screen/auth/auth_sms_screen.dart';
 
 void main() async {
   //prevent from crash on start
@@ -28,13 +30,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      supportedLocales: const [Locale("fa")],
+      supportedLocales: const [Locale("fa"), Locale("en")],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       locale: const Locale("fa"),
       title: "الونک",
       theme: ThemeData(
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home: AuthSmsScreen(),
       // home: ( ArticleList()),
     );
   }

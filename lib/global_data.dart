@@ -13,6 +13,8 @@ class GlobalColor {
   static const Color colorTextPrimary = Color(0xff202020);
   static const Color colorTextSecondary = Color(0xff454545);
 
+  static const Color colorTextOnPrimary =  Color(0xffffffff);
+
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
       50: Color.fromRGBO(136, 14, 79, .1),
@@ -28,4 +30,15 @@ class GlobalColor {
     };
     return MaterialColor(color.value, shades);
   }
+}
+
+class GlobalString {
+  static const signUpString = 'ثبت نام کاربر';
+
+  static String enterMobileString = 'شماره تلفن همراه';
+
+  static const String confirmMobile = "تایید شماره";
+  static const String notInterested = "تمایلی ندارم";
+  static const String enterCaptcha = "کد امنیتی";
+
 }
