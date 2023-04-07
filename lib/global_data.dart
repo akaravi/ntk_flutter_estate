@@ -42,6 +42,9 @@ class GlobalString {
   static const String notInterested = "تمایلی ندارم";
   static const String enterSmsCode = "کد ارسال شده";
   static const String enterCaptcha = "کد امنیتی";
+  static const String sendCodeAgain = "ارسال مجدد کد اعتبار سنجی";
+  static const String sendCondCountDown = " ثانیه تا درخواست مجدد کد";
+  static const String changeNumber = "تغییر شماره";
 
 
 

@@ -89,38 +89,9 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
               //captcha hint
               getHintWidget("",
                   captchaNotValid ? verifyController.captchaErrorText() : null),
+
               Container(
-                padding: const EdgeInsets.only(top: 14.0, right: 4.0),
-                child: !verifyController.hasTimerStopped
-                    ? CountDownTimer(
-                        secondsRemaining: 120,
-                        whenTimeExpires: () {
-                          setState(() {
-                            verifyController.hasTimerStopped = true;
-                          });
-                        },
-                        countDownTimerStyle: const TextStyle(
-                          color: Color(0XFFf5a623),
-                          fontSize: 17.0,
-                          height: 1.2,
-                        ),
-                      )
-                    : Center(
-                        child: TextButton(
-                            onPressed: () =>
-                                {MyDialogs().showCaptcha(context, sendCode)},
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text('send again Code '),
-                                Icon(Icons.refresh)
-                              ],
-                            )),
-                      ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
+                margin: const EdgeInsets.only(top: 10.0),
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Expanded(
                   child: TextButton(
@@ -141,7 +112,7 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 20.0, bottom: 20),
+                margin: const EdgeInsets.only(top: 10.0, bottom: 10),
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Expanded(
                   child: OutlinedButton(
@@ -153,7 +124,7 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
                       padding: const EdgeInsets.only(left: 20.0),
                       alignment: Alignment.center,
                       child: const Text(
-                        GlobalString.notInterested,
+                        GlobalString.changeNumber,
                         style: TextStyle(color: GlobalColor.colorAccent),
                       ),
                     ),
@@ -162,6 +133,46 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
                             context, AuthSmsScreen()),
                   ),
                 ),
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 10.0, right: 4.0),
+                child: !verifyController.hasTimerStopped
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CountDownTimer(
+                            secondsRemaining: 60,
+                            whenTimeExpires: () {
+                              setState(() {
+                                verifyController.hasTimerStopped = true;
+                              });
+                            },
+                            countDownTimerStyle: const TextStyle(
+                              color: GlobalColor.colorPrimary,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          const Text(GlobalString.sendCondCountDown,
+                              style: TextStyle(
+                                color: GlobalColor.colorPrimary,
+                                fontSize: 12.0,
+                              ))
+                        ],
+                      )
+                    : Center(
+                        child: TextButton(
+                            onPressed: () =>
+                                {MyDialogs().showCaptcha(context, sendCode)},
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(GlobalString.sendCodeAgain,
+                                    style: TextStyle(fontSize: 13)),
+                                Icon(Icons.refresh)
+                              ],
+                            )),
+                      ),
               ),
             ],
           ),
