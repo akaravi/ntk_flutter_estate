@@ -2,7 +2,7 @@ import 'package:base/src/index.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
-import '../screen/mainScreen.dart';
+import '../screen/main_screen.dart';
 class MainScreenController extends BaseMainController
 
 {
