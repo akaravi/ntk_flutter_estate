@@ -83,14 +83,18 @@ class IntroScreen extends StatelessWidget {
       // Next button
       renderNextBtn: renderNextBtn(),
       nextButtonStyle: myButtonStyle(),
-      showDotIndicator: true,
       // Done button
       renderDoneBtn: renderDoneBtn(),
-      renderPrevBtn: renderPrevBtn(),
       onDonePress: () => onDonePress(context),
       doneButtonStyle: myButtonStyle(),
+      //prev btn
+      showPrevBtn: true,
+      renderPrevBtn: renderPrevBtn(),
+      prevButtonStyle: myButtonStyle(),
+
       scrollPhysics: const BouncingScrollPhysics(),
       // Dot indicator
+      showDotIndicator: true,
       colorDot: GlobalColor.colorAccent.withOpacity(.5),
       colorActiveDot: GlobalColor.colorAccentDark,
       sizeDot: 5.0,
@@ -128,13 +132,12 @@ class IntroScreen extends StatelessWidget {
       ),
     );
   }
-  Widget renderPrevBtn() {
-    return
-          const Icon(
-            Icons.navigate_before,
-            color: GlobalColor.colorOnAccent,
-            size: 35.0,
 
+  Widget renderPrevBtn() {
+    return const Icon(
+      Icons.navigate_before,
+      color: GlobalColor.colorOnAccent,
+      size: 35.0,
     );
   }
 
