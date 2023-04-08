@@ -14,6 +14,8 @@ class GlobalColor {
   static const Color colorTextSecondary = Color(0xff454545);
 
   static const Color colorTextOnPrimary = Color(0xffffffff);
+  static const Color colorBackground = Color(0xffffffff);
+  static const Color colorOnAccent = Color(0xffffffff);
 
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
@@ -46,4 +48,6 @@ class GlobalString {
   static const String sendCondCountDown = " ثانیه تا درخواست مجدد کد";
   static const String changeNumber = "تغییر شماره";
   static const String loading = "در حال دریافت اطلاعات";
+
+  static const String next = "بعدی";
 }

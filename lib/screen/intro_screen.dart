@@ -2,6 +2,8 @@ import 'package:base/src/controller/base/intro_controller.dart';
 import 'package:base/src/models/entity/application/application_intro_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
 
 class Intro extends StatelessWidget {
@@ -14,6 +16,7 @@ class Intro extends StatelessWidget {
           future: IntroController().getIntro(),
           builder: (context, snapshot) {
             Widget widget;
+            //todo add error page
             if (snapshot.hasData) {
               widget = IntroScreen(
                 createSlides(snapshot.data),
@@ -22,8 +25,7 @@ class Intro extends StatelessWidget {
             } else
               widget = SubLoadingScreen(key: ValueKey(1));
             return AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
-                child: widget);
+                duration: const Duration(seconds: 1), child: widget);
           }),
     );
   }
@@ -32,24 +34,32 @@ class Intro extends StatelessWidget {
     List<Slide> list = [];
     data = data ?? [];
     for (var element in data) {
-      list.add(Slide(
+      Slide slide = Slide(
         title: element.title,
         maxLineTitle: 2,
-        pathImage: element.linkMainImageIdSrc,
-        description: element.description,
         styleTitle: const TextStyle(
-            color: Colors.white,
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'RobotoMono'),
+          color: GlobalColor.colorTextPrimary,
+          fontSize: 23.0,
+          fontWeight: FontWeight.bold,
+        ),
         styleDescription: const TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontStyle: FontStyle.italic,
-            fontFamily: 'Raleway'),
+          color: GlobalColor.colorTextSecondary,
+          fontSize: 16.0,
+          fontStyle: FontStyle.italic,
+        ),
         marginDescription: const EdgeInsets.only(
             left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-      ));
+      );
+      if (element.linkMainImageIdSrc != null &&
+          (element.linkMainImageIdSrc?.isNotEmpty ?? false)) {
+        slide.centerWidget = Container(
+            constraints: const BoxConstraints(minHeight: 40, maxHeight: 200),
+            child: Image.network(
+              element.linkMainImageIdSrc ?? "",
+            ));
+      }
+      slide.description = element.description;
+      list.add(slide);
     }
     return list;
   }
@@ -73,20 +83,21 @@ class IntroScreen extends StatelessWidget {
       // Next button
       renderNextBtn: renderNextBtn(),
       nextButtonStyle: myButtonStyle(),
-
+      showDotIndicator: true,
       // Done button
       renderDoneBtn: renderDoneBtn(),
+      renderPrevBtn: renderPrevBtn(),
       onDonePress: () => onDonePress(context),
       doneButtonStyle: myButtonStyle(),
       scrollPhysics: const BouncingScrollPhysics(),
       // Dot indicator
-      colorDot: const Color(0x33FFA8B0),
-      colorActiveDot: const Color(0xffFFA8B0),
-      sizeDot: 13.0,
+      colorDot: GlobalColor.colorAccent.withOpacity(.5),
+      colorActiveDot: GlobalColor.colorAccentDark,
+      sizeDot: 5.0,
 
       // Show or hide status bar
       hideStatusBar: true,
-      backgroundColorAllSlides: Colors.grey,
+      backgroundColorAllSlides: GlobalColor.colorBackground,
     );
   }
 
@@ -94,29 +105,50 @@ class IntroScreen extends StatelessWidget {
     //navigate to next page if frist open go to intro page
     //otherwise this page open from features click
     Future.microtask(() {
-      IntroController().nextPage(context);
+      IntroController().nextPage(context, newWidget: AuthSmsScreen());
     });
   }
 
   Widget renderNextBtn() {
-    return const Icon(
-      Icons.navigate_next,
-      color: Color(0xffF3B4BA),
-      size: 35.0,
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Text(
+            GlobalString.next,
+            style: TextStyle(color: GlobalColor.colorOnAccent, fontSize: 13),
+          ),
+          Icon(
+            Icons.navigate_next,
+            color: GlobalColor.colorOnAccent,
+            size: 35.0,
+          ),
+        ],
+      ),
+    );
+  }
+  Widget renderPrevBtn() {
+    return
+          const Icon(
+            Icons.navigate_before,
+            color: GlobalColor.colorOnAccent,
+            size: 35.0,
+
     );
   }
 
   Widget renderDoneBtn() {
     return const Icon(
       Icons.done,
-      color: Color(0xffF3B4BA),
+      color: GlobalColor.colorOnAccent,
     );
   }
 
   Widget renderSkipBtn() {
     return const Icon(
       Icons.skip_next,
-      color: Color(0xffF3B4BA),
+      color: GlobalColor.colorOnAccent,
     );
   }
 
@@ -124,8 +156,7 @@ class IntroScreen extends StatelessWidget {
     return ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(const StadiumBorder()),
       backgroundColor:
-          MaterialStateProperty.all<Color>(const Color(0x33F3B4BA)),
-      overlayColor: MaterialStateProperty.all<Color>(const Color(0x33FFA8B0)),
+          MaterialStateProperty.all<Color>(GlobalColor.colorAccent),
     );
   }
 }
