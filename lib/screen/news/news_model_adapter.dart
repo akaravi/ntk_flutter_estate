@@ -1,16 +1,17 @@
 import 'dart:io';
 
-import 'package:base/src/models/entity/news/news_content_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:base/src/index.dart';
+
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsModelAdapter extends StatefulWidget {
   const NewsModelAdapter({
     required this.model,
     Key? key,
-  })  : super(key: key);
+  }) : super(key: key);
   final NewsContentModel model;
 
   @override
@@ -18,14 +19,6 @@ class NewsModelAdapter extends StatefulWidget {
 }
 
 class _NewsModelAdapterState extends State<NewsModelAdapter> {
-  String get _formattedDurationInMinutes {
-    final durationInMinutes =120 / 60;
-    return '${durationInMinutes.toStringAsFixed(0)} mins';
-  }
-
-  String get _formattedReleaseDate =>
-      DateFormat('MMM d yyyy').format(widget.model.createdDate!);
-
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -36,42 +29,55 @@ class _NewsModelAdapterState extends State<NewsModelAdapter> {
       child: InkWell(
         onTap: () async => _launchURL(context),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      widget.model.title!,
-                      style: textTheme.subtitle1,
-                    ),
+              if (widget.model.linkMainImageIdSrc != null)
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    fit: BoxFit.contain,
+                    width: 300,
+                    widget.model.linkMainImageIdSrc!,
                   ),
-                  if (widget.model.linkMainImageIdSrc != null)
-                    const SizedBox(
-                      width: 16,
-                    ),
-                  if (widget.model.linkMainImageIdSrc != null)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        widget.model.linkMainImageIdSrc!,
-                      ),
-                    ),
-                ],
-              ),
-              const SizedBox(
-                height: 16,
+                ),
+              Text(
+                widget.model.title!,
+                maxLines: 1,
+                style: const TextStyle(
+                    fontSize: 15, color: GlobalColor.colorTextPrimary),
               ),
               Text(
                 widget.model.description!,
-                style: textTheme.bodyText2,
+                maxLines: 1,
+                style: const TextStyle(
+                    fontSize: 15, color: GlobalColor.colorTextPrimary),
               ),
-              Text(
-                '$_formattedReleaseDate ($_formattedDurationInMinutes)',
-                style: textTheme.bodyText2,
+              Row(
+                children: [
+                  StarDisplay(
+                      ViewCount: widget.model.viewCount,
+                      ScoreSumPercent: widget.model.scoreSumPercent,
+                      color: GlobalColor.colorAccent),
+
+                  Spacer(
+                    flex: 1,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Text(
+                      widget.model.viewCount.toString(),
+                      style: const TextStyle(
+                          fontSize: 15, color: GlobalColor.colorAccent),
+                    ),
+                  ),  const Icon(
+                    Icons.remove_red_eye,
+                    size: 15,
+                    color: GlobalColor.colorAccent,
+                  ),
+                ],
               )
             ],
           ),

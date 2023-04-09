@@ -50,4 +50,5 @@ class GlobalString {
   static const String loading = "در حال دریافت اطلاعات";
 
   static const String next = "بعدی";
+  static const String news = "اخبار";
 }

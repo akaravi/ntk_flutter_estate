@@ -43,7 +43,7 @@ class _BaseListScreenState extends State<BaseListWithFilterScreen> {
         ),
         iconTheme: const IconThemeData(color: GlobalColor.colorAccent, size: 24),
         title: Text(
-          widget.title,
+          widget.title,style: const TextStyle(color: GlobalColor.colorAccent),
         ),
         actions: [
           IconButton(
