@@ -53,11 +53,20 @@ class _EstatePropertyVerticalAdapterState
                         ),
                       ],
                     ),
-                    Text(
-                      widget.model.title!,
-                      maxLines: 1,
-                      style: const TextStyle(
-                          fontSize: 15, color: GlobalColor.colorTextPrimary),
+                    const SizedBox(width: 4,),
+                    //title and price container
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.model.title!,
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontSize: 14, color: GlobalColor.colorTextPrimary),
+                          ),
+                          getPriceWidget()
+                        ],
+                      ),
                     ),
                   ],
 
@@ -96,5 +105,72 @@ class _EstatePropertyVerticalAdapterState
 
   Future<void> _launchURL(BuildContext context) async {
     //see detail
+  }
+
+  getPriceWidget() {
+    for (EstateContractModel m in
+    widget.model.contracts!) {
+
+      if (m.contractType?.hasSalePrice??false) {
+        priceTitle1.setText(m.ContractType.TitleML+" : ");
+        if (m.SalePrice != null || m.SalePriceByAgreement) {
+          priceTitle1.setVisibility(View.VISIBLE);
+          price1.setVisibility(View.VISIBLE);
+          String price = "";
+          if (m.SalePrice != null && m.SalePrice != 0)
+            price = NViewUtils.PriceFormat(m.SalePrice) + "  " + m.UnitSalePrice;
+          if (m.SalePriceByAgreement)
+            price=(price.isEmpty() ? "توافقی" : price + "||" + " توافقی");
+          price1.setText(price);
+        } else {
+          priceTitle1.setVisibility(View.VISIBLE);
+          priceTitle1.setText("جهت :" + m.ContractType.TitleML);
+        }
+      } else {
+        priceTitle1.setVisibility(View.GONE);
+        price1.setVisibility(View.GONE);
+
+      }
+      if (m.ContractType.HasDepositPrice) {
+        priceTitle2.setText(m.ContractType.TitleML+" :");
+        if (m.DepositPrice != null || m.DepositPriceByAgreement) {
+          priceTitle2.setVisibility(View.VISIBLE);
+          price2.setVisibility(View.VISIBLE);
+          String price = "";
+          if (m.DepositPrice != null && m.DepositPrice != 0)
+            price=(NViewUtils.PriceFormat(m.DepositPrice) + "  " + m.UnitSalePrice);
+          if (m.DepositPriceByAgreement)
+            price=(price.isEmpty() ? "توافقی" : price + "||" + " توافقی");
+          price2.setText(price);
+        } else {
+          priceTitle2.setVisibility(View.VISIBLE);
+          priceTitle2.setText("جهت :" + m.ContractType.TitleML);
+        }
+      } else {
+        priceTitle2.setVisibility(View.GONE);
+        price2.setVisibility(View.GONE);
+
+      }
+      if (m.ContractType.HasRentPrice) {
+        priceTitle3.setText(m.ContractType.TitleML+" :");
+        if (m.RentPrice != null || m.RentPriceByAgreement) {
+          priceTitle3.setVisibility(View.VISIBLE);
+          price3.setVisibility(View.VISIBLE);
+          String price = "";
+          if (m.RentPrice != null && m.RentPrice != 0)
+            price=(NViewUtils.PriceFormat(m.RentPrice) + "  " + m.UnitSalePrice);
+          if (m.RentPriceByAgreement)
+            price=(price.isEmpty() ? "توافقی" : price + "||" + " توافقی");
+          price3.setText(price);
+        } else {
+          priceTitle3.setVisibility(View.VISIBLE);
+          priceTitle3.setText("جهت :" + m.ContractType.TitleML);
+        }
+      } else {
+        priceTitle3.setVisibility(View.GONE);
+        price3.setVisibility(View.GONE);
+      }
+
+    }
   }
 }
