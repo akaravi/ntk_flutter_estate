@@ -1,27 +1,32 @@
 import 'dart:io';
 
 import 'package:base/src/index.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class NewsModelAdapter extends StatefulWidget {
-  const NewsModelAdapter({
+class EstatePropertyVerticalAdapter extends StatefulWidget {
+  const EstatePropertyVerticalAdapter({
     required this.model,
     Key? key,
   }) : super(key: key);
-  final NewsContentModel model;
+  final EstatePropertyModel model;
 
   @override
-  State<NewsModelAdapter> createState() => _NewsModelAdapterState();
+  State<EstatePropertyVerticalAdapter> createState() =>
+      _EstatePropertyVerticalAdapterState();
 }
 
-class _NewsModelAdapterState extends State<NewsModelAdapter> {
+class _EstatePropertyVerticalAdapterState
+    extends State<EstatePropertyVerticalAdapter> {
+  static double width = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Card(
+    // if (width == 0) {
+      width = MediaQuery.of(context).size.width * (3 / 8);
+    // }
+    return Card(elevation: 12,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
       ),
@@ -29,41 +34,44 @@ class _NewsModelAdapterState extends State<NewsModelAdapter> {
         onTap: () async => _launchURL(context),
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Column(
+          //as Column
+          child: Column(mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (widget.model.linkMainImageIdSrc != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    fit: BoxFit.contain,
-                    width: 300,
-                    widget.model.linkMainImageIdSrc!,
-                  ),
+                //1st's of Column is a row
+                Row(mainAxisSize: MainAxisSize.min,
+                  children: [
+                    //image container
+                    Stack(fit: StackFit.loose,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            fit: BoxFit.fill,  width: width,
+                            widget.model.linkMainImageIdSrc!,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      widget.model.title!,
+                      maxLines: 1,
+                      style: const TextStyle(
+                          fontSize: 15, color: GlobalColor.colorTextPrimary),
+                    ),
+                  ],
+
                 ),
-              Text(
-                widget.model.title!,
-                maxLines: 1,
-                style: const TextStyle(
-                    fontSize: 15, color: GlobalColor.colorTextPrimary),
-              ),
-              Text(
-                widget.model.description!,
-                maxLines: 1,
-                style: const TextStyle(
-                    fontSize: 15, color: GlobalColor.colorTextPrimary),
-              ),
+              //2's of Column is row of property
               Row(
                 children: [
                   StarDisplay(
                       ViewCount: widget.model.viewCount,
                       ScoreSumPercent: widget.model.scoreSumPercent,
                       color: GlobalColor.colorAccent),
-
                   Spacer(
                     flex: 1,
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text(
@@ -71,7 +79,8 @@ class _NewsModelAdapterState extends State<NewsModelAdapter> {
                       style: const TextStyle(
                           fontSize: 15, color: GlobalColor.colorAccent),
                     ),
-                  ),  const Icon(
+                  ),
+                  const Icon(
                     Icons.remove_red_eye,
                     size: 15,
                     color: GlobalColor.colorAccent,
@@ -86,15 +95,6 @@ class _NewsModelAdapterState extends State<NewsModelAdapter> {
   }
 
   Future<void> _launchURL(BuildContext context) async {
-    final url = 'https://raywenderlich.com/redirect?uri=${widget.model.source}';
-    if (Platform.isIOS || await canLaunch(url)) {
-      await launch(url);
-    } else {
-      // Scaffold.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Could\'nt launch the article\'s URL.'),
-      //   ),
-      // );
-    }
+    //see detail
   }
 }

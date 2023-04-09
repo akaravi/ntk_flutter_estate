@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 
 import 'auth/auth_sms_screen.dart';
 import 'intro_screen.dart';
-import 'news/news_list.dart';
+import 'news/news_list_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -52,7 +53,10 @@ class _SplashScreenState extends State<SplashScreen>
             var splashProgress = snapshot.data ?? SplashProgress.ifNull();
             //if progress is complete go to next Page
             if (splashProgress.progress == 1) {
-              SplashController().nextPage(context,intro: IntroScreen(),login: AuthSmsScreen(),main: NewsListScreen());
+              SplashController().nextPage(context,
+                  intro: IntroScreen(),
+                  login: AuthSmsScreen(),
+                  main: EstateListScreen());
             } else {
               return splash(splashProgress);
             }
@@ -66,8 +70,11 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Widget splash(SplashProgress data) {
-    final background =
-        Lottie.asset('assets/lottie/circle_reval.json', repeat: false, fit: BoxFit.fill, );
+    final background = Lottie.asset(
+      'assets/lottie/circle_reval.json',
+      repeat: false,
+      fit: BoxFit.fill,
+    );
 
     final logo = Lottie.asset('assets/lottie/splash_logo.json');
 
@@ -106,7 +113,7 @@ class _SplashScreenState extends State<SplashScreen>
                         horizontal: 42, vertical: 16),
                     child: LinearProgressIndicator(
                       value: data.progress,
-                      color:GlobalColor.colorAccent,
+                      color: GlobalColor.colorAccent,
                       backgroundColor: GlobalColor.colorPrimary,
                       semanticsLabel: 'Linear progress indicator',
                     ),
@@ -116,7 +123,8 @@ class _SplashScreenState extends State<SplashScreen>
                   opacity: animation,
                   child: Text(
                     data.title,
-                    style: const TextStyle(color: GlobalColor.colorPrimary, fontSize: 14),
+                    style: const TextStyle(
+                        color: GlobalColor.colorPrimary, fontSize: 14),
                   ),
                 ),
                 Expanded(

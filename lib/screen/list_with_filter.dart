@@ -69,7 +69,7 @@ class _BaseListScreenState extends State<BaseListWithFilterScreen> {
             ),
             noItemsFoundIndicatorBuilder: (context) => const SubEmptyScreen(),
           ),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(8),
           separatorBuilder: (context, index) => const SizedBox(
             height: 16,
           ),

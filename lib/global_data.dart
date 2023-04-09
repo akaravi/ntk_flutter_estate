@@ -51,4 +51,7 @@ class GlobalString {
 
   static const String next = "بعدی";
   static const String news = "اخبار";
+  static const String estate = "املاک";
+
+
 }
