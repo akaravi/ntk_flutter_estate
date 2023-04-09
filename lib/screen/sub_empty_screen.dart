@@ -5,13 +5,14 @@ import 'package:ntk_flutter_estate/global_data.dart';
 /// Basic layout for empty list.
 class SubEmptyScreen extends StatelessWidget {
   const SubEmptyScreen({
-    required this.title,
     this.message,
     this.addNewItem,
     this.addNewItemTitle,
+    title,
     Key? key,
-  })  : assert(title != null),
+  })  : this.title = (title ?? "مرودی یافت نشد"),
         super(key: key);
+
   final String title;
   final String? message;
   final VoidCallback? addNewItem;
@@ -34,21 +35,19 @@ class SubEmptyScreen extends StatelessWidget {
               const SizedBox(
                 height: 32,
               ),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: GlobalColor.colorTextPrimary,fontSize: 14)
-              ),
+              Text(title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: GlobalColor.colorTextPrimary, fontSize: 14)),
               if (message != null)
                 const SizedBox(
                   height: 16,
                 ),
               if (message != null)
-                Text(
-                  message ?? '',
-                  textAlign: TextAlign.center,
-                    style: const TextStyle(color: GlobalColor.colorTextPrimary,fontSize: 12)
-                ),
+                Text(message ?? '',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: GlobalColor.colorTextPrimary, fontSize: 12)),
               if (addNewItem != null) const Spacer(),
               if (addNewItem != null)
                 SizedBox(

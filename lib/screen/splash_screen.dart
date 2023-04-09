@@ -4,6 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:lottie/lottie.dart';
 
+import 'auth/auth_sms_screen.dart';
+import 'intro_screen.dart';
+import 'news/news_list.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -48,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen>
             var splashProgress = snapshot.data ?? SplashProgress.ifNull();
             //if progress is complete go to next Page
             if (splashProgress.progress == 1) {
-              SplashController().nextPage(context);
+              SplashController().nextPage(context,intro: IntroScreen(),login: AuthSmsScreen(),main: NewsListScreen());
             } else {
               return splash(splashProgress);
             }

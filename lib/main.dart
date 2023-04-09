@@ -9,7 +9,7 @@ import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
 
 import 'screen/auth/auth_sms_screen.dart';
-import 'sub_empty_screen.dart';
+import 'screen/sub_empty_screen.dart';
 
 void main() async {
   //prevent from crash on start
@@ -45,9 +45,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
-      // home: const SplashScreen(),
-      home:  SubEmptyScreen(title: "موردی یافت نشد"),
+      home: const SplashScreen(),
+      // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),
+      home: NewsListScreen(),
       // home: ( ArticleList()),
     );
   }

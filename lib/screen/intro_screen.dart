@@ -6,8 +6,8 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
 
-class Intro extends StatelessWidget {
-  const Intro({Key? key}) : super(key: key);
+class IntroScreen extends StatelessWidget {
+  const IntroScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class Intro extends StatelessWidget {
             Widget widget;
             //todo add error page
             if (snapshot.hasData) {
-              widget = IntroScreen(
+              widget = IntroWidget(
                 createSlides(snapshot.data),
                 key: ValueKey(0),
               );
@@ -65,10 +65,10 @@ class Intro extends StatelessWidget {
   }
 }
 
-class IntroScreen extends StatelessWidget {
+class IntroWidget extends StatelessWidget {
   List<Slide> slides;
 
-  IntroScreen(this.slides, {Key? key}) : super(key: key);
+  IntroWidget(this.slides, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
