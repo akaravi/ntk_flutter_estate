@@ -33,19 +33,18 @@ class _EstatePropertyVerticalAdapterState
       ),
       child: InkWell(
         onTap: () async => _launchURL(context),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          //as Column
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //1st's of Column is a row
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  //image container
-                  Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //1st's of Column is a row
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                //image container
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                  child: Stack(
                     fit: StackFit.loose,
                     children: [
                       ClipRRect(
@@ -58,37 +57,44 @@ class _EstatePropertyVerticalAdapterState
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  //title and price container
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          widget.model.title!,
-                          maxLines: 1,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: GlobalColor.colorTextPrimary),
-                        ),
-                        ...getPriceWidget()
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              //2's of Column is row of property
-              Container(margin: EdgeInsets.only(top: 8),
-                padding: EdgeInsets.all(1),
-                decoration:
-                    BoxDecoration(color: GlobalColor.colorSemiBackground),
-                child: Row(
-                  children: gePropertyWidget(),
                 ),
-              )
-            ],
-          ),
+                const SizedBox(
+                  width: 4,
+                ),
+                //title and price container
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        widget.model.title!,
+                        maxLines: 1,
+                        style: const TextStyle(
+                            fontSize: 14, color: GlobalColor.colorTextPrimary),
+                      ),
+                      ...getPriceWidget()
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            //2's of Column is row of property
+            Container(
+              margin: EdgeInsets.only(top: 8),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: GlobalColor.colorSemiBackground,
+                ),
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(6),
+                    bottomRight: Radius.circular(6)),
+                color: GlobalColor.colorBackground,
+              ),
+              child: Row(
+                children: gePropertyWidget(),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -196,7 +202,6 @@ class _EstatePropertyVerticalAdapterState
         child: Container(
           margin: EdgeInsets.all(1),
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: GlobalColor.colorBackground),
           child: Text(
               widget.model.propertyTypeLanduse?.titlePartition ??
                   " : ${widget.model.partition?.toString() ?? ""}",
@@ -209,11 +214,10 @@ class _EstatePropertyVerticalAdapterState
         child: Container(
           margin: EdgeInsets.all(1),
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: GlobalColor.colorBackground),
           child: Text("${widget.model.area} ${GlobalString.meter}",
               style: textStyle),
-      ),
-    ));
+        ),
+      ));
     }
     return p;
   }
