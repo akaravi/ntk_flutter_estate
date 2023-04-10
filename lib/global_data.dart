@@ -17,6 +17,7 @@ class GlobalColor {
   static const Color colorBackground = Color(0xffffffff);
   static const Color colorOnAccent = Color(0xffffffff);
   static const Color extraPriceColor = Color(0xff1242ed);
+  static const Color colorSemiBackground = Color(0xffd8d7d7);
 
 
   static MaterialColor getMaterialColor(Color color) {
@@ -54,6 +55,8 @@ class GlobalString {
   static const String next = "بعدی";
   static const String news = "اخبار";
   static const String estate = "املاک";
+  static const String meter = "متر";
+
 
 
 }

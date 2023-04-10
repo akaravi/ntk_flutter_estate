@@ -79,29 +79,13 @@ class _EstatePropertyVerticalAdapterState
                 ],
               ),
               //2's of Column is row of property
-              Row(
-                children: [
-                  StarDisplay(
-                      ViewCount: widget.model.viewCount,
-                      ScoreSumPercent: widget.model.scoreSumPercent,
-                      color: GlobalColor.colorAccent),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      widget.model.viewCount.toString(),
-                      style: const TextStyle(
-                          fontSize: 15, color: GlobalColor.colorAccent),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.remove_red_eye,
-                    size: 15,
-                    color: GlobalColor.colorAccent,
-                  ),
-                ],
+              Container(margin: EdgeInsets.only(top: 8),
+                padding: EdgeInsets.all(1),
+                decoration:
+                    BoxDecoration(color: GlobalColor.colorSemiBackground),
+                child: Row(
+                  children: gePropertyWidget(),
+                ),
               )
             ],
           ),
@@ -185,8 +169,52 @@ class _EstatePropertyVerticalAdapterState
   }
 
   Widget getContractPriceWidget(String title) {
-    return Text("$title : ",
+    return Text(title,
         style:
             const TextStyle(fontSize: 13, color: GlobalColor.extraPriceColor));
+  }
+
+  List<Widget> gePropertyWidget() {
+    List<Widget> p = [];
+    var textStyle = TextStyle();
+    var dayStyle = TextStyle();
+    if (widget.model.propertyTypeLanduse != null) {
+      p.add(Expanded(
+        child: Container(
+          margin: EdgeInsets.all(1),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: GlobalColor.colorBackground),
+          child: Text(widget.model.propertyTypeLanduse?.title ?? "",
+              style: textStyle),
+        ),
+      ));
+    }
+    if (widget.model.propertyTypeLanduse != null &&
+        widget.model.propertyTypeLanduse?.titlePartition != ("") &&
+        widget.model.propertyTypeLanduse?.titlePartition != ("---")) {
+      p.add(Expanded(
+        child: Container(
+          margin: EdgeInsets.all(1),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: GlobalColor.colorBackground),
+          child: Text(
+              widget.model.propertyTypeLanduse?.titlePartition ??
+                  " : ${widget.model.partition?.toString() ?? ""}",
+              style: textStyle),
+        ),
+      ));
+    }
+    if (widget.model.area != 0) {
+      p.add(Expanded(
+        child: Container(
+          margin: EdgeInsets.all(1),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: GlobalColor.colorBackground),
+          child: Text("${widget.model.area} ${GlobalString.meter}",
+              style: textStyle),
+      ),
+    ));
+    }
+    return p;
   }
 }
