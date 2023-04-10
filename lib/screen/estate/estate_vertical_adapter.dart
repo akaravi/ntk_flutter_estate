@@ -45,6 +45,7 @@ class _EstatePropertyVerticalAdapterState
                 Padding(
                   padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                   child: Stack(
+                    alignment: Alignment.center,
                     fit: StackFit.loose,
                     children: [
                       ClipRRect(
@@ -55,6 +56,53 @@ class _EstatePropertyVerticalAdapterState
                           widget.model.linkMainImageIdSrc!,
                         ),
                       ),
+                      //shade
+                      Positioned.fill(child: Container(color:  Color(0x620B0505),)),
+                      //location
+                      Positioned(
+                        bottom: 0,
+                        child: Text(
+                          "${widget.model.linkLocationIdTitle ?? ""} - ${widget.model.linkLocationIdParentTitle ?? ""}",
+                          style: const TextStyle(
+                              color: GlobalColor.colorTextOnPrimary,
+                              fontSize: 13),
+                        ),
+                      ),
+                      //picture count
+                      Positioned(
+                          right: 8,
+                          top: 8,
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: pictureCount(),
+                                    style: const TextStyle(
+                                        color: GlobalColor.colorTextOnPrimary,
+                                        fontSize: 12)),
+                                const WidgetSpan(alignment: PlaceholderAlignment.middle,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 2.0),
+                                      child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  color: GlobalColor.colorTextOnPrimary,
+                                  size: 13,
+                                ),
+                                    )),
+                              ],
+                            ),
+                          )),
+                      Positioned(
+                          left: 8,
+                          top: 8,
+                          child: Icon(
+                            (widget.model.favorited ?? false)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: (widget.model.favorited ?? false)
+                                ? Colors.red
+                                :  GlobalColor.colorTextOnPrimary,size: 16,
+                          ))
                     ],
                   ),
                 ),
@@ -220,5 +268,9 @@ class _EstatePropertyVerticalAdapterState
       ));
     }
     return p;
+  }
+
+  String pictureCount() {
+    return (widget.model.linkExtraImageIdsSrc?.length ?? 1).toString();
   }
 }
