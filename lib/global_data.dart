@@ -16,6 +16,8 @@ class GlobalColor {
   static const Color colorTextOnPrimary = Color(0xffffffff);
   static const Color colorBackground = Color(0xffffffff);
   static const Color colorOnAccent = Color(0xffffffff);
+  static const Color extraPriceColor = Color(0xff1242ed);
+
 
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
