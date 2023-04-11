@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+
+import '../widget/image_slider.dart';
+
 class EstateDetailScreen extends StatelessWidget {
   EstateDetailController modelController;
 
@@ -20,7 +23,7 @@ class EstateDetailScreen extends StatelessWidget {
               //get progress send
               var errorException = snapshot.data;
               //if progress is complete go to next Page
-              return detail(errorException?.item);
+              return _Detail(errorException?.item ?? EstatePropertyModel());
             } else if (snapshot.hasError) {
               return const Center(
                 child: Text('محددا تلاش کنید'),
@@ -30,41 +33,61 @@ class EstateDetailScreen extends StatelessWidget {
           }),
     );
   }
+//
+}
 
-  Widget detail(EstatePropertyModel? model) {
-    return header();
-    // return CustomScrollView(
-    //   slivers: <Widget>[
-    //     //2
-    //     SliverAppBar(
-    //       expandedHeight: 250.0,
-    //       floating: false,
-    //       pinned: true,
-    //       flexibleSpace: FlexibleSpaceBar(
-    //           title: Text(model?.title ?? "", textScaleFactor: 1),
-    //           background: header(),
-    //       ),
-    //     ),
-    //     //3
-    //     SliverList(
-    //       delegate: SliverChildBuilderDelegate(
-    //             (_, int index) {
-    //           return ListTile(
-    //             leading: Container(
-    //                 padding: EdgeInsets.all(8),
-    //                 width: 100,
-    //                 child: Placeholder()),
-    //             title: Text('Place ${index + 1}', textScaleFactor: 2),
-    //           );
-    //         },
-    //         childCount: 20,
-    //       ),
-    //     ),
-    //   ],
-    // );
+class _Detail extends StatefulWidget {
+  EstatePropertyModel model;
+
+  _Detail(this.model, {Key? key}) : super(key: key);
+
+  @override
+  State<_Detail> createState() => _DetailState();
+}
+
+class _DetailState extends State<_Detail> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.model.title ?? "")),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          //2
+          SliverAppBar(
+            expandedHeight: 250.0,
+            floating: true,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: header(),
+            ),
+          ),
+          //3
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, int index) {
+                return ListTile(
+                  leading: Container(
+                      padding: EdgeInsets.all(8),
+                      width: 100,
+                      child: Placeholder()),
+                  title: Text('Place ${index + 1}', textScaleFactor: 2),
+                );
+              },
+              childCount: 20,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget header() {
+    return Stack(
+      children: [Visibility(child: slider(), replacement: map())],
+    );
+  }
+
+  Widget map() {
     return FlutterMap(
       options: MapOptions(
         maxZoom: 12,
@@ -80,18 +103,28 @@ class EstateDetailScreen extends StatelessWidget {
       ],
       children: [
         TileLayer(
-          urlTemplate:
-          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'javad',
         ),
-        MarkerLayer(markers: [   Marker(
-          point: LatLng(30, 40),
-          width: 80,
-          height: 80,
-          builder: (context) => FlutterLogo(),
-        )]),
+        MarkerLayer(markers: [
+          Marker(
+            point: LatLng(30, 40),
+            width: 80,
+            height: 80,
+            builder: (context) => FlutterLogo(),
+          )
+        ]),
       ],
     );
-    // return Stack(children: [Visibility(child: Text(), replacement:,)],);
+  }
+
+  slider() {
+    List<String> urls = [
+      widget.model.linkExtraImageIds ?? "",
+      ...?widget.model.linkExtraImageIdsSrc
+    ];
+    return ImageSilder(
+      images: urls,
+    );
   }
 }

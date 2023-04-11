@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
-      home: const TestWidget(),
-      // home: const SplashScreen(),
+      // home: const TestWidget(),
+      home: const SplashScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),
       // home: NewsListScreen(),
