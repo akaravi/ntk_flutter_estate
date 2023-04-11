@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 
 import '../widget/image_slider.dart';
 
@@ -62,19 +63,27 @@ class _DetailState extends State<_Detail> {
             ),
           ),
           //3
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, int index) {
-                return ListTile(
-                  leading: Container(
-                      padding: EdgeInsets.all(8),
-                      width: 100,
-                      child: Placeholder()),
-                  title: Text('Place ${index + 1}', textScaleFactor: 2),
-                );
-              },
-              childCount: 20,
-            ),
+          SliverToBoxAdapter(
+            child: Card(
+                child: Column(
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "${GlobalString.estateId} ${widget.model.caseCode}",
+                      style: const TextStyle(
+                          color: GlobalColor.colorTextPrimary, fontSize: 13),
+                    ),
+                    const Spacer(),
+                    const Text(
+                      "120 rooz ghabl",
+                      style: TextStyle(
+                          color: GlobalColor.colorTextPrimary, fontSize: 13),
+                    ),
+                  ],
+                )
+              ],
+            )),
           ),
         ],
       ),
@@ -120,7 +129,7 @@ class _DetailState extends State<_Detail> {
 
   slider() {
     List<String> urls = [
-      widget.model.linkExtraImageIds ?? "",
+      widget.model.linkMainImageIdSrc ?? "",
       ...?widget.model.linkExtraImageIdsSrc
     ];
     return ImageSilder(

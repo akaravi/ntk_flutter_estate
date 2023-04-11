@@ -56,7 +56,7 @@ class GlobalString {
   static const String news = "اخبار";
   static const String estate = "املاک";
   static const String meter = "متر";
-
+  static const String estateId = "شماره ملک";
 
 
 }
