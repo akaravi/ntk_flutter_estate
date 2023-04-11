@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ntk_flutter_estate">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="ntk_flutter_estate"
         android:name="${applicationName}"

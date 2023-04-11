@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'estate_detail_screen.dart';
+
 class EstatePropertyVerticalAdapter extends StatefulWidget {
   const EstatePropertyVerticalAdapter({
     required this.model,
@@ -32,7 +34,7 @@ class _EstatePropertyVerticalAdapterState
         borderRadius: BorderRadius.circular(6),
       ),
       child: InkWell(
-        onTap: () async => _launchURL(context),
+        onTap: () async => viewDetail(context),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +59,10 @@ class _EstatePropertyVerticalAdapterState
                         ),
                       ),
                       //shade
-                      Positioned.fill(child: Container(color:  Color(0x620B0505),)),
+                      Positioned.fill(
+                          child: Container(
+                        color: Color(0x620B0505),
+                      )),
                       //location
                       Positioned(
                         bottom: 0,
@@ -80,14 +85,16 @@ class _EstatePropertyVerticalAdapterState
                                     style: const TextStyle(
                                         color: GlobalColor.colorTextOnPrimary,
                                         fontSize: 12)),
-                                const WidgetSpan(alignment: PlaceholderAlignment.middle,
+                                const WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
                                     child: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 2.0),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 2.0),
                                       child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: GlobalColor.colorTextOnPrimary,
-                                  size: 13,
-                                ),
+                                        Icons.camera_alt_outlined,
+                                        color: GlobalColor.colorTextOnPrimary,
+                                        size: 13,
+                                      ),
                                     )),
                               ],
                             ),
@@ -101,7 +108,8 @@ class _EstatePropertyVerticalAdapterState
                                 : Icons.favorite_border,
                             color: (widget.model.favorited ?? false)
                                 ? Colors.red
-                                :  GlobalColor.colorTextOnPrimary,size: 16,
+                                : GlobalColor.colorTextOnPrimary,
+                            size: 16,
                           ))
                     ],
                   ),
@@ -146,10 +154,6 @@ class _EstatePropertyVerticalAdapterState
         ),
       ),
     );
-  }
-
-  Future<void> _launchURL(BuildContext context) async {
-    //see detail
   }
 
   List<Widget> getPriceWidget() {
@@ -272,5 +276,11 @@ class _EstatePropertyVerticalAdapterState
 
   String pictureCount() {
     return (widget.model.linkExtraImageIdsSrc?.length ?? 1).toString();
+  }
+
+//see detail
+  Future<void> viewDetail(BuildContext context) async {
+    EstateDetailController.detailPage(context,
+        detailScreen: EstateDetailScreen(id: widget.model.id ?? ""));
   }
 }

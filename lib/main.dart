@@ -8,6 +8,7 @@ import 'package:ntk_flutter_estate/screen/intro_screen.dart' as d;
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
+import 'package:ntk_flutter_estate/screen/test_widget.dart';
 
 import 'screen/auth/auth_sms_screen.dart';
 import 'screen/sub_empty_screen.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
-      home: const SplashScreen(),
+      home: const TestWidget(),
+      // home: const SplashScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),
       // home: NewsListScreen(),
