@@ -11,9 +11,9 @@ class DashSeparator extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final boxWidth = constraints.constrainWidth();
-        const dashWidth = 10.0;
+        const dashWidth = 2.0;
         final dashHeight = height;
-        final dashCount = (boxWidth / (2 * dashWidth)).floor();
+        final dashCount = (boxWidth / (3 * dashWidth)).floor();
         return Flex(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           direction: Axis.horizontal,

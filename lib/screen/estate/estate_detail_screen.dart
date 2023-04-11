@@ -3,7 +3,10 @@ import 'package:base/src/index.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-
+import 'package:ntk_flutter_estate/screen/widget/contract_widget.dart';
+import 'package:ntk_flutter_estate/screen/widget/dash_separator.dart';
+import 'package:flutter_html/flutter_html.dart';
+import '../widget/estate_property_details_widget.dart';
 import '../widget/image_slider.dart';
 
 class EstateDetailScreen extends StatelessWidget {
@@ -67,10 +70,11 @@ class _DetailState extends State<_Detail> {
             child: Card(
                 child: Column(
               children: [
+                //estate id
                 Row(
                   children: [
                     Text(
-                      "${GlobalString.estateId} ${widget.model.caseCode}",
+                      "${GlobalString.estateId} : ${widget.model.caseCode}",
                       style: const TextStyle(
                           color: GlobalColor.colorTextPrimary, fontSize: 13),
                     ),
@@ -81,7 +85,21 @@ class _DetailState extends State<_Detail> {
                           color: GlobalColor.colorTextPrimary, fontSize: 13),
                     ),
                   ],
-                )
+                ),
+                dotSpace(),
+                //prices
+                Column(
+                  children: ContractWidget().getPriceWidget(widget.model),
+                ),
+                dotSpace(),
+                //description
+                Html(
+                  data: widget.model.description,
+                ),
+                dotSpace(),
+                EstatePropertyDetailWidget.forView(
+                    widget.model.propertyDetailGroups ?? [],
+                    widget.model.propertyDetailValues ?? [])
               ],
             )),
           ),
@@ -134,6 +152,13 @@ class _DetailState extends State<_Detail> {
     ];
     return ImageSilder(
       images: urls,
+    );
+  }
+
+  dotSpace() {
+    return const DashSeparator(
+      color: GlobalColor.colorPrimary,
+      height: 1,
     );
   }
 }

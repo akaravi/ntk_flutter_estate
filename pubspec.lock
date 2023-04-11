@@ -205,6 +205,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_font_awesome_web_names:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "8e5b2c517dfab61d65bb17bf6fada52f6993e452"
+      url: "https://github.com/Mythar/flutter_font_awesome_web_names"
+    source: git
+    version: "0.0.4"
   flutter_html:
     dependency: "direct dev"
     description:
