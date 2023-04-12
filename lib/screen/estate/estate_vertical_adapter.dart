@@ -8,15 +8,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'estate_detail_screen.dart';
 
-class EstatePropertyVerticalAdapter extends StatefulWidget {
-  const EstatePropertyVerticalAdapter({
-    required this.model,
-    Key? key,
-  }) : super(key: key);
-  final EstatePropertyModel model;
+class EstatePropertyVerticalAdapter
+    extends BaseEntityAdapter<EstatePropertyModel> {
+
+  EstatePropertyVerticalAdapter({super.key, required super.model});
 
   @override
-  State<EstatePropertyVerticalAdapter> createState() =>
+  State<BaseEntityAdapter> createBaseState() =>
       _EstatePropertyVerticalAdapterState();
 }
 
@@ -156,8 +154,6 @@ class _EstatePropertyVerticalAdapterState
       ),
     );
   }
-
-
 
   List<Widget> gePropertyWidget() {
     List<Widget> p = [];
