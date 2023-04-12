@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ntk_flutter_estate/screen/widget/image_slider.dart';
+
+import '../widget/image_slider.dart';
 
 class TestWidget extends StatelessWidget {
   static const String route = '/';
