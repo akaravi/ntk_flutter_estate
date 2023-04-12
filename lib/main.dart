@@ -5,6 +5,7 @@ import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
 import 'package:ntk_flutter_estate/screen/intro_screen.dart' as d;
+import 'package:ntk_flutter_estate/screen/main_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       // home: const TestWidget(),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),
       // home: NewsListScreen(),

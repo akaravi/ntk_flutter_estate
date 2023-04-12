@@ -71,5 +71,7 @@ class GlobalString {
   static const String help = "راهنما";
   static const String inviteFriend = "دعوت از دوستان";
   static const String exit = "خروج";
+  static const String searchDotDotDot = "جست و جو . . .";
+
 
 }
