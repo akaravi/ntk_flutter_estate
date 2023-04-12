@@ -1,7 +1,7 @@
 import 'package:base/src/index.dart';
 
 import 'package:flutter/material.dart';
-import 'package:ntk_flutter_estate/controller/MainController.dart';
+import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:lottie/lottie.dart';
 import 'base_auth.dart';

@@ -19,7 +19,6 @@ class GlobalColor {
   static const Color extraPriceColor = Color(0xff1242ed);
   static const Color colorSemiBackground = Color(0xffd8d7d7);
 
-
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
       50: Color.fromRGBO(136, 14, 79, .1),
@@ -54,9 +53,23 @@ class GlobalString {
 
   static const String next = "بعدی";
   static const String news = "اخبار";
+  static const String article = "مقالات";
   static const String estate = "املاک";
   static const String meter = "متر";
   static const String estateId = "شماره ملک";
-
+  static const String login = "ورود";
+  static const String profile = "پروفایل";
+  static const String myEstate = "املاک من";
+  static const String myRequests = "درخواست های من";
+  static const String favoriteList = "لیست علاقه مندی";
+  static const String ticket = "پشتیبانی";
+  static const String polling = "نظرسنجی";
+  static const String inbox = "صندوق پیام";
+  static const String faq = "پرسش های متداول";
+  static const String feedback = "بازخورد";
+  static const String aboutUs = "درباره ما";
+  static const String help = "راهنما";
+  static const String inviteFriend = "دعوت از دوستان";
+  static const String exit = "خروج";
 
 }

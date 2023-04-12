@@ -59,6 +59,8 @@ dev_dependencies:
     git:
       url: https://github.com/Mythar/flutter_font_awesome_web_names
       ref: master
+  #for exit app
+  flutter_exit_app: ^1.1.2
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -89,6 +91,20 @@ flutter:
     - assets/drawable/empty-box.png
     - assets/drawable/confused-face.png
     - assets/drawable/frustrated-face.png
+    - assets/drawable/about_us2.png
+    - assets/drawable/article_place_holder.png
+    - assets/drawable/faq2.png
+    - assets/drawable/favorites_folder.png
+    - assets/drawable/feedback2.png
+    - assets/drawable/inbox.png
+    - assets/drawable/intro2.png
+    - assets/drawable/invite2.png
+    - assets/drawable/my_estate.png
+    - assets/drawable/news2.png
+    - assets/drawable/notification2.png
+    - assets/drawable/order2.png
+    - assets/drawable/polling2.png
+    - assets/drawable/exit.png
     #   lottie file
     - assets/lottie/circle_reval.json
     - assets/lottie/sub_loading.json
