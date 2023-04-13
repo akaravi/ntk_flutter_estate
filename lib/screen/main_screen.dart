@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:base/src/index.dart';
+import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
+import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/landused/landused_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/widget/app_drawer.dart';
@@ -14,10 +16,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       key: scaffoldKey,
       drawer: AppDrawer(),
@@ -37,7 +36,7 @@ class MainScreen extends StatelessWidget {
                 style: ButtonStyle(
                     elevation: MaterialStateProperty.all(17),
                     backgroundColor:
-                    MaterialStateProperty.all(GlobalColor.colorAccent),
+                        MaterialStateProperty.all(GlobalColor.colorAccent),
                     shape: MaterialStateProperty.all(const CircleBorder())),
                 onPressed: () {
                   if (scaffoldKey.currentState!.isDrawerOpen) {
@@ -99,8 +98,8 @@ class MainScreen extends StatelessWidget {
                   future: MainScreenController().getMainData(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData)
-                      return MainData(context,
-                          snapshot.data ?? MainContentModel());
+                      return MainData(
+                          context, snapshot.data ?? MainContentModel());
                     return Container();
                   })),
           Positioned(
@@ -109,7 +108,7 @@ class MainScreen extends StatelessWidget {
             left: 0,
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
               child: Row(children: [
                 //add new
                 Expanded(
@@ -119,7 +118,7 @@ class MainScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(24.0)),
                         elevation: 17,
                         backgroundColor: GlobalColor.colorAccent),
-                    onPressed: () {},
+                    onPressed: () {}, //todo
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,7 +140,7 @@ class MainScreen extends StatelessWidget {
                   style: ButtonStyle(
                       elevation: MaterialStateProperty.all(17),
                       backgroundColor:
-                      MaterialStateProperty.all(GlobalColor.colorAccent),
+                          MaterialStateProperty.all(GlobalColor.colorAccent),
                       shape: MaterialStateProperty.all(const CircleBorder())),
                   onPressed: () {},
                   child: const Icon(
@@ -162,35 +161,126 @@ class MainScreen extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        //news section
         SizedBox(
             height: 300,
             width: double.infinity,
             child:
-            NewsListScreen.listOnMainScreen(items: mainContentModel.news)),
+                NewsListScreen.listOnMainScreen(items: mainContentModel.news)),
+        //landUsedProperty section
         Card(
             color: GlobalColor.colorBackground,
             child: rowWidget(
+              itemsScreen: LandUsedListScreen.listOnMainScreen(
+                  items: mainContentModel.landUseList),
               title: GlobalString.landUsedList,
-              seeAll: () =>
-                  EstateLandUsedListController().newPage(context: context,
-                      newScreen: LandUsedListScreen.withFilterScreen()),)),
-        Container(
-          height: 400,
-          color: Colors.red,
+              seeAll: () => EstateLandUsedListController().newPage(
+                  context: context,
+                  newScreen: LandUsedListScreen.withFilterScreen()),
+            )),
+        //row sections
+        //todo
+        //row estateList 1
+        rowWidget(
+            itemsScreen: EstateListScreen.listOnMainScreen(
+                items: mainContentModel.estateList1),
+            title: GlobalString.newList,
+            seeAll: EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList1,
+                ))),
+        //row estateList 2
+        rowWidget(
+            itemsScreen: EstateListScreen.listOnMainScreen(
+                items: mainContentModel.estateList2),
+            title: GlobalString.suggestedEstate,
+            seeAll: EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList2,
+                ))),
+        //row estateList 3
+        rowWidget(
+            itemsScreen: EstateListScreen.listOnMainScreen(
+                items: mainContentModel.estateList3),
+            title: GlobalString.dailyRent,
+            seeAll: EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList3,
+                ))),
+        //buttons
+        Row(
+          children: [
+            TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0)),
+                  elevation: 17,
+                  backgroundColor: GlobalColor.colorBackground),
+              onPressed: () {}, //todo
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(GlobalString.companies,
+                      style: TextStyle(
+                          color: GlobalColor.colorPrimary, fontSize: 16)),
+                  SizedBox(width: 50),
+                  Image.asset(
+                    "assets/drawable/constructor.png",
+                    color: GlobalColor.colorPrimary,
+                    width: 34,
+                  ),
+                ],
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0)),
+                  elevation: 17,
+                  backgroundColor: GlobalColor.colorBackground),
+              onPressed: () {}, //todo
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(GlobalString.projects,
+                      style: TextStyle(
+                          color: GlobalColor.colorPrimary, fontSize: 16)),
+                  SizedBox(width: 50),
+                  Image.asset(
+                    "assets/drawable/projects.png",
+                    color: GlobalColor.colorPrimary,
+                    width: 34,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        Container(
-          height: 400,
-          color: Colors.deepPurpleAccent,
-        ),
-        Container(
-          height: 400,
-          color: Colors.red,
+        //articles
+        rowWidget(
+            itemsScreen: ArticleListScreen.listOnMainScreen(
+                items: mainContentModel.articles),
+            title: GlobalString.article,
+            seeAll: ArticleController().newPage(
+                context: context,
+                newScreen: ArticleListScreen.withFilterScreen())),
+        //spacer because of see search and new... btn
+        SizedBox(
+          height: 120,
         )
       ],
     );
   }
 
-  rowWidget({required String title, required void Function() seeAll}) {
+  rowWidget(
+      {required Widget itemsScreen,
+      required String title,
+      required void Function() seeAll}) {
     return Column(
       children: [
         Row(
@@ -198,12 +288,12 @@ class MainScreen extends StatelessWidget {
             Text(title),
             Expanded(
               child: Container(),
-            )
-            ,
+            ),
             TextButton(
                 onPressed: seeAll, child: const Text(GlobalString.seeAll))
           ],
-        )
+        ),
+        itemsScreen
       ],
     );
   }

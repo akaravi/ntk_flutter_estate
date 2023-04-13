@@ -79,4 +79,9 @@ class GlobalString {
   static const String addDotDotDot = "ثبت . . .";
   static const String landUsedList = "دسته بندی املاک";
   static const String seeAll = "مشاهده همه";
+  static const String newList = "حدیدترین";
+  static const String suggestedEstate = "پیشنهادی";
+  static const String dailyRent = "اجاره روزانه";
+  static const String companies = "انبوه سازان";
+  static const String projects = "پروژه ها";
 }

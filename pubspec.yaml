@@ -105,6 +105,8 @@ flutter:
     - assets/drawable/order2.png
     - assets/drawable/polling2.png
     - assets/drawable/exit.png
+    - assets/drawable/projects.png
+    - assets/drawable/constructor.png
     #   lottie file
     - assets/lottie/circle_reval.json
     - assets/lottie/sub_loading.json

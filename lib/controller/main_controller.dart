@@ -37,11 +37,15 @@ class MainScreenController extends BaseMainController {
 
 class MainContentModel {
   late List<NewsContentModel> news;
-  late List<EstatePropertyTypeLanduseModel> estateCategories;
+  late List<EstatePropertyTypeLanduseModel> landUseList;
   late List<EstatePropertyModel> estateList1;
   late List<EstatePropertyModel> estateList2;
   late List<EstatePropertyModel> estateList3;
   late RowModel especialList1;
   late RowModel especialList2;
   late List<ArticleContentModel> articles;
+
+  late FilterModel filterEstateList1;
+  late FilterModel filterEstateList2;
+  late FilterModel filterEstateList3;
 }
