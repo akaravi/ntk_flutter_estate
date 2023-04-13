@@ -2,7 +2,8 @@ import 'package:base/src/index.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-
+import 'package:base/src/index.dart';
+import 'package:ntk_flutter_estate/model/row_model.dart';
 import '../screen/main_screen.dart';
 
 class MainScreenController extends BaseMainController {
@@ -22,4 +23,25 @@ class MainScreenController extends BaseMainController {
     user.allowDirectShareApp = false; //todo
     return user;
   }
+
+  Future<MainContentModel> getMainData() async {
+    MainContentModel model = MainContentModel();
+    //get news
+    model.news = await NewsListController().service(FilterModel()
+      ..rowPerPage = 10
+      ..sortColumn = "id"
+      ..currentPageNumber = 1);
+    return model;
+  }
+}
+
+class MainContentModel {
+  late List<NewsContentModel> news;
+  late List<EstatePropertyTypeLanduseModel> estateCategories;
+  late List<EstatePropertyModel> estateList1;
+  late List<EstatePropertyModel> estateList2;
+  late List<EstatePropertyModel> estateList3;
+  late RowModel especialList1;
+  late RowModel especialList2;
+  late List<ArticleContentModel> articles;
 }

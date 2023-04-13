@@ -15,15 +15,5 @@ class EstateListScreen extends EntityListScreen<EstatePropertyModel> {
                     model: m,
                   )),
         );
-  
-// EstateListScreen({Key? key})
-//     : super(
-//           key: key,
-//           title: GlobalString.estate,
-//           controller: EstateListController(
-//             adapterCreatorFunction: (context, m, index) =>
-//                 EstatePropertyAdapter.verticalType(
-//               model: m,
-//             ),
-//           ));
+
 }

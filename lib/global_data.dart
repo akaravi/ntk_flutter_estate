@@ -75,7 +75,8 @@ class GlobalString {
   static const String userID = "شناسه ی کاربری :";
   static const String noUserID = "فاقد شناسه ی کاربری";
   static const String guest = "کاربر مهمان";
-
-  static var mobile;
-
+  static const String mobile = "تلفن همراه";
+  static const String addDotDotDot = "ثبت . . .";
+  static const String landUsedList = "دسته بندی املاک";
+  static const String seeAll = "مشاهده همه";
 }

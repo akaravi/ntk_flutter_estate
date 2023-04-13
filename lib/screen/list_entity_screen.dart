@@ -20,14 +20,22 @@ class EntityListScreen<model> extends StatefulWidget {
     required this.stateCreator,
   }) : super(key: key);
 
-  EntityListScreen.withFilterScreen({required this.controller,required  this.title, super.key})
+  EntityListScreen.withFilterScreen(
+      {required this.controller, required this.title, super.key})
       : stateCreator = (() => _ListWithFilterState());
 
-  EntityListScreen.horizontalListWidget({required this.controller,required  this.title, super.key})
+  EntityListScreen.horizontalListWidget(
+      {required this.controller, required this.title, super.key})
       : stateCreator = (() => _HorizontalListState());
 
-  EntityListScreen.verticalListWidget({required this.controller,required  this.title, super.key})
+  EntityListScreen.verticalListWidget(
+      {required this.controller, required this.title, super.key})
       : stateCreator = (() => _HorizontalListState(isHorizontal: false));
+
+  EntityListScreen.listOnly(
+      {required this.controller, List<model>? listItems, super.key})
+      : title = "",
+        stateCreator = (() => _ListOnlyState<model>(listItems ?? []));
 
   // factory EntityListScreen.withFilterScreen(
   //     {Key? key,
@@ -148,5 +156,21 @@ class _HorizontalListState extends State<EntityListScreen> {
         height: 16,
       ),
     );
+  }
+}
+
+class _ListOnlyState<model> extends State<EntityListScreen<model>> {
+  List<model> items;
+
+  _ListOnlyState(this.items);
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return ListView.builder(scrollDirection: Axis.horizontal,shrinkWrap: true,
+        itemCount: items.length,
+        itemBuilder: (BuildContext context, int index) {
+          return widget.controller.widgetAdapter(context, items[index], index);
+        });
   }
 }

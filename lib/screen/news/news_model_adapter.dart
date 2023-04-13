@@ -8,16 +8,23 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsModelAdapter extends BaseEntityAdapter<NewsContentModel> {
-   NewsModelAdapter._({
-    required super.model,
-    super.key,
-    required super.stateCreator
-  }) ;
-   factory NewsModelAdapter.verticalType({required NewsContentModel model}) {
-     return NewsModelAdapter._(
-         model: model,
-         stateCreator: () => _NewsModelAdapterState());
-   }
+  NewsModelAdapter._(
+      {required super.model, super.key, required super.stateCreator});
+
+  factory NewsModelAdapter.verticalType({required NewsContentModel model}) {
+    return NewsModelAdapter._(
+        model: model, stateCreator: () => _NewsModelAdapterState());
+  }
+
+  factory NewsModelAdapter.horizontalForMain(
+      {required NewsContentModel model}) {
+    return NewsModelAdapter._(
+        model: model, stateCreator: () => _NewsModelAdapterForMainState());
+  }
+
+  detailScreen(BuildContext context) {
+    //todo
+  }
 }
 
 class _NewsModelAdapterState extends BaseEntityAdapterEstate<NewsModelAdapter> {
@@ -97,5 +104,45 @@ class _NewsModelAdapterState extends BaseEntityAdapterEstate<NewsModelAdapter> {
       //   ),
       // );
     }
+  }
+}
+
+class _NewsModelAdapterForMainState
+    extends BaseEntityAdapterEstate<NewsModelAdapter> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: InkWell(
+        onTap: () async => widget.detailScreen(context),
+        child: Padding(
+          padding: const EdgeInsets.all(2),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.model.linkMainImageIdSrc != null)
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        topLeft: Radius.circular(12)),
+                    child: Image.network(
+                      fit: BoxFit.fill,
+                      width: 250,
+                      widget.model.linkMainImageIdSrc!,
+                    ),
+                  ),
+                Text(
+                  widget.model.title!,
+                  maxLines: 1,
+                  style: const TextStyle(
+                      fontSize: 15, color: GlobalColor.colorTextPrimary),
+                ),
+              ]),
+        ),
+      ),
+    );
   }
 }
