@@ -12,10 +12,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     double statusBarHeight = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       key: scaffoldKey,
       drawer: AppDrawer(),
@@ -26,86 +23,60 @@ class MainScreen extends StatelessWidget {
         leading: Container(),
         //toolbar
         flexibleSpace: Padding(
-          padding:  EdgeInsets.only(top:statusBarHeight+8,left: 8,bottom: 8,right: 8),
+          padding: EdgeInsets.only(
+              top: statusBarHeight + 8, left: 4, bottom: 8, right: 4),
           child: Row(
             children: [
               //button menu
-              Card(
-                elevation: 17,color: GlobalColor.colorAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(45.0),
-                ),
-                child: ClipOval(
-                  child: Material(
-                    color: Colors.transparent, // button color
-                    child: Ink(
-                        decoration: const ShapeDecoration(
-                            shape: CircleBorder(), color: GlobalColor.colorAccent),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.menu,
-                            size: 24,
-                            color: GlobalColor.colorPrimary,
-                          ),
-                          onPressed: () {
-                            if (scaffoldKey.currentState!.isDrawerOpen) {
-                              scaffoldKey.currentState!.closeDrawer();
-                              //close drawer, if drawer is open
-                            } else {
-                              scaffoldKey.currentState!.openDrawer();
-                              //open drawer, if drawer is closed
-                            }
-                          },
-                        ),
-                      ),
-                  ),
+              TextButton(
+                style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(17),
+                    backgroundColor:
+                        MaterialStateProperty.all(GlobalColor.colorAccent),
+                    shape: MaterialStateProperty.all(const CircleBorder())),
+                onPressed: () {
+                  if (scaffoldKey.currentState!.isDrawerOpen) {
+                    scaffoldKey.currentState!.closeDrawer();
+                    //close drawer, if drawer is open
+                  } else {
+                    scaffoldKey.currentState!.openDrawer();
+                    //open drawer, if drawer is closed
+                  }
+                },
+                child: const Icon(
+                  Icons.menu,
+                  color: GlobalColor.colorPrimary,
+                  size: 28,
                 ),
               ),
-              // Ink(
-              //   decoration: const ShapeDecoration(
-              //       shape: CircleBorder(), color: GlobalColor.colorAccent),
-              //   child: IconButton(
-              //     icon: const Icon(
-              //       Icons.menu,
-              //       size: 24,
-              //       color: GlobalColor.colorPrimary,
-              //     ),
-              //     onPressed: () {
-              //       if (scaffoldKey.currentState!.isDrawerOpen) {
-              //         scaffoldKey.currentState!.closeDrawer();
-              //         //close drawer, if drawer is open
-              //       } else {
-              //         scaffoldKey.currentState!.openDrawer();
-              //         //open drawer, if drawer is closed
-              //       }
-              //     },
-              //   ),
-              // ),
-              SizedBox(width: 10,),
+
               Expanded(
-                child: Card(elevation: 17,  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
+                child: Card(
+                    elevation: 17,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                     child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.search,color: GlobalColor.colorPrimary,),
-                          Expanded(
-                            child: TextField(
-                  controller: _searchController,
-                  style: const TextStyle(color: GlobalColor.colorPrimary),
-                  cursorColor: GlobalColor.colorPrimary,
-                  decoration: const InputDecoration(
-                            hintText: GlobalString.searchDotDotDot,
-                            hintStyle: TextStyle(color: GlobalColor.colorPrimary),
-                            border: InputBorder.none,
-                  ),
-                ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4.0, horizontal: 8),
+                        child: Container(height: 40,
+                          child: const TextField(
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 17),
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                              filled: true,
+                              prefixIcon: Icon(Icons.search,
+                                  color: GlobalColor.colorPrimary),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                               ),
+
+                              contentPadding: EdgeInsets.all(4),
+                              hintText: GlobalString.searchDotDotDot,
+                            ),
                           ),
-                        ],
-                      ),
-                    )),
+                        ))),
               )
             ],
           ),

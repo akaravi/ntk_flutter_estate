@@ -72,6 +72,10 @@ class GlobalString {
   static const String inviteFriend = "دعوت از دوستان";
   static const String exit = "خروج";
   static const String searchDotDotDot = "جست و جو . . .";
+  static const String userID = "شناسه ی کاربری :";
+  static const String noUserID = "فاقد شناسه ی کاربری";
+  static const String guest = "کاربر مهمان";
 
+  static var mobile;
 
 }
