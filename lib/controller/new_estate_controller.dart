@@ -1,7 +1,14 @@
 import 'package:base/src/index.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
+
+  TextEditingController areaController = TextEditingController();
+  TextEditingController createdYearController = TextEditingController();
+  TextEditingController partitionController = TextEditingController();
+
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
@@ -21,6 +28,16 @@ class NewEstateController {
           ..rowPerPage = 100
           ..currentPageNumber = 1);
     return sub1data;
+  }
+
+  List<EstatePropertyTypeLanduseModel> usageList(Sub1Data? data) {
+    List<EstatePropertyTypeModel> mappers = (data?.propertyTypeList ?? [])
+        .where((element) =>
+            element.linkPropertyTypeUsageId == item.propertyTypeUsage?.id)
+        .toList();
+    return (data?.landUsesList ?? [])
+        .where((t) => mappers.any((k) => k.linkPropertyTypeLanduseId == t.id))
+        .toList();
   }
 }
 

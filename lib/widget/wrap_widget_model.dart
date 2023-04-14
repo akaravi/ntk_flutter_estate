@@ -12,7 +12,8 @@ class WrapWidgetModel<model> extends StatefulWidget {
   WrapWidgetModel(
       {Key? key,
       required this.models,
-      required this.titleModel,
+      required this.titleModelMethod,
+      required this.selectMethod,
       Color? colorBackground,
       Color? colorSelectedBackground,
       Color? borderColor})
@@ -25,7 +26,8 @@ class WrapWidgetModel<model> extends StatefulWidget {
   @override
   State<WrapWidgetModel<model>> createState() => _WrapWidgetModelState<model>();
 
-  String Function(model item) titleModel;
+  String Function(model item) titleModelMethod;
+  void Function(model item) selectMethod;
 }
 
 class _WrapWidgetModelState<model> extends State<WrapWidgetModel<model>> {
@@ -33,27 +35,33 @@ class _WrapWidgetModelState<model> extends State<WrapWidgetModel<model>> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Wrap(runSpacing: 12,
       spacing: 18,
       children: <Widget>[
         ...widget.models.mapIndexed((index, item) {
           return InkWell(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 14,vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
                     color: selectedIndex == index
                         ? widget.colorSelectedBackground
                         : widget.colorBackground,
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(color: widget.borderColor)),
-                child: Text(widget.titleModel(item),
+                child: Text(widget.titleModelMethod(item),
                     style: TextStyle(color: widget.borderColor, fontSize: 15)),
               ),
               onTap: () {
-                setState(() {});
+                if (selectedIndex != index) {
+                  setState(() {
+                    selectedIndex = index;
+                    widget.selectMethod(item);
+                  });
+                }
               });
         })
       ],
+
       // children: [...widget.models.forEach((i,e) {
       //   return Container(
       //     decoration: BoxDecoration(color: widget.bg, border: Border.all()),

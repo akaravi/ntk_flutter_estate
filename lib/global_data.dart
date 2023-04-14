@@ -86,7 +86,7 @@ class GlobalString {
   static const String projects = "پروژه ها";
   static const String estateType = "نوع ملک";
   static const String areaAsMeter = "مساحت (متر مربع)";
+  static const String estateTypeUsage = "نوع کاربری";
   static const String projects1 = "";
   static const String projects2 = "";
-
 }

@@ -24,10 +24,16 @@ class _Container1State extends State<SubNewEstate1> {
               children: [
                 widget.card(children: [
                   widget.box(
-                      title: GlobalString.estateType,
+                      title: GlobalString.estateTypeUsage,
                       widget: WrapWidgetModel<EstatePropertyTypeUsageModel>(
+                        selectMethod: (item) {
+                          setState(() {
+                            widget.controller.item.propertyTypeUsage = item;
+                            widget.controller.item.propertyTypeLanduse = null;
+                          });
+                        },
                         models: snapshot.data?.typeUsagesList ?? [],
-                        titleModel: (item) => item.title ?? "",
+                        titleModelMethod: (item) => item.title ?? "",
                       )),
                 ]),
                 if (widget.controller.item.propertyTypeUsage != null)
@@ -35,13 +41,24 @@ class _Container1State extends State<SubNewEstate1> {
                     //landused
                     widget.box(
                         title: GlobalString.estateType,
-                        widget: WrapWidgetModel<EstatePropertyTypeUsageModel>(
-                          models: snapshot.data?.typeUsagesList ?? [],
-                          titleModel: (item) => item.title ?? "",
+                        widget: WrapWidgetModel<EstatePropertyTypeLanduseModel>(
+                          selectMethod: (item) {
+                            setState(() {
+                              widget.controller.item.propertyTypeLanduse = item;
+                            });
+                          },
+                          models: widget.controller.usageList(snapshot.data),
+                          titleModelMethod: (item) => item.title ?? "",
                         )),
-
-                    widget.box(
-                        title: GlobalString.areaAsMeter, widget: TextField()),
+                    if (widget.controller.item.propertyTypeUsage != null)
+                      widget.box(
+                          title: GlobalString.areaAsMeter,
+                          widget: widget.textFieldWidget(
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: true),
+                              textController:
+                                  widget.controller.areaController)),
                     //created year
                     if (widget.controller.item.propertyTypeLanduse != null &&
                         (widget.controller.item.propertyTypeLanduse
@@ -57,7 +74,12 @@ class _Container1State extends State<SubNewEstate1> {
                               title: widget.controller.item.propertyTypeLanduse
                                       ?.titleCreatedYaer ??
                                   "",
-                              widget: TextField()),
+                              widget: widget.textFieldWidget(
+                                  keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: false),
+                                  textController:
+                                  widget.controller.createdYearController)),
                     //created year
                     if (widget.controller.item.propertyTypeLanduse !=
                             null &&
@@ -73,7 +95,12 @@ class _Container1State extends State<SubNewEstate1> {
                           title: widget.controller.item.propertyTypeLanduse
                                   ?.titlePartition ??
                               "",
-                          widget: TextField())
+                          widget:  widget.textFieldWidget(
+                              keyboardType:
+                              const TextInputType.numberWithOptions(
+                                  signed: false, decimal: false),
+                              textController:
+                              widget.controller.partitionController))
                   ]),
               ],
             );
@@ -94,15 +121,20 @@ abstract class SubNewEstateBase extends StatefulWidget {
       padding: new EdgeInsets.all(20.0),
       child: Stack(
         children: <Widget>[
-          Container(margin: EdgeInsets.only(top: 40,), child: widget),
+          Container(
+              margin: EdgeInsets.only(
+                top: 40,
+              ),
+              child: widget),
           Positioned(
-
             top: 3,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3),
               color: Colors.white,
-              child: Text(title,textAlign: TextAlign.start,
-                  style: const TextStyle(color: GlobalColor.colorAccent,fontSize: 13)),
+              child: Text(title,
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                      color: GlobalColor.colorAccent, fontSize: 13)),
             ),
           )
         ],
@@ -111,12 +143,23 @@ abstract class SubNewEstateBase extends StatefulWidget {
   }
 
   Card card({required List<Widget> children}) {
-    return Card(elevation: 16,
-        shape:  RoundedRectangleBorder(
+    return Card(
+        elevation: 16,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           children: children,
         ));
+  }
+
+  TextField textFieldWidget(
+      {required TextEditingController textController,
+      TextInputType? keyboardType}) {
+    return TextField(
+      controller: textController,
+      keyboardType: keyboardType ?? TextInputType.number,
+      decoration: const InputDecoration(border: InputBorder.none),
+    );
   }
 }
