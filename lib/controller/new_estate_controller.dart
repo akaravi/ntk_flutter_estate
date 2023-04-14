@@ -8,6 +8,10 @@ class NewEstateController {
   TextEditingController areaController = TextEditingController();
   TextEditingController createdYearController = TextEditingController();
   TextEditingController partitionController = TextEditingController();
+  TextEditingController codeTextWidget = TextEditingController();
+  TextEditingController titleTextWidget = TextEditingController();
+  TextEditingController descTextWidget = TextEditingController();
+  TextEditingController addressTextWidget = TextEditingController();
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
@@ -58,14 +62,29 @@ class NewEstateController {
             ..value = item.propertyTypeLanduse?.id ?? ""));
     return data;
   }
-}
 
-class Sub2Data {
-  late List<EstatePropertyDetailGroupModel> propertydetailGroups;
+  Future<Sub4Data> subFourLoad() async {
+    Sub4Data data = Sub4Data();
+    data.contractsList = await EstateContractTypeService()
+        .getAll(FilterModel()..rowPerPage = 100);
+
+    data.currencyList =
+        await CoreCurrencyService().getAll(FilterModel()..rowPerPage = 100);
+    return data;
+  }
 }
 
 class Sub1Data {
   late List<EstatePropertyTypeModel> propertyTypeList;
   late List<EstatePropertyTypeUsageModel> typeUsagesList;
   late List<EstatePropertyTypeLanduseModel> landUsesList;
+}
+
+class Sub2Data {
+  late List<EstatePropertyDetailGroupModel> propertydetailGroups;
+}
+
+class Sub4Data {
+  late List<CoreCurrencyModel> currencyList;
+  late List<EstateContractTypeModel> contractsList;
 }

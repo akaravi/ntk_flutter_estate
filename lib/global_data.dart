@@ -96,8 +96,18 @@ class GlobalString {
   static const String continueStr = "ادامه";
   static const String back = "بازگشت";
   static const String add = "ثب";
+  static const String estateCode = "کد ملک";
+  static const String title = "عنوان";
+  static const String desc = "توضیحات";
+  static const String location = "موقعیت";
+  static const String address = "آدرس";
+  static const String mapLocation = "موقعیت تقریبی";
+  static const String contractType = "نوع معامله";
+  static const String currency = "واحد پولی";
   static const String projects1 = "";
   static const String projects2 = "";
+
+
 
 
 
