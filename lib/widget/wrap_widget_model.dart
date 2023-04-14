@@ -5,16 +5,20 @@ import 'package:collection/collection.dart';
 class WrapWidgetModel<model> extends StatefulWidget {
   List<model> models;
 
-  Color bg;
+  Color colorBackground;
+  Color colorSelectedBackground;
   Color borderColor;
 
   WrapWidgetModel(
       {Key? key,
       required this.models,
       required this.titleModel,
-      Color? color,
+      Color? colorBackground,
+      Color? colorSelectedBackground,
       Color? borderColor})
-      : bg = color ?? GlobalColor.colorAccent,
+      : colorSelectedBackground =
+            colorSelectedBackground ?? GlobalColor.colorAccent,
+        colorBackground = colorBackground ?? GlobalColor.colorBackground,
         borderColor = borderColor ?? GlobalColor.colorPrimary,
         super(key: key);
 
@@ -25,14 +29,26 @@ class WrapWidgetModel<model> extends StatefulWidget {
 }
 
 class _WrapWidgetModelState<model> extends State<WrapWidgetModel<model>> {
+  int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      spacing: 18,
       children: <Widget>[
-        ...widget.models.mapIndexed((idx, item) {
+        ...widget.models.mapIndexed((index, item) {
           return InkWell(
-              child: Text(widget.titleModel(item),
-                  style: TextStyle(color: widget.borderColor, fontSize: 15)),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 14,vertical: 8),
+                decoration: BoxDecoration(
+                    color: selectedIndex == index
+                        ? widget.colorSelectedBackground
+                        : widget.colorBackground,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: widget.borderColor)),
+                child: Text(widget.titleModel(item),
+                    style: TextStyle(color: widget.borderColor, fontSize: 15)),
+              ),
               onTap: () {
                 setState(() {});
               });
