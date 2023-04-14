@@ -9,7 +9,6 @@ class NewEstateController {
   TextEditingController createdYearController = TextEditingController();
   TextEditingController partitionController = TextEditingController();
 
-
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
 
@@ -39,6 +38,30 @@ class NewEstateController {
         .where((t) => mappers.any((k) => k.linkPropertyTypeLanduseId == t.id))
         .toList();
   }
+
+  bool isValidForNext() {
+    return true;
+    //todo
+  }
+
+  bool isValidForPrev() {
+    return true;
+    //todo
+  }
+
+  Future<Sub2Data> subTowLoad() async {
+    Sub2Data data = Sub2Data();
+    data.propertydetailGroups =
+        await EstatePropertyDetailGroupService().getAll(FilterModel()
+          ..addFilter(FilterDataModel()
+            ..setPropertyName("linkPropertyTypeLanduseId")
+            ..value = item.propertyTypeLanduse?.id ?? ""));
+    return data;
+  }
+}
+
+class Sub2Data {
+  late List<EstatePropertyDetailGroupModel> propertydetailGroups;
 }
 
 class Sub1Data {
