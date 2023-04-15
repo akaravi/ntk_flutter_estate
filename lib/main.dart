@@ -13,6 +13,7 @@ import 'package:ntk_flutter_estate/screen/test_widget.dart';
 
 import 'screen/auth/auth_sms_screen.dart';
 import 'screen/sub_empty_screen.dart';
+import 'screen/user_location_on_map_screen.dart';
 
 void main() async {
   //prevent from crash on start
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       // home: const TestWidget(),
-      home: const SplashScreen(),
+      home:  LiveLocationPage(),
+      // home: const SplashScreen(),
       // home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),

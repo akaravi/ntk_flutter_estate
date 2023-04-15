@@ -108,8 +108,13 @@ class GlobalString {
   static const String agreementSale = "به صورت توافقی";
   static const String mainPic = "عکس اصلی";
   static const String morePic = "عکس های بیشتر";
+  static const String estimateLoc = "مکان تقریبی";
+  static const String submitLocation = "ثبت مکان";
+  static const String noLocSelected = "نقطه ای روی نقشه انتخب نشده است";
   static const String projects1 = "";
   static const String projects2 = "";
+
+
 
 
 }
