@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
-
+  late CoreCurrencyModel selectedCurrency;
+  String mainGUID = "";
+  EstateContractTypeModel? selectedContractModel;
   TextEditingController areaController = TextEditingController();
   TextEditingController createdYearController = TextEditingController();
   TextEditingController partitionController = TextEditingController();
@@ -12,6 +14,11 @@ class NewEstateController {
   TextEditingController titleTextWidget = TextEditingController();
   TextEditingController descTextWidget = TextEditingController();
   TextEditingController addressTextWidget = TextEditingController();
+  TextEditingController salePriceController = TextEditingController();
+  TextEditingController rentPriceController = TextEditingController();
+  TextEditingController depositPriceController = TextEditingController();
+
+  TextEditingController periodPriceController = TextEditingController();
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
@@ -70,6 +77,7 @@ class NewEstateController {
 
     data.currencyList =
         await CoreCurrencyService().getAll(FilterModel()..rowPerPage = 100);
+    selectedCurrency = data.currencyList[0];
     return data;
   }
 }

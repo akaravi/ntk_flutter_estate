@@ -88,7 +88,7 @@ class GlobalString {
   static const String areaAsMeter = "مساحت (متر مربع)";
   static const String estateTypeUsage = "نوع کاربری";
   static const String newEstateProperties = "مشحصات کلی ";
-  static const String newEstateDetails="جزئیات و مشخصات";
+  static const String newEstateDetails = "جزئیات و مشخصات";
   static const String newEstateFeatures = "مشخصات آگهی";
   static const String newEstateContracts = "شرایط معامله";
   static const String newEstatePictures = "تصاویر ملک";
@@ -104,17 +104,12 @@ class GlobalString {
   static const String mapLocation = "موقعیت تقریبی";
   static const String contractType = "نوع معامله";
   static const String currency = "واحد پولی";
+  static const String noSelected = "موردی انتخاب نشده است";
+  static const String agreementSale = "به صورت توافقی";
+  static const String mainPic = "عکس اصلی";
+  static const String morePic = "عکس های بیشتر";
   static const String projects1 = "";
   static const String projects2 = "";
-
-
-
-
-
-
-
-
-
 
 
 }
