@@ -34,17 +34,21 @@ class NewEstateState extends State<NewEstateScreen> {
         ),
       ),
       body: Stack(children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-
-              width: double.infinity,
-              color: GlobalColor.colorSemiBackground,
-              padding: EdgeInsets.all(8),
-              child: currentSub()),
-        ),
-        Positioned.fill(
-            bottom: 0,left: 12,right: 12,
+        Expanded(
+            child: CustomScrollView(scrollDirection: Axis.vertical, slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Container(
+                width: double.infinity,
+                color: GlobalColor.colorSemiBackground,
+                padding: EdgeInsets.all(8),
+                child: currentSub()),
+          ),
+        ])),
+        Positioned(
+            bottom: 12,
+            left: 12,
+            right: 12,
             child: Row(children: [nextButton(), Spacer(), prevButton()]))
       ]),
     );
@@ -103,8 +107,8 @@ class NewEstateState extends State<NewEstateScreen> {
         }
       },
       child: Text(index != 5 ? GlobalString.continueStr : GlobalString.add,
-          style:
-              const TextStyle(color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
+          style: const TextStyle(
+              color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
     );
   }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
+import 'package:ntk_flutter_estate/widget/estate_property_details_widget.dart';
+import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
 
 import '../../controller/new_estate_controller.dart';
 import '../sub_loading_screen.dart';
@@ -16,6 +18,9 @@ class SubNewEstate2 extends SubNewEstateBase {
 class _Container1State extends State<SubNewEstate2> {
   @override
   Widget build(BuildContext context) {
+    if (widget.screenWidth == -1) {
+      widget.screenWidth = MediaQuery.of(context).size.width;
+    }
     return FutureBuilder<Sub2Data>(
         future: widget.controller.subTowLoad(),
         builder: (context, snapshot) {
@@ -25,8 +30,10 @@ class _Container1State extends State<SubNewEstate2> {
                     .map((e) => widget.card(children: [
                           widget.box(
                               title: e.title ?? "",
-                              widget: Container(
-                                height: 200,
+                              widget: Wrap(
+                                children: ((e.propertyDetails ?? []).map((t) =>
+                                        PropertyDetailSelector().viewHolder(t)))
+                                    .toList(),
                               ))
                         ]))
                     .toList());
