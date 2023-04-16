@@ -18,7 +18,7 @@ class NewEstateScreen extends StatefulWidget {
 }
 
 class NewEstateState extends State<NewEstateScreen> {
-  int index = 3;
+  int index = 1;
 
   @override
   Widget build(BuildContext context) {

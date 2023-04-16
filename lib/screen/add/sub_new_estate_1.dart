@@ -16,11 +16,15 @@ class SubNewEstate1 extends SubNewEstateBase {
 class _Container1State extends State<SubNewEstate1> {
   @override
   Widget build(BuildContext context) {
+    if (widget.screenWidth == -1) {
+      widget.screenWidth = MediaQuery.of(context).size.width;
+    }
     return FutureBuilder<Sub1Data>(
         future: widget.controller.subOneLoad(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 widget.card(children: [
                   widget.box(
@@ -51,40 +55,32 @@ class _Container1State extends State<SubNewEstate1> {
                           titleModelMethod: (item) => item.title ?? "",
                         )),
                     if (widget.controller.item.propertyTypeUsage != null)
-                      widget.box(
+                      widget.textFieldBoxWidget(
                           title: GlobalString.areaAsMeter,
-                          widget: widget.textFieldWidget(
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: false, decimal: true),
-                              textController:
-                                  widget.controller.areaController)),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: true),
+                          textController: widget.controller.areaController),
                     //created year
                     if (widget.controller.item.propertyTypeLanduse != null &&
-                        (widget.controller.item.propertyTypeLanduse
-                                    ?.titleCreatedYaer ??
+                        (widget.controller.item.propertyTypeLanduse?.titleCreatedYaer ??
                                 "")
                             .isNotEmpty &&
                         (widget.controller.item.propertyTypeLanduse
                                     ?.titleCreatedYaer ??
                                 "") !=
                             ("---"))
-                      widget
-                          .box(
-                              title: widget.controller.item.propertyTypeLanduse
-                                      ?.titleCreatedYaer ??
-                                  "",
-                              widget: widget.textFieldWidget(
-                                  keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: false, decimal: false),
-                                  textController:
+                      widget.box(
+                          title: widget.controller.item.propertyTypeLanduse
+                                  ?.titleCreatedYaer ??
+                              "",
+                          widget: widget.textFieldWidget(
+                              keyboardType: const TextInputType.numberWithOptions(
+                                  signed: false, decimal: false),
+                              textController:
                                   widget.controller.createdYearController)),
                     //created year
-                    if (widget.controller.item.propertyTypeLanduse !=
-                            null &&
-                        (widget.controller.item.propertyTypeLanduse
-                                    ?.titlePartition ??
+                    if (widget.controller.item.propertyTypeLanduse != null &&
+                        (widget.controller.item.propertyTypeLanduse?.titlePartition ??
                                 "")
                             .isNotEmpty &&
                         (widget.controller.item.propertyTypeLanduse
@@ -95,12 +91,12 @@ class _Container1State extends State<SubNewEstate1> {
                           title: widget.controller.item.propertyTypeLanduse
                                   ?.titlePartition ??
                               "",
-                          widget:  widget.textFieldWidget(
+                          widget: widget.textFieldWidget(
                               keyboardType:
-                              const TextInputType.numberWithOptions(
-                                  signed: false, decimal: false),
+                                  const TextInputType.numberWithOptions(
+                                      signed: false, decimal: false),
                               textController:
-                              widget.controller.partitionController))
+                                  widget.controller.partitionController))
                   ]),
               ],
             );
@@ -112,24 +108,35 @@ class _Container1State extends State<SubNewEstate1> {
 
 abstract class SubNewEstateBase extends StatefulWidget {
   NewEstateController controller;
+  double screenWidth = -1;
 
   SubNewEstateBase({Key? key, required this.controller});
 
   Container box({required String title, required Widget widget}) {
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(color: GlobalColor.colorBackground),
-      padding: new EdgeInsets.all(20.0),
+      margin: new EdgeInsets.all(20.0),
       child: Stack(
+        clipBehavior: Clip.none,
         children: <Widget>[
           Container(
-              margin: EdgeInsets.only(
-                top: 40,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(17)),
+                  border:
+                      Border.all(width: 1, color: GlobalColor.colorPrimary)),
+              padding: EdgeInsets.only(
+                right: 16,
+                left: 16,
+                bottom: 20,
+                top: 20,
               ),
               child: widget),
           Positioned(
-            top: 3,
+            top: -10,
+            right: 20,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 3),
               color: Colors.white,
               child: Text(title,
                   textAlign: TextAlign.start,
@@ -142,15 +149,23 @@ abstract class SubNewEstateBase extends StatefulWidget {
     );
   }
 
-  Card card({required List<Widget> children}) {
-    return Card(
-        elevation: 16,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          children: children,
-        ));
+  Container card({required List<Widget> children}) {
+    return Container(
+      width: screenWidth,
+      child: Card(
+          elevation: 16,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: ClipPath(
+            child: Column(
+              children: children,
+            ),
+            clipper: ShapeBorderClipper(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16))),
+          )),
+    );
   }
 
   TextField textFieldWidget(
@@ -160,6 +175,29 @@ abstract class SubNewEstateBase extends StatefulWidget {
       controller: textController,
       keyboardType: keyboardType ?? TextInputType.number,
       decoration: const InputDecoration(border: InputBorder.none),
+    );
+  }
+
+  Widget textFieldBoxWidget(
+      {required String title,
+      required TextEditingController textController,
+      TextInputType? keyboardType}) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16.0, right: 16),
+      child: TextField(
+        controller: textController,
+        keyboardType: keyboardType ?? TextInputType.number,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(borderSide: BorderSide(color: GlobalColor.colorPrimary,width: 1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            focusedBorder:  OutlineInputBorder(borderSide: BorderSide(color: GlobalColor.colorPrimary,width: 1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            labelText: title,
+            labelStyle: TextStyle(color: GlobalColor.colorAccent,)),
+      ),
     );
   }
 }
