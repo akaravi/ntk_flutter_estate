@@ -69,15 +69,14 @@ class _Container1State extends State<SubNewEstate1> {
                                     ?.titleCreatedYaer ??
                                 "") !=
                             ("---"))
-                      widget.box(
+                      widget.textFieldBoxWidget(
                           title: widget.controller.item.propertyTypeLanduse
                                   ?.titleCreatedYaer ??
                               "",
-                          widget: widget.textFieldWidget(
                               keyboardType: const TextInputType.numberWithOptions(
                                   signed: false, decimal: false),
                               textController:
-                                  widget.controller.createdYearController)),
+                                  widget.controller.createdYearController),
                     //created year
                     if (widget.controller.item.propertyTypeLanduse != null &&
                         (widget.controller.item.propertyTypeLanduse?.titlePartition ??
@@ -87,16 +86,15 @@ class _Container1State extends State<SubNewEstate1> {
                                     ?.titlePartition ??
                                 "") !=
                             ("---"))
-                      widget.box(
+          widget.textFieldBoxWidget(
                           title: widget.controller.item.propertyTypeLanduse
                                   ?.titlePartition ??
                               "",
-                          widget: widget.textFieldWidget(
                               keyboardType:
                                   const TextInputType.numberWithOptions(
                                       signed: false, decimal: false),
                               textController:
-                                  widget.controller.partitionController))
+                                  widget.controller.partitionController)
                   ]),
               ],
             );
