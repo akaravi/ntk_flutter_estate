@@ -9,10 +9,83 @@ import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/widget/app_drawer.dart';
 
 class MainScreen extends StatelessWidget {
-  final TextEditingController _searchController = TextEditingController();
-
   MainScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _Screen();
+  }
+}
+
+class _Screen extends StatefulWidget {
+  @override
+  State<_Screen> createState() => _ScreenState();
+}
+
+class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
+  final TextEditingController _searchController = TextEditingController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  AnimationController? animationController;
+  List animation = [];
+  List icons = [Icons.add_home, Icons.web_rounded,];
+  List colors = [Colors.green, Colors.blueGrey, ];
+  OverlayEntry? overlayEntry;
+  GlobalKey globalKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    for (int i = 2; i > 0; i--) {
+      animation.add(Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+          parent: animationController!,
+          curve: Interval(0.2 * i, 1.0, curve: Curves.ease))));
+    }
+  }
+
+  _showOverLay() async {
+    RenderBox? renderBox =
+        globalKey.currentContext!.findRenderObject() as RenderBox?;
+    Offset offset = renderBox!.localToGlobal(Offset.zero);
+
+    OverlayState? overlayState = Overlay.of(context);
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: offset.dx,
+        bottom: renderBox.size.height + 16,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (int i = 0; i < animation.length; i++)
+              ScaleTransition(
+                scale: animation[i],
+                child: FloatingActionButton(
+                  onPressed: () {
+                    //todo add page
+                  },
+                  child: Icon(
+                    icons[i],
+                  ),
+                  backgroundColor: colors[i],
+                  mini: true,
+                ),
+              )
+          ],
+        ),
+      ),
+    );
+    animationController!.addListener(() {
+      overlayState!.setState(() {});
+    });
+    animationController!.forward();
+    overlayState!.insert(overlayEntry!);
+
+    await Future.delayed(const Duration(seconds: 5))
+        .whenComplete(() => animationController!.reverse())
+        .whenComplete(() => overlayEntry!.remove());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,17 +164,17 @@ class MainScreen extends StatelessWidget {
           Container(
             color: GlobalColor.colorBackground,
           ),
-          SingleChildScrollView(
-              primary: true,
-              scrollDirection: Axis.vertical,
-              child: FutureBuilder<MainContentModel>(
-                  future: MainScreenController().getMainData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData)
-                      return MainData(
-                          context, snapshot.data ?? MainContentModel());
-                    return Container();
-                  })),
+          // SingleChildScrollView(
+          //     primary: true,
+          //     scrollDirection: Axis.vertical,
+          //     child: FutureBuilder<MainContentModel>(
+          //         future: MainScreenController().getMainData(),
+          //         builder: (context, snapshot) {
+          //           if (snapshot.hasData)
+          //             return MainData(
+          //                 context, snapshot.data ?? MainContentModel());
+          //           return Container();
+          //         })),
           Positioned(
             bottom: 0,
             right: 0,
@@ -113,12 +186,13 @@ class MainScreen extends StatelessWidget {
                 //add new
                 Expanded(
                   child: TextButton(
+                    key: globalKey,
                     style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.0)),
                         elevation: 17,
                         backgroundColor: GlobalColor.colorAccent),
-                    onPressed: () {}, //todo
+                    onPressed: _showOverLay,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -242,7 +316,7 @@ class MainScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24.0)),
                   elevation: 17,
                   backgroundColor: GlobalColor.colorBackground),
-              onPressed: () {}, //todo
+              onPressed: () => {},
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,

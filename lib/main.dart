@@ -9,6 +9,7 @@ import 'package:ntk_flutter_estate/screen/main_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/splash_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
+import 'package:ntk_flutter_estate/screen/test2.dart';
 import 'package:ntk_flutter_estate/screen/test_widget.dart';
 
 import 'screen/auth/auth_sms_screen.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       // home: const TestWidget(),
-      home:  LiveLocationPage(),
+      home:  Test2(),
       // home: const SplashScreen(),
       // home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
