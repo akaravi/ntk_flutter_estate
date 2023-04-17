@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/screen/add/my_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_screen.dart';
+import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
 import 'package:ntk_flutter_estate/screen/estate/my_estate.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
+import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import '../controller/main_controller.dart';
 import '../controller/profile_controller.dart';
 import '../global_data.dart';
@@ -122,15 +124,15 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.myRequests,
         icon: "assets/drawable/order2.png",
-        page:  CustomerOrderListScreen.withFilterScreen()));
+        page: CustomerOrderListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.favoriteList,
         icon: "assets/drawable/favorites_folder.png",
-        page: const TestMyEstateScreen()));
+        page: FavoriteListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.news,
         icon: "assets/drawable/news2.png",
-        page: const TestMyEstateScreen()));
+        page: NewsListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.article,
         icon: "assets/drawable/article_place_holder.png",
@@ -162,7 +164,7 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.help,
         icon: "assets/drawable/intro2.png",
-        page: const TestMyEstateScreen()));
+        page: IntroController.asWelcomePage(context)));
     if (allowDirectShareApp) {
       items.add(_DrawerItem(
           name: GlobalString.inviteFriend,
