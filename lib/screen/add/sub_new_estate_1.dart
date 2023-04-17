@@ -108,11 +108,14 @@ class _Container1State extends State<SubNewEstate1> {
   }
 }
 
-abstract class SubNewEstateBase extends StatefulWidget {
+abstract class SubNewEstateBase extends StatefulWidget with Sub {
   NewEstateController controller;
   double screenWidth = -1;
 
   SubNewEstateBase({Key? key, required this.controller});
+}
+mixin Sub{
+
 
   Container box(
       {bool? fitContainer, required String title, required Widget widget}) {
@@ -163,7 +166,6 @@ abstract class SubNewEstateBase extends StatefulWidget {
 
   Container card({required List<Widget> children}) {
     return Container(
-      width: screenWidth,
       child: Card(
           elevation: 16,
           shape: RoundedRectangleBorder(
@@ -177,15 +179,6 @@ abstract class SubNewEstateBase extends StatefulWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16))),
           )),
-    );
-  }
-
-  TextField textFieldWidget({required TextEditingController textController,
-    TextInputType? keyboardType}) {
-    return TextField(
-      controller: textController,
-      keyboardType: keyboardType ?? TextInputType.number,
-      decoration: const InputDecoration(border: InputBorder.none),
     );
   }
 
@@ -216,4 +209,6 @@ abstract class SubNewEstateBase extends StatefulWidget {
       ),
     );
   }
+
+
 }

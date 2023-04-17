@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/screen/add/my_estate_screen.dart';
+import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/my_estate.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 import '../controller/main_controller.dart';
@@ -121,7 +122,7 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.myRequests,
         icon: "assets/drawable/order2.png",
-        page: const TestMyEstateScreen()));
+        page:  CustomerOrderListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.favoriteList,
         icon: "assets/drawable/favorites_folder.png",

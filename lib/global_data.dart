@@ -90,6 +90,7 @@ class GlobalString {
   static const String newEstateProperties = "مشحصات کلی ";
   static const String newEstateDetails = "جزئیات و مشخصات";
   static const String newEstateFeatures = "مشخصات آگهی";
+  static const String newEstateExtraFeatures = "سایر مشخصات";
   static const String newEstateContracts = "شرایط معامله";
   static const String newEstatePictures = "تصاویر ملک";
   static const String newEstate = "ملک جدید";
@@ -112,10 +113,10 @@ class GlobalString {
   static const String submitLocation = "ثبت مکان";
   static const String noLocSelected = "نقطه ای روی نقشه انتخب نشده است";
   static const String selectLoc = "تعیین محدوده";
+  static const String addToContract = "افزودن به لیست";
+  static const String contractsList = "لیست معاملات ثبت شده";
+  static const String noContractsAdd = "موردی ثبت نشده است";
+  static const String newOrder = "سفارش جدید";
   static const String projects1 = "";
   static const String projects2 = "";
-
-
-
-
 }
