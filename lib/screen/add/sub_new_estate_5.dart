@@ -15,8 +15,12 @@ class SubNewEstate5 extends SubNewEstateBase {
 }
 
 class _Container1State extends State<SubNewEstate5> {
+
   @override
   Widget build(BuildContext context) {
+    if (widget.screenWidth == -1) {
+      widget.screenWidth = MediaQuery.of(context).size.width;
+    }
     return Column(
       children: [
         widget.card(children: [

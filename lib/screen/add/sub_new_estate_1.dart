@@ -17,7 +17,10 @@ class _Container1State extends State<SubNewEstate1> {
   @override
   Widget build(BuildContext context) {
     if (widget.screenWidth == -1) {
-      widget.screenWidth = MediaQuery.of(context).size.width;
+      widget.screenWidth = MediaQuery
+          .of(context)
+          .size
+          .width;
     }
     return FutureBuilder<Sub1Data>(
         future: widget.controller.subOneLoad(),
@@ -62,39 +65,40 @@ class _Container1State extends State<SubNewEstate1> {
                           textController: widget.controller.areaController),
                     //created year
                     if (widget.controller.item.propertyTypeLanduse != null &&
-                        (widget.controller.item.propertyTypeLanduse?.titleCreatedYaer ??
-                                "")
-                            .isNotEmpty &&
                         (widget.controller.item.propertyTypeLanduse
-                                    ?.titleCreatedYaer ??
-                                "") !=
+                            ?.titleCreatedYaer ??
+                            "")
+                            .isNotEmpty &&
+                        (widget.controller
+                            .item.propertyTypeLanduse?.titleCreatedYaer ??
+                            "") !=
                             ("---"))
                       widget.textFieldBoxWidget(
                           title: widget.controller.item.propertyTypeLanduse
-                                  ?.titleCreatedYaer ??
+                              ?.titleCreatedYaer ??
                               "",
-                              keyboardType: const TextInputType.numberWithOptions(
-                                  signed: false, decimal: false),
-                              textController:
-                                  widget.controller.createdYearController),
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
+                          textController:
+                          widget.controller.createdYearController),
                     //created year
-                    if (widget.controller.item.propertyTypeLanduse != null &&
-                        (widget.controller.item.propertyTypeLanduse?.titlePartition ??
-                                "")
+                    if (widget.controller.item.propertyTypeLanduse !=
+                        null &&
+                        (widget.controller.item.propertyTypeLanduse
+                            ?.titlePartition ??
+                            "")
                             .isNotEmpty &&
                         (widget.controller.item.propertyTypeLanduse
-                                    ?.titlePartition ??
-                                "") !=
+                            ?.titlePartition ??
+                            "") !=
                             ("---"))
-          widget.textFieldBoxWidget(
+                      widget.textFieldBoxWidget(
                           title: widget.controller.item.propertyTypeLanduse
-                                  ?.titlePartition ??
+                              ?.titlePartition ??
                               "",
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: false, decimal: false),
-                              textController:
-                                  widget.controller.partitionController)
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: false),
+                          textController: widget.controller.partitionController)
                   ]),
               ],
             );
@@ -110,7 +114,9 @@ abstract class SubNewEstateBase extends StatefulWidget {
 
   SubNewEstateBase({Key? key, required this.controller});
 
-  Container box({required String title, required Widget widget}) {
+  Container box(
+      {bool? fitContainer, required String title, required Widget widget}) {
+    fitContainer ??= false;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(color: GlobalColor.colorBackground),
@@ -118,19 +124,27 @@ abstract class SubNewEstateBase extends StatefulWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: <Widget>[
-          Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(17)),
-                  border:
-                      Border.all(width: 1, color: GlobalColor.colorPrimary)),
-              padding: EdgeInsets.only(
-                right: 16,
-                left: 16,
-                bottom: 20,
-                top: 20,
-              ),
-              child: widget),
+          ClipPath(
+              child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                      border: Border.all(
+                          width: 1, color: GlobalColor.colorPrimary)),
+                  padding: fitContainer
+                      ? EdgeInsets.zero
+                      : EdgeInsets.only(
+                    right: 16,
+                    left: 16,
+                    bottom: 20,
+                    top: 20,
+                  ),
+                  child: widget),
+              clipper: ShapeBorderClipper(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: (fitContainer)
+                          ? BorderRadius.circular(16)
+                           :BorderRadius.zero))),
           Positioned(
             top: -10,
             right: 20,
@@ -166,9 +180,8 @@ abstract class SubNewEstateBase extends StatefulWidget {
     );
   }
 
-  TextField textFieldWidget(
-      {required TextEditingController textController,
-      TextInputType? keyboardType}) {
+  TextField textFieldWidget({required TextEditingController textController,
+    TextInputType? keyboardType}) {
     return TextField(
       controller: textController,
       keyboardType: keyboardType ?? TextInputType.number,
@@ -176,25 +189,30 @@ abstract class SubNewEstateBase extends StatefulWidget {
     );
   }
 
-  Widget textFieldBoxWidget(
-      {required String title,
-      required TextEditingController textController,
-      TextInputType? keyboardType}) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16),
+  Widget textFieldBoxWidget({required String title,
+    required TextEditingController textController,
+    TextInputType? keyboardType}) {
+    return Container(
+      margin: EdgeInsets.only(top: 8, bottom: 8),
+      padding:
+      const EdgeInsets.only(top: 10, bottom: 10, left: 16.0, right: 16),
       child: TextField(
         controller: textController,
         keyboardType: keyboardType ?? TextInputType.number,
         decoration: InputDecoration(
-            border: OutlineInputBorder(borderSide: BorderSide(color: GlobalColor.colorPrimary,width: 1),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: GlobalColor.colorPrimary, width: 1),
               borderRadius: BorderRadius.circular(16),
             ),
-            focusedBorder:  OutlineInputBorder(borderSide: BorderSide(color: GlobalColor.colorPrimary,width: 1),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: GlobalColor.colorPrimary, width: 1),
               borderRadius: BorderRadius.circular(16),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelText: title,
-            labelStyle: TextStyle(color: GlobalColor.colorAccent,)),
+            labelStyle: TextStyle(
+              color: GlobalColor.colorAccent,
+            )),
       ),
     );
   }

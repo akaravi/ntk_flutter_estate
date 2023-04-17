@@ -24,6 +24,9 @@ class SubNewEstate4 extends SubNewEstateBase {
 class _Container1State extends State<SubNewEstate4> {
   @override
   Widget build(BuildContext context) {
+    if (widget.screenWidth == -1) {
+      widget.screenWidth = MediaQuery.of(context).size.width;
+    }
     return FutureBuilder<Sub4Data>(
         future: widget.controller.subFourLoad(),
         builder: (context, snapshot) {

@@ -111,6 +111,7 @@ class GlobalString {
   static const String estimateLoc = "مکان تقریبی";
   static const String submitLocation = "ثبت مکان";
   static const String noLocSelected = "نقطه ای روی نقشه انتخب نشده است";
+  static const String selectLoc = "تعیین محدوده";
   static const String projects1 = "";
   static const String projects2 = "";
 

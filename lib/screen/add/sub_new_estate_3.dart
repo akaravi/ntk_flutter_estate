@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
-
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import '../../controller/new_estate_controller.dart';
 
 class SubNewEstate3 extends SubNewEstateBase {
@@ -18,41 +19,97 @@ class SubNewEstate3 extends SubNewEstateBase {
 class _Container1State extends State<SubNewEstate3> {
   @override
   Widget build(BuildContext context) {
+    if (widget.screenWidth == -1) {
+      widget.screenWidth = MediaQuery.of(context).size.width;
+    }
     return Column(
       children: [
         widget.card(children: [
-          widget.box(
+          //code estate
+          widget.textFieldBoxWidget(
               title: GlobalString.estateCode,
-              widget: widget.textFieldWidget(
-                  keyboardType: TextInputType.text,
-                  textController: widget.controller.codeTextWidget))
+              keyboardType: TextInputType.text,
+              textController: widget.controller.codeTextWidget)
         ]),
         widget.card(children: [
-          widget.box(
+          //title
+          widget.textFieldBoxWidget(
               title: GlobalString.title,
-              widget: widget.textFieldWidget(
-                  keyboardType: TextInputType.text,
-                  textController: widget.controller.titleTextWidget))
+              keyboardType: TextInputType.text,
+              textController: widget.controller.titleTextWidget)
         ]),
+        //desc
         widget.card(children: [
-          widget.box(
+          widget.textFieldBoxWidget(
               title: GlobalString.desc,
-              widget: widget.textFieldWidget(
-                  keyboardType: TextInputType.text,
-                  textController: widget.controller.descTextWidget))
+              keyboardType: TextInputType.text,
+              textController: widget.controller.descTextWidget)
         ]),
+
         widget.card(children: [
-          widget.box(
+          //location
+          widget.textFieldBoxWidget(
               title: GlobalString.location,
-              widget: widget.textFieldWidget(
-                  keyboardType: TextInputType.text,
-                  textController: widget.controller.descTextWidget)),
-          widget.box(
+              keyboardType: TextInputType.text,
+              textController: widget.controller.descTextWidget),
+          //address
+          widget.textFieldBoxWidget(
               title: GlobalString.address,
-              widget: widget.textFieldWidget(
-                  keyboardType: TextInputType.text,
-                  textController: widget.controller.addressTextWidget))
-        ]),
+              keyboardType: TextInputType.text,
+              textController: widget.controller.addressTextWidget),
+          //map
+          widget.box(
+            fitContainer: true,
+            title: GlobalString.estimateLoc,
+            widget: SizedBox(
+              width: double.infinity,
+              height: 350,
+              child: FlutterMap(
+                  options: MapOptions(
+                    maxZoom: 12,
+                    center: LatLng(51.5, -0.09),
+                    zoom: 12,
+                    minZoom: 12,
+                  ),
+                  nonRotatedChildren: [
+                    AttributionWidget.defaultWidget(
+                      source: 'OpenStreetMap contributors',
+                      onSourceTapped: () {},
+                    ),
+                  ],
+                  children: [
+                    TileLayer(
+                      urlTemplate:
+                          'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      userAgentPackageName: 'javad',
+                    ),
+                    MarkerLayer(markers: [
+                      Marker(
+                        point: LatLng(30, 40),
+                        width: 80,
+                        height: 80,
+                        builder: (context) => FlutterLogo(),
+                      )
+                    ]),
+                  ]),
+            ),
+          ),
+          Container(margin: EdgeInsets.only(bottom: 35),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  elevation: 10,
+                  backgroundColor: GlobalColor.colorAccent),
+              onPressed: () {
+                //todo
+              },
+              child: Text(GlobalString.selectLoc,
+                  style: const TextStyle(
+                      color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
+            ),
+          )
+        ])
       ],
     );
   }
