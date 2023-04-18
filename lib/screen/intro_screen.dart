@@ -7,7 +7,11 @@ import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
 import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
 
 class IntroScreen extends StatelessWidget {
-  const IntroScreen({Key? key}) : super(key: key);
+  bool asHelpScreen;
+
+  IntroScreen({Key? key, bool? asHelpScreen})
+      : asHelpScreen = asHelpScreen ?? false,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +23,7 @@ class IntroScreen extends StatelessWidget {
             //todo add error page
             if (snapshot.hasData) {
               widget = IntroWidget(
+                asHelpScreen: asHelpScreen,
                 createSlides(snapshot.data),
                 key: ValueKey(0),
               );
@@ -68,7 +73,10 @@ class IntroScreen extends StatelessWidget {
 class IntroWidget extends StatelessWidget {
   List<Slide> slides;
 
-  IntroWidget(this.slides, {Key? key}) : super(key: key);
+  bool asHelpScreen;
+
+  IntroWidget(this.slides, {Key? key, required this.asHelpScreen})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -108,9 +116,14 @@ class IntroWidget extends StatelessWidget {
   void onDonePress(BuildContext context) {
     //navigate to next page if frist open go to intro page
     //otherwise this page open from features click
-    Future.microtask(() {
-      IntroController().nextPage(context, newWidget: AuthSmsScreen());
-    });
+    if (asHelpScreen) {
+      IntroController().close(context);
+    }
+    else{
+      Future.microtask(() {
+        IntroController().nextPage(context, newWidget: AuthSmsScreen());
+      });
+    }
   }
 
   Widget renderNextBtn() {
@@ -159,7 +172,7 @@ class IntroWidget extends StatelessWidget {
     return ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(const StadiumBorder()),
       backgroundColor:
-          MaterialStateProperty.all<Color>(GlobalColor.colorAccent),
+      MaterialStateProperty.all<Color>(GlobalColor.colorAccent),
     );
   }
 }
