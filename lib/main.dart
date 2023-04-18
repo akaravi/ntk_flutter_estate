@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       // home: const TestWidget(),
-      home:  EstateSearch(),
+      home:  EstateSearchScreen(),
       // home: const SplashScreen(),
       // home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),

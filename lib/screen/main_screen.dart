@@ -4,6 +4,7 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
+import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 import 'package:ntk_flutter_estate/screen/landused/landused_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/widget/app_drawer.dart';
@@ -27,8 +28,14 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   AnimationController? animationController;
   List animation = [];
-  List icons = [Icons.add_home, Icons.web_rounded,];
-  List colors = [Colors.green, Colors.blueGrey, ];
+  List icons = [
+    Icons.add_home,
+    Icons.web_rounded,
+  ];
+  List colors = [
+    Colors.green,
+    Colors.blueGrey,
+  ];
   OverlayEntry? overlayEntry;
   GlobalKey globalKey = GlobalKey();
 
@@ -216,7 +223,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                       backgroundColor:
                           MaterialStateProperty.all(GlobalColor.colorAccent),
                       shape: MaterialStateProperty.all(const CircleBorder())),
-                  onPressed: () {},
+                  onPressed: () => EstateSearchScreen(),
                   child: const Icon(
                     Icons.search,
                     color: GlobalColor.colorPrimary,

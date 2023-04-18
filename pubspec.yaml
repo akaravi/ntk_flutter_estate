@@ -64,8 +64,8 @@ dev_dependencies:
   #for exit app
   flutter_exit_app: ^1.1.2
   #expandable
-  expandable: ^5.0.1
-  # The "flutter_lints" package below contains a set of recommended lints to
+  expandable_widgets: ^1.0.2
+# The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint

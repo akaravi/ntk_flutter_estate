@@ -103,7 +103,7 @@ class GlobalString {
   static const String location = "موقعیت";
   static const String address = "آدرس";
   static const String mapLocation = "موقعیت تقریبی";
-  static const String contractType = "نوع معامله";
+  static const String contractType = "نوع قرارداد";
   static const String currency = "واحد پولی";
   static const String noSelected = "موردی انتخاب نشده است";
   static const String agreementSale = "به صورت توافقی";
@@ -120,6 +120,8 @@ class GlobalString {
   static const String reTry = "تلاش مجدد";
   static const String keywords = "کلمه کلیدی";
   static const String testString="asdasdlmak a,amskdjal as.,dalkw";
+  static const String contractProperties = "مشخصات قرارداد";
+  static const String estateTypeUsageProperties = "مشخصات کاربری ملک";
   static const String projects1 = "";
   static const String projects2 = "";
 }

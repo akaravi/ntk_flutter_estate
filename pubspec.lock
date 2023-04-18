@@ -168,14 +168,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.0"
-  expandable:
+  expandable_widgets:
     dependency: "direct dev"
     description:
-      name: expandable
-      sha256: "9604d612d4d1146dafa96c6d8eec9c2ff0994658d6d09fed720ab788c7f5afc2"
+      name: expandable_widgets
+      sha256: "4c533af4056a529b341977566700a7fab34f76f33510c95e4416ab38451cfa12"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.1"
+    version: "1.0.3+1"
   fake_async:
     dependency: transitive
     description:
