@@ -117,6 +117,8 @@ class GlobalString {
   static const String contractsList = "لیست معاملات ثبت شده";
   static const String noContractsAdd = "موردی ثبت نشده است";
   static const String newOrder = "سفارش جدید";
+  static const String reTry = "تلاش مجدد";
   static const String projects1 = "";
   static const String projects2 = "";
+
 }

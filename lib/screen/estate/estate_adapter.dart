@@ -1,10 +1,8 @@
-import 'dart:io';
 
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/widget/contract_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'estate_detail_screen.dart';
 

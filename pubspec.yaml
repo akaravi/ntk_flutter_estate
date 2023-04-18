@@ -113,6 +113,7 @@ flutter:
     - assets/lottie/circle_reval.json
     - assets/lottie/sub_loading.json
     - assets/lottie/sub_empty.json
+    - assets/lottie/sub_eror.json
     - assets/lottie/splash_logo.json
     - assets/lottie/auth_sms.json
     - assets/lottie/auth_confirm_sms.json
