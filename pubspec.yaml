@@ -63,6 +63,8 @@ dev_dependencies:
       ref: master
   #for exit app
   flutter_exit_app: ^1.1.2
+  #expandable
+  expandable: ^5.0.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -113,7 +115,7 @@ flutter:
     - assets/lottie/circle_reval.json
     - assets/lottie/sub_loading.json
     - assets/lottie/sub_empty.json
-    - assets/lottie/sub_eror.json
+    - assets/lottie/sub_error.json
     - assets/lottie/splash_logo.json
     - assets/lottie/auth_sms.json
     - assets/lottie/auth_confirm_sms.json

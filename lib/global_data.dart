@@ -118,7 +118,8 @@ class GlobalString {
   static const String noContractsAdd = "موردی ثبت نشده است";
   static const String newOrder = "سفارش جدید";
   static const String reTry = "تلاش مجدد";
+  static const String keywords = "کلمه کلیدی";
+  static const String testString="asdasdlmak a,amskdjal as.,dalkw";
   static const String projects1 = "";
   static const String projects2 = "";
-
 }
