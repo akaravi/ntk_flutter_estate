@@ -191,22 +191,26 @@ class MyHomePageState extends State<MyHomePage> {
             divider()
           ],
           //add property detail group
-          if (widget.controller.propertydetailGroups == null)
+          if (widget.controller.propertyTypeUsage != null&&widget.controller.propertydetailGroups == null)
             FutureBuilder<List<EstatePropertyDetailGroupModel>>(
                 future: widget.controller.getproperties(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Column(
                         children: (snapshot.data ?? [])
-                            .map((e) => widget.card(children: [
-                                  searchCard(
-                                      title: e.title ?? "",
-                                      expandedWidget: Wrap(
-                                        children: ((e.propertyDetails ?? [])
-                                            .map((t) => PropertyDetailSelector()
-                                                .viewHolder(t))).toList(),
-                                      ))
-                                ]))
+                            .map((e) => Column(
+                              children: [
+                                widget.card(children: [
+                                      searchCard(
+                                          title: e.title ?? "",
+                                          expandedWidget: Wrap(
+                                            children: ((e.propertyDetails ?? [])
+                                                .map((t) => PropertyDetailSelector()
+                                                    .viewHolder(t))).toList(),
+                                          )),
+                                    ]),    divider(),
+                              ],
+                            ))
                             .toList());
                   }
                   return Container();

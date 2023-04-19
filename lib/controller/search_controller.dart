@@ -18,10 +18,6 @@ class SearchController {
 
   List<EstatePropertyDetailGroupModel>? propertydetailGroups;
 
-
-
-
-
   Future<SearchData> getData() async {
     var data = SearchData();
     data.propertyTypeList =
@@ -51,12 +47,12 @@ class SearchController {
         .toList();
   }
 
-  getproperties() async {
-   return propertydetailGroups =
-        await EstatePropertyDetailGroupService().getAll(FilterModel()
+  Future<List<EstatePropertyDetailGroupModel>> getproperties() async {
+    var list = await EstatePropertyDetailGroupService().getAll(FilterModel()
       ..addFilter(FilterDataModel()
         ..setPropertyName("linkPropertyTypeLanduseId")
         ..value = propertyTypeLanduse?.id ?? ""));
+    return list;
   }
 }
 

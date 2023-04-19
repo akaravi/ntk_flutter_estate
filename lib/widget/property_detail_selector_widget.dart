@@ -6,7 +6,7 @@ import '../screen/add/sub_new_estate_1.dart';
 
 class PropertyDetailSelector {
   Widget viewHolder(EstatePropertyDetailModel item) {
-    // EnumInputDataType type = item.inputDataType ?? EnumInputDataType.string;
+    EnumInputDataType type = item.inputDataType ?? EnumInputDataType.string;
     //string type
     // if (type == EnumInputDataType.string) {
     //   if (item.configValueForceUseDefaultValue ?? false) {
@@ -22,7 +22,7 @@ class PropertyDetailSelector {
     //   //reqular string
     //   else {
     //     return StringViewHolder(item: item, keyboardType: TextInputType.text);
-      // }
+    // }
     // }
     // //int type
     // if (type == EnumInputDataType.int) {
@@ -35,9 +35,9 @@ class PropertyDetailSelector {
     //       keyboardType:
     //           TextInputType.numberWithOptions(signed: false, decimal: true));
     // }
-    // if (type == EnumInputDataType.boolean) {
-    //   return BooleanViewHolder(item);
-    // }
+    if (type == EnumInputDataType.boolean) {
+      return BooleanViewHolder(item);
+    }
     // if (type == EnumInputDataType.date) {
     //   return DateViewHolder(item);
     // }
@@ -51,7 +51,9 @@ class PropertyDetailSelector {
   Widget StringViewHolder(
       {required EstatePropertyDetailModel item,
       required TextInputType keyboardType}) {
-    return TextField(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
         controller: item.text,
         keyboardType: keyboardType ?? TextInputType.number,
         decoration: InputDecoration(
@@ -68,6 +70,7 @@ class PropertyDetailSelector {
             labelStyle: TextStyle(
               color: GlobalColor.colorAccent,
             )),
+      ),
     );
   }
 
@@ -80,7 +83,7 @@ class PropertyDetailSelector {
   }
 
   Widget MultiLinesViewHolder(EstatePropertyDetailModel item) {
-    return box(title: "title", widget: Text("TExt"));
+    return box(title: "title", widget: Text(item.text.text,));
   }
 
   Widget DateViewHolder(EstatePropertyDetailModel item) {
@@ -88,12 +91,46 @@ class PropertyDetailSelector {
   }
 
   Widget BooleanViewHolder(EstatePropertyDetailModel item) {
-    return box(title: "title", widget: Text("TExt"));
+    return StatefulBuilder(
+      builder: (context, setState) => InkWell(
+        onTap: () {
+          if (item.text.text == null || item.text.text == "false") {
+            item.text.text = "true";
+          } else {
+            item.text.text = "false";
+          }
+          setState(() {});
+        },
+        child: box(
+            title: "",
+            widget: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  item.title ?? "",
+                  style: TextStyle(
+                      color: item.text.text == 'true'
+                          ? GlobalColor.colorAccentDark
+                          : GlobalColor.colorPrimary),
+                ),
+                Checkbox(
+                  checkColor: GlobalColor.colorOnAccent,
+                  activeColor: GlobalColor.colorAccentDark,
+                  value: item.text.text == 'true' ? true : false,
+                  onChanged: (value) {
+                    item.text.text = (value!).toString();
+                    setState(() {});
+                  },
+                )
+              ],
+            )),
+      ),
+    );
   }
 
   Container box({required String title, required Widget widget}) {
     return Container(
-      width: double.infinity/2,
+      width: double.infinity / 2,
       decoration: BoxDecoration(color: GlobalColor.colorBackground),
       margin: new EdgeInsets.all(20.0),
       child: Stack(
