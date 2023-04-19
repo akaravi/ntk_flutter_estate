@@ -203,7 +203,7 @@ mixin Sub{
             ),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             labelText: title,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               color: GlobalColor.colorAccent,
             )),
       ),

@@ -25,20 +25,26 @@ class _Container1State extends State<SubNewEstate2> {
         future: widget.controller.subTowLoad(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Column(
-                children: (snapshot.data?.propertydetailGroups ?? [])
-                    .map((e) => widget.card(children: [
-                          widget.box(
-                              title: e.title ?? "",
-                              widget: Wrap(
-                                children: ((e.propertyDetails ?? []).map((t) =>
-                                        PropertyDetailSelector().viewHolder(t)))
-                                    .toList(),
-                              ))
-                        ]))
-                    .toList());
+            return
+              Column(mainAxisSize: MainAxisSize.min,
+                    children: (snapshot.data?.propertydetailGroups ?? [])
+                        .map((e) =>
+                              widget.card(
+                                children: [
+                                  widget.box(
+                                      title: e.title ?? "",
+                                      widget: Wrap(
+                                        children: ((e.propertyDetails ?? []).map((t) =>
+                                                Container(width:100,child: PropertyDetailSelector().viewHolder(t))))
+                                            .toList(),
+                                      )),
+                                ],
+                              )
+                            )
+                        .toList());
+
           }
-          return SubLoadingScreen();
+          return Container(width:200,height:400,child: SubLoadingScreen());
         });
   }
 }

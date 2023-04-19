@@ -3,7 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
+import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 import 'package:ntk_flutter_estate/screen/generalized/intro_screen.dart' as d;
 import 'package:ntk_flutter_estate/screen/main_screen.dart';
@@ -16,6 +18,7 @@ import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'screen/auth/auth_sms_screen.dart';
 import 'screen/generalized/sub_empty_screen.dart';
 import 'screen/add/user_location_on_map_screen.dart';
+import 'screen/test.dart';
 
 void main() async {
   //prevent from crash on start
@@ -52,12 +55,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
       // home: const TestWidget(),
-      home:  EstateSearchScreen(),
+      // home:  EstateSearchScreen(),
       // home: const SplashScreen(),
+      // home: Test(),
       // home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),
-      // home: NewsListScreen(),
+      home: NewEstateScreen(),
+      // home: NewCustomerOrderScreen(),
       // home: ( ArticleList()),
     );
   }
