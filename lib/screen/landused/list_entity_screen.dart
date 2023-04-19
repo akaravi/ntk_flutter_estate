@@ -3,7 +3,7 @@ import 'package:base/src/screen/generics/error_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:ntk_flutter_estate/screen/sub_empty_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_empty_screen.dart';
 
 class EntityListScreen<model> extends StatefulWidget {
   final BaseListController<model> controller;

@@ -5,7 +5,7 @@ import 'package:ntk_flutter_estate/widget/estate_property_details_widget.dart';
 import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
 
 import '../../controller/new_customer_order_controller.dart';
-import '../sub_loading_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 class SubNewCustomerOrder2 extends SubNewCustomerOrderBase {
   SubNewCustomerOrder2({Key? key, required NewCustomerOrderController controller})

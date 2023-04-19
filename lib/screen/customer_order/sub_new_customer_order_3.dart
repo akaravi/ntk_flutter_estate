@@ -8,9 +8,9 @@ import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/sub_new_customer_order_1.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 import '../../controller/new_estate_controller.dart';
-import '../sub_loading_screen.dart';
 
 class SubNewCustomerOrder3 extends SubNewCustomerOrderBase {
   SubNewCustomerOrder3(

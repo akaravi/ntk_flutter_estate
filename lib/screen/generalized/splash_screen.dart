@@ -7,10 +7,10 @@ import 'package:ntk_flutter_estate/screen/estate/estate_detail_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/main_screen.dart';
 
-import 'add/new_estate_screen.dart';
-import 'auth/auth_sms_screen.dart';
+import '../add/new_estate_screen.dart';
+import '../auth/auth_sms_screen.dart';
 import 'intro_screen.dart';
-import 'news/news_list_screen.dart';
+import '../news/news_list_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

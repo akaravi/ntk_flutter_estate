@@ -4,7 +4,7 @@ import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_scr
 import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
 import 'package:ntk_flutter_estate/screen/estate/my_estate.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
-import 'package:ntk_flutter_estate/screen/intro_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/intro_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import '../controller/main_controller.dart';
 import '../controller/profile_controller.dart';

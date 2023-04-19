@@ -1,8 +1,10 @@
+import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
+import 'package:ntk_flutter_estate/screen/company/comany_list_screen.dart';
+import 'package:ntk_flutter_estate/screen/company/project_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 import 'package:ntk_flutter_estate/screen/landused/landused_screen.dart';
@@ -51,48 +53,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     }
   }
 
-  _showOverLay() async {
-    RenderBox? renderBox =
-        globalKey.currentContext!.findRenderObject() as RenderBox?;
-    Offset offset = renderBox!.localToGlobal(Offset.zero);
 
-    OverlayState? overlayState = Overlay.of(context);
-    overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        left: offset.dx,
-        bottom: renderBox.size.height + 16,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < animation.length; i++)
-              ScaleTransition(
-                scale: animation[i],
-                child: FloatingActionButton(
-                  onPressed: () {
-                    //todo add page
-                  },
-                  child: Icon(
-                    icons[i],
-                  ),
-                  backgroundColor: colors[i],
-                  mini: true,
-                ),
-              )
-          ],
-        ),
-      ),
-    );
-    animationController!.addListener(() {
-      overlayState!.setState(() {});
-    });
-    animationController!.forward();
-    overlayState!.insert(overlayEntry!);
-
-    await Future.delayed(const Duration(seconds: 5))
-        .whenComplete(() => animationController!.reverse())
-        .whenComplete(() => overlayEntry!.remove());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -300,7 +261,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(24.0)),
                   elevation: 17,
                   backgroundColor: GlobalColor.colorBackground),
-              onPressed: () {}, //todo
+              onPressed: () => CompanyListScreen.withFilterScreen(),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -323,7 +284,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(24.0)),
                   elevation: 17,
                   backgroundColor: GlobalColor.colorBackground),
-              onPressed: () => {},
+              onPressed: () => ProjectListScreen.withFilterScreen(),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -357,7 +318,48 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       ],
     );
   }
+  _showOverLay() async {
+    RenderBox? renderBox =
+    globalKey.currentContext!.findRenderObject() as RenderBox?;
+    Offset offset = renderBox!.localToGlobal(Offset.zero);
 
+    OverlayState? overlayState = Overlay.of(context);
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: offset.dx,
+        bottom: renderBox.size.height + 16,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (int i = 0; i < animation.length; i++)
+              ScaleTransition(
+                scale: animation[i],
+                child: FloatingActionButton(
+                  onPressed: () {
+                    //todo add page
+                  },
+                  child: Icon(
+                    icons[i],
+                  ),
+                  backgroundColor: colors[i],
+                  mini: true,
+                ),
+              )
+          ],
+        ),
+      ),
+    );
+    animationController!.addListener(() {
+      overlayState!.setState(() {});
+    });
+    animationController!.forward();
+    overlayState!.insert(overlayEntry!);
+
+    await Future.delayed(const Duration(seconds: 5))
+        .whenComplete(() => animationController!.reverse())
+        .whenComplete(() => overlayEntry!.remove());
+  }
   rowWidget(
       {required Widget itemsScreen,
       required String title,

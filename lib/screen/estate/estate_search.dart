@@ -5,9 +5,9 @@ import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
-import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 class EstateSearchScreen extends StatelessWidget {
   SearchController controller = SearchController();

@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 
 import '../../controller/new_estate_controller.dart';
-import '../sub_loading_screen.dart';
 
 class SubNewEstate4 extends SubNewEstateBase {
   SubNewEstate4({Key? key, required NewEstateController controller})

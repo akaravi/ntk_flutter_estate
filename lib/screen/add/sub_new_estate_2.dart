@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/estate_property_details_widget.dart';
 import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
 
 import '../../controller/new_estate_controller.dart';
-import '../sub_loading_screen.dart';
 
 class SubNewEstate2 extends SubNewEstateBase {
   SubNewEstate2({Key? key, required NewEstateController controller})

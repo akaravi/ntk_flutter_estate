@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
-import 'package:ntk_flutter_estate/screen/sub_loading_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 class IntroScreen extends StatelessWidget {
   bool asHelpScreen;
