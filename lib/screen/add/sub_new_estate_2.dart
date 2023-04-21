@@ -12,10 +12,10 @@ class SubNewEstate2 extends SubNewEstateBase {
       : super(key: key, controller: controller);
 
   @override
-  State<SubNewEstate2> createState() => _Container1State();
+  State<SubNewEstate2> createState() => _ContainerState();
 }
 
-class _Container1State extends State<SubNewEstate2> {
+class _ContainerState extends State<SubNewEstate2> {
   @override
   Widget build(BuildContext context) {
     if (widget.screenWidth == -1) {
@@ -34,8 +34,10 @@ class _Container1State extends State<SubNewEstate2> {
                                 title: e.title ?? "",
                                 widget: Wrap(
                                   children: ((e.propertyDetails ?? []).map(
-                                      (t) => PropertyDetailSelector()
-                                          .viewHolder(context,t))).toList(),
+                                      (t) => Container(width: 4*widget.screenWidth/10,
+                                        child: PropertyDetailSelector()
+                                            .viewHolder(context,t),
+                                      ))).toList(),
                                 )),
                           ],
                         ))

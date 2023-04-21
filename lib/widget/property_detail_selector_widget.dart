@@ -128,12 +128,15 @@ class PropertyDetailSelector {
             widget: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  item.title ?? "",
-                  style: TextStyle(
-                      color: item.text.text == 'true'
-                          ? GlobalColor.colorAccentDark
-                          : GlobalColor.colorPrimary),
+                Expanded(
+                  child: Text( overflow: TextOverflow.ellipsis,
+                    item.title ?? "",softWrap: false,
+                    maxLines: 1,
+                    style: TextStyle(fontSize: 12,
+                        color: item.text.text == 'true'
+                            ? GlobalColor.colorAccentDark
+                            : GlobalColor.colorPrimary),
+                  ),
                 ),
                 Checkbox(
                   checkColor: GlobalColor.colorOnAccent,
@@ -154,7 +157,7 @@ class PropertyDetailSelector {
     return Container(
       width: double.infinity / 2,
       decoration: BoxDecoration(color: GlobalColor.colorBackground),
-      margin: new EdgeInsets.all(20.0),
+      margin: new EdgeInsets.all(10.0),
       child: Stack(
         clipBehavior: Clip.none,
         children: <Widget>[
@@ -165,10 +168,10 @@ class PropertyDetailSelector {
                   border:
                       Border.all(width: 1, color: GlobalColor.colorPrimary)),
               padding: EdgeInsets.only(
-                right: 16,
-                left: 16,
-                bottom: 20,
-                top: 20,
+                right: 8,
+                left: 8,
+                bottom: 4,
+                top: 6,
               ),
               child: widget),
           Positioned(
