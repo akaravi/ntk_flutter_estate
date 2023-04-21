@@ -124,6 +124,8 @@ class GlobalString {
   static const String estateTypeUsageProperties = "مشخصات کاربری ملک";
   static const String select = "انتخاب";
 
+  static const String plzInsertTitle = "عنوان نورد نظر خود را وارد کنید";
   static const String projects1 = "";
   static const String projects2 = "";
+
 }

@@ -53,8 +53,6 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -106,18 +104,23 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                             vertical: 4.0, horizontal: 8),
                         child: Container(
                           height: 40,
-                          child: const TextField(
+                          child: TextField(controller: _searchController,
+                            textInputAction: TextInputAction.search,
                             maxLines: 1,
-                            style: TextStyle(fontSize: 17),
+                            style: const TextStyle(fontSize: 17),
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
                               filled: true,
-                              prefixIcon: Icon(Icons.search,
-                                  color: GlobalColor.colorPrimary),
-                              border: OutlineInputBorder(
+                              prefixIcon: InkWell(
+                                  child: const Icon(Icons.search,
+                                      color: GlobalColor.colorPrimary),
+                                  onTap: () {
+                                    MainScreenController.searchWithText(context,_searchController.text);
+                                  }),
+                              border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
                               ),
-                              contentPadding: EdgeInsets.all(4),
+                              contentPadding: const EdgeInsets.all(4),
                               hintText: GlobalString.searchDotDotDot,
                             ),
                           ),
@@ -318,9 +321,10 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       ],
     );
   }
+
   _showOverLay() async {
     RenderBox? renderBox =
-    globalKey.currentContext!.findRenderObject() as RenderBox?;
+        globalKey.currentContext!.findRenderObject() as RenderBox?;
     Offset offset = renderBox!.localToGlobal(Offset.zero);
 
     OverlayState? overlayState = Overlay.of(context);
@@ -360,6 +364,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
         .whenComplete(() => animationController!.reverse())
         .whenComplete(() => overlayEntry!.remove());
   }
+
   rowWidget(
       {required Widget itemsScreen,
       required String title,

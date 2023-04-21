@@ -6,10 +6,11 @@ import 'package:ntk_flutter_estate/screen/landused/list_entity_screen.dart';
 import 'estate_adapter.dart';
 
 class EstateListScreen extends EntityListScreen<EstatePropertyModel> {
-  EstateListScreen.withFilterScreen({super.key,FilterModel? filter})
+  EstateListScreen.withFilterScreen({super.key, FilterModel? filter})
       : super.withFilterScreen(
           title: GlobalString.estate,
-          controller: EstateListController(filter: filter,
+          controller: EstateListController(
+              filter: filter,
               adapterCreatorFunction: (context, m, index) =>
                   EstatePropertyAdapter.verticalType(
                     model: m,
@@ -19,11 +20,13 @@ class EstateListScreen extends EntityListScreen<EstatePropertyModel> {
   EstateListScreen.listOnMainScreen(
       {super.key, required List<EstatePropertyModel> items})
       : super.listOnly(
-    listItems: items,
+          listItems: items,
           controller: EstateListController(
               adapterCreatorFunction: (context, m, index) =>
                   EstatePropertyAdapter.horizontalType(
                     model: m,
                   )),
         );
+
+
 }
