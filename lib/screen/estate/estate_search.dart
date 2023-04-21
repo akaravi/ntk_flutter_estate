@@ -191,7 +191,8 @@ class MyHomePageState extends State<MyHomePage> {
             divider()
           ],
           //add property detail group
-          if (widget.controller.propertyTypeUsage != null&&widget.controller.propertydetailGroups == null)
+          if (widget.controller.propertyTypeUsage != null &&
+              widget.controller.propertydetailGroups == null)
             FutureBuilder<List<EstatePropertyDetailGroupModel>>(
                 future: widget.controller.getproperties(),
                 builder: (context, snapshot) {
@@ -199,18 +200,22 @@ class MyHomePageState extends State<MyHomePage> {
                     return Column(
                         children: (snapshot.data ?? [])
                             .map((e) => Column(
-                              children: [
-                                widget.card(children: [
+                                  children: [
+                                    widget.card(children: [
                                       searchCard(
                                           title: e.title ?? "",
                                           expandedWidget: Wrap(
                                             children: ((e.propertyDetails ?? [])
-                                                .map((t) => PropertyDetailSelector()
-                                                    .viewHolder(t))).toList(),
+                                                    .map((t) =>
+                                                        PropertyDetailSelector()
+                                                            .viewHolder(
+                                                                context, t)))
+                                                .toList(),
                                           )),
-                                    ]),    divider(),
-                              ],
-                            ))
+                                    ]),
+                                    divider(),
+                                  ],
+                                ))
                             .toList());
                   }
                   return Container();

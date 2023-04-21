@@ -35,7 +35,7 @@ class _Container1State extends State<SubNewEstate2> {
                                 widget: Wrap(
                                   children: ((e.propertyDetails ?? []).map(
                                       (t) => PropertyDetailSelector()
-                                          .viewHolder(t))).toList(),
+                                          .viewHolder(context,t))).toList(),
                                 )),
                           ],
                         ))

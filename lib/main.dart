@@ -12,6 +12,7 @@ import 'package:ntk_flutter_estate/screen/main_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/generalized/splash_screen.dart';
 import 'package:ntk_flutter_estate/screen/test2.dart';
+import 'package:ntk_flutter_estate/screen/test_checkable.dart';
 import 'package:ntk_flutter_estate/screen/test_widget.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
@@ -43,27 +44,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      supportedLocales: const [Locale("fa"), Locale("en")],
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      locale: const Locale("fa"),
-      title: "الونک",
-      theme: ThemeData(
-        primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
-      ),
-      // home: const TestWidget(),
-      home:  EstateSearchScreen(),
-      // home: const SplashScreen(),
-      // home: Test(),
-      // home:  MainScreen(),
-      // home:  SubEmptyScreen(title: "موردی یافت نشد"),
-      // home: AuthSmsConfirmScreen("09132131542"),
-      // home: NewEstateScreen(),
-      // home: NewCustomerOrderScreen(),
-      // home: ( ArticleList()),
-    );
+        supportedLocales: const [
+          Locale("fa"),
+          Locale("en")
+        ],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        locale: const Locale("fa"),
+        title: "الونک",
+        theme: ThemeData(
+          primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
+        ),
+        // home: const TestWidget(),
+        // home:  EstateSearchScreen(),
+        home: TestCheck()
+        // home: const SplashScreen(),
+        // home: Test(),
+        // home:  MainScreen(),
+        // home:  SubEmptyScreen(title: "موردی یافت نشد"),
+        // home: AuthSmsConfirmScreen("09132131542"),
+        // home: NewEstateScreen(),
+        // home: NewCustomerOrderScreen(),
+        // home: ( ArticleList()),
+        );
   }
 }

@@ -119,9 +119,11 @@ class GlobalString {
   static const String newOrder = "سفارش جدید";
   static const String reTry = "تلاش مجدد";
   static const String keywords = "کلمه کلیدی";
-  static const String testString="asdasdlmak a,amskdjal as.,dalkw";
+  static const String testString = "asdasdlmak a,amskdjal as.,dalkw";
   static const String contractProperties = "مشخصات قرارداد";
   static const String estateTypeUsageProperties = "مشخصات کاربری ملک";
+  static const String select = "انتخاب";
+
   static const String projects1 = "";
   static const String projects2 = "";
 }

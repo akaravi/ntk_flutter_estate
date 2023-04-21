@@ -32,7 +32,7 @@ class _Container1State extends State<SubNewCustomerOrder2> {
                         widget: Flexible(
                           child: Wrap(runSpacing: 8,spacing: 8,
                             children: ((e.propertyDetails ?? []).map((t) =>
-                                PropertyDetailSelector().viewHolder(t)))
+                                PropertyDetailSelector().viewHolder(context,t)))
                                 .toList(),
                           ),
                         ))
