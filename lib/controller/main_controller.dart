@@ -35,11 +35,12 @@ class MainScreenController extends BaseMainController {
     //new
     model.landUseList = await EstatePropertyTypeLandUseService()
         .getAll(FilterModel()..rowPerPage = 100);
-    model.estateList1 = await EstatePropertyService().getAll(FilterModel()
+    model.filterEstateList1=FilterModel()
       ..addFilter(FilterDataModel()..propertyName = "CreatedDate")
-      ..sortType = EnumSortType.descending);
+      ..sortType = EnumSortType.descending;
+    model.estateList1 = await EstatePropertyService().getAll(model.filterEstateList1);
     //special list
-    model.estateList2 = await EstatePropertyService().getAll(FilterModel()
+    model.filterEstateList2=FilterModel()
       ..addFilter(FilterDataModel()
         ..propertyName = "PropertyAds"
         ..propertyAnyName = "ViewLevel"
@@ -47,15 +48,17 @@ class MainScreenController extends BaseMainController {
       ..addFilter(FilterDataModel()
         ..propertyName = "PropertyAds"
         ..propertyAnyName = "StationLevel"
-        ..value = "212"));
-    //daily rent
-    model.estateList3 = await EstatePropertyService().getAll(FilterModel()
+        ..value = "212");
+    model.estateList2 = await EstatePropertyService().getAll(model.filterEstateList2);
+    model.filterEstateList3=FilterModel()
       ..addFilter(FilterDataModel()
-            ..propertyName = "Contracts"
-            ..propertyAnyName = "LinkEstateContractTypeId"
-            ..value = "68dc5e3b-7c34-4412-c071-08d972b7fc67")
-          .sortType = EnumSortType.descending);
+        ..propertyName = "Contracts"
+        ..propertyAnyName = "LinkEstateContractTypeId"
+        ..value = "68dc5e3b-7c34-4412-c071-08d972b7fc67")
+          .sortType = EnumSortType.descending;
     model.articles=await ArticleModelService().getAll(FilterModel());
+    //daily rent
+    model.estateList3 = await EstatePropertyService().getAll(model.filterEstateList3);
     return model;
   }
 
