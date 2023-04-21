@@ -325,7 +325,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       Icons.web_rounded,
     ];
     List colors = [
-     GlobalColor.colorPrimary,
+      GlobalColor.colorPrimary,
       GlobalColor.colorPrimary,
     ];
     List txt = [GlobalString.newEstate, GlobalString.newOrder];
@@ -335,52 +335,71 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
 
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
-      builder: (context) => Positioned(
-        left: offset.dx + renderBox.size.width / 3,
-        bottom: renderBox.size.height + 16,
-        child: IntrinsicWidth(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (int i = 0; i < animation.length; i++)
-                ScaleTransition(
-                  scale: animation[i],
-                  child: TextButton(
-                    onPressed: () async{
-                      await Future.delayed(const Duration(microseconds: 100))
-                          .whenComplete(() => animationController!.reverse())
-                          .whenComplete(() => overlayEntry!.remove()).whenComplete(() => i==0?NewEstateController.start(context):NewCustomerOrderController.start(context));
-
-
-                    }
-
-                    ,
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                              color: GlobalColor.colorAccentDark, width: 1)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(txt[i]),
-                          SizedBox(width: 10,),
-                          Icon(
-                            icons[i],
-                            color: colors[i],
+        builder: (context) => Stack(children: <Widget>[
+              Positioned.fill(
+                  child: GestureDetector(
+                onTap: () async {
+                  await Future.delayed(const Duration(microseconds: 100))
+                      .whenComplete(() => animationController!
+                          .reverse()
+                          .whenComplete(() => overlayEntry!.remove()));
+                },
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              )),
+              Positioned(
+                left: offset.dx + renderBox.size.width / 3,
+                bottom: renderBox.size.height + 16,
+                child: IntrinsicWidth(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i < animation.length; i++)
+                        ScaleTransition(
+                          scale: animation[i],
+                          child: TextButton(
+                            onPressed: () async {
+                              await Future.delayed(
+                                      const Duration(microseconds: 100))
+                                  .whenComplete(
+                                      () => animationController!.reverse())
+                                  .whenComplete(() => overlayEntry!.remove())
+                                  .whenComplete(() => i == 0
+                                      ? NewEstateController.start(context)
+                                      : NewCustomerOrderController.start(
+                                          context));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                      color: GlobalColor.colorAccentDark,
+                                      width: 1)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(txt[i]),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Icon(
+                                    icons[i],
+                                    color: colors[i],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
+                        )
+                    ],
                   ),
-                )
-            ],
-          ),
-        ),
-      ),
-    );
+                ),
+              ),
+            ]));
     animationController!.addListener(() {
       overlayState!.setState(() {});
     });
