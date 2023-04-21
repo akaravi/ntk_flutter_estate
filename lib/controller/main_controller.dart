@@ -32,6 +32,30 @@ class MainScreenController extends BaseMainController {
       ..rowPerPage = 10
       ..sortColumn = "id"
       ..currentPageNumber = 1);
+    //new
+    model.landUseList = await EstatePropertyTypeLandUseService()
+        .getAll(FilterModel()..rowPerPage = 100);
+    model.estateList1 = await EstatePropertyService().getAll(FilterModel()
+      ..addFilter(FilterDataModel()..propertyName = "CreatedDate")
+      ..sortType = EnumSortType.descending);
+    //special list
+    model.estateList2 = await EstatePropertyService().getAll(FilterModel()
+      ..addFilter(FilterDataModel()
+        ..propertyName = "PropertyAds"
+        ..propertyAnyName = "ViewLevel"
+        ..value = "1,2,3,4,5,6")
+      ..addFilter(FilterDataModel()
+        ..propertyName = "PropertyAds"
+        ..propertyAnyName = "StationLevel"
+        ..value = "212"));
+    //daily rent
+    model.estateList3 = await EstatePropertyService().getAll(FilterModel()
+      ..addFilter(FilterDataModel()
+            ..propertyName = "Contracts"
+            ..propertyAnyName = "LinkEstateContractTypeId"
+            ..value = "68dc5e3b-7c34-4412-c071-08d972b7fc67")
+          .sortType = EnumSortType.descending);
+    model.articles=await ArticleModelService().getAll(FilterModel());
     return model;
   }
 

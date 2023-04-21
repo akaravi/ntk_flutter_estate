@@ -132,17 +132,17 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
           Container(
             color: GlobalColor.colorBackground,
           ),
-          // SingleChildScrollView(
-          //     primary: true,
-          //     scrollDirection: Axis.vertical,
-          //     child: FutureBuilder<MainContentModel>(
-          //         future: MainScreenController().getMainData(),
-          //         builder: (context, snapshot) {
-          //           if (snapshot.hasData)
-          //             return MainData(
-          //                 context, snapshot.data ?? MainContentModel());
-          //           return Container();
-          //         })),
+          SingleChildScrollView(
+              primary: true,
+              scrollDirection: Axis.vertical,
+              child: FutureBuilder<MainContentModel>(
+                  future: MainScreenController().getMainData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData)
+                      return MainData(
+                          context, snapshot.data ?? MainContentModel());
+                    return Container();
+                  })),
           Positioned(
             bottom: 0,
             right: 0,
@@ -372,7 +372,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                           context));
                             },
                             child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
@@ -383,7 +383,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(txt[i]),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
                                   Icon(
@@ -401,14 +401,14 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               ),
             ]));
     animationController!.addListener(() {
-      overlayState!.setState(() {});
+      overlayState.setState(() {});
     });
     animationController!.forward();
-    overlayState!.insert(overlayEntry!);
+    overlayState.insert(overlayEntry!);
 
-    await Future.delayed(const Duration(seconds: 5))
-        .whenComplete(() => animationController!.reverse())
-        .whenComplete(() => overlayEntry!.remove());
+    // await Future.delayed(const Duration(seconds: 5))
+    //     .whenComplete(() => animationController!.reverse())
+    //     .whenComplete(() => overlayEntry!.remove());
   }
 
   rowWidget(
