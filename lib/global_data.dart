@@ -96,7 +96,7 @@ class GlobalString {
   static const String newEstate = "ملک جدید";
   static const String continueStr = "ادامه";
   static const String back = "بازگشت";
-  static const String add = "ثب";
+  static const String add = "ثبت نهایی";
   static const String estateCode = "کد ملک";
   static const String title = "عنوان";
   static const String desc = "توضیحات";
