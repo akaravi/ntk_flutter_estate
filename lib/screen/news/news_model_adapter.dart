@@ -128,17 +128,20 @@ class _NewsModelAdapterForMainState
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(12),
                         topLeft: Radius.circular(12)),
-                    child: Image.network(
+                    child: Image.network(width:9*GlobalData.screenWidth/10 ,
+                      height: -40+GlobalData.screenHeight/3,
                       fit: BoxFit.fill,
-                      width: 250,
                       widget.model.linkMainImageIdSrc!,
                     ),
                   ),
-                Text(
-                  widget.model.title!,
-                  maxLines: 1,
-                  style: const TextStyle(
-                      fontSize: 15, color: GlobalColor.colorTextPrimary),
+                Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Text(
+                    widget.model.title!,
+                    maxLines: 1,
+                    style: const TextStyle(
+                        fontSize: 13, color: GlobalColor.colorTextPrimary),
+                  ),
                 ),
               ]),
         ),

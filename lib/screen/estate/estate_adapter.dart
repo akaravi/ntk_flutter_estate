@@ -217,13 +217,10 @@ class _EstatePropertyVerticalAdapterState
 
 class _EstatePropertyHorizontalAdapterState
     extends _EstatePropertyVerticalAdapterState {
-  static double width = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (width == 0) {
-      width = MediaQuery.of(context).size.width * (3 / 8);
-    }
+
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
@@ -250,7 +247,7 @@ class _EstatePropertyHorizontalAdapterState
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
                           fit: BoxFit.fill,
-                          width: width,
+                          width: 2*GlobalData.screenWidth/5,
                           widget.model.linkMainImageIdSrc!,
                         ),
                       ),

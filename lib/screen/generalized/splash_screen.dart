@@ -48,6 +48,10 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+    if (GlobalData.screenWidth == -1) {
+      GlobalData.screenWidth = MediaQuery.of(context).size.width;
+      GlobalData.screenHeight = MediaQuery.of(context).size.height;
+    }
     return StreamBuilder<SplashProgress>(
         stream: SplashController().initApp(),
         builder: (context, snapshot) {
@@ -60,9 +64,9 @@ class _SplashScreenState extends State<SplashScreen>
                   intro: IntroScreen(),
                   login: AuthSmsScreen(),
                   main: MainScreen());
-                  // main: NewEstateScreen());
-                  // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
-                  // main: NewsListScreen.withFilterScreen());
+              // main: NewEstateScreen());
+              // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
+              // main: NewsListScreen.withFilterScreen());
             } else {
               return splash(splashProgress);
             }

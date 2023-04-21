@@ -50,7 +50,10 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
+    double statusBarHeight = MediaQuery
+        .of(context)
+        .padding
+        .top;
     return Scaffold(
       key: scaffoldKey,
       drawer: AppDrawer(),
@@ -70,7 +73,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                 style: ButtonStyle(
                     elevation: MaterialStateProperty.all(17),
                     backgroundColor:
-                        MaterialStateProperty.all(GlobalColor.colorAccent),
+                    MaterialStateProperty.all(GlobalColor.colorAccent),
                     shape: MaterialStateProperty.all(const CircleBorder())),
                 onPressed: () {
                   if (scaffoldKey.currentState!.isDrawerOpen) {
@@ -132,25 +135,23 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
           Container(
             color: GlobalColor.colorBackground,
           ),
-          SingleChildScrollView(
-              primary: true,
-              scrollDirection: Axis.vertical,
-              child: FutureBuilder<MainContentModel>(
-                  future: MainScreenController().getMainData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return MainData(
-                          context, snapshot.data ?? MainContentModel());
-                    }
-                    return Container();
-                  })),
+          FutureBuilder<MainContentModel>(
+              future: MainScreenController().getMainData(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Widget> mainData = MainData(
+                      context, snapshot.data ?? MainContentModel());
+                  return Column( children: mainData,);
+                }
+                return Container();
+              }),
           Positioned(
             bottom: 0,
             right: 0,
             left: 0,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
               child: Row(children: [
                 //add new
                 Expanded(
@@ -183,7 +184,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                   style: ButtonStyle(
                       elevation: MaterialStateProperty.all(17),
                       backgroundColor:
-                          MaterialStateProperty.all(GlobalColor.colorAccent),
+                      MaterialStateProperty.all(GlobalColor.colorAccent),
                       shape: MaterialStateProperty.all(const CircleBorder())),
                   onPressed: () => SearchController.start(context),
                   child: const Icon(
@@ -200,124 +201,137 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     );
   }
 
-  Widget MainData(BuildContext context, MainContentModel mainContentModel) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        //news section
-        SizedBox(
-            height: 300,
-            width: double.infinity,
-            child:
-                NewsListScreen.listOnMainScreen(items: mainContentModel.news)),
-        //landUsedProperty section
-        Card(
-            color: GlobalColor.colorBackground,
-            child: rowWidget(
-              itemsScreen: LandUsedListScreen.listOnMainScreen(
+  List<Widget> MainData(BuildContext context,
+      MainContentModel mainContentModel) {
+    return [
+      //news section
+      SizedBox(
+          width: GlobalData.screenWidth,
+          height: GlobalData.screenHeight / 3,
+          child:
+              NewsListScreen.listOnMainScreen(items: mainContentModel.news)),
+      // landUsedProperty section
+      Card(
+          color: GlobalColor.colorBackground,elevation: 18,
+          child: rowWidget(
+            itemsScreen: SizedBox(height: GlobalData.screenWidth/5,
+              child: LandUsedListScreen.listOnMainScreen(
                   items: mainContentModel.landUseList),
-              title: GlobalString.landUsedList,
-              seeAll: () => EstateLandUsedListController().newPage(
-                  context: context,
-                  newScreen: LandUsedListScreen.withFilterScreen()),
-            )),
-        //row sections
-        //todo
-        //row estateList 1
-        rowWidget(
-            itemsScreen: EstateListScreen.listOnMainScreen(
-                items: mainContentModel.estateList1),
-            title: GlobalString.newList,
-            seeAll: () => EstateListController().newPage(
-                context: context,
-                newScreen: EstateListScreen.withFilterScreen(
-                  filter: mainContentModel.filterEstateList1,
-                ))),
-        //row estateList 2
-        rowWidget(
-            itemsScreen: EstateListScreen.listOnMainScreen(
-                items: mainContentModel.estateList2),
-            title: GlobalString.suggestedEstate,
-            seeAll: () => EstateListController().newPage(
-                context: context,
-                newScreen: EstateListScreen.withFilterScreen(
-                  filter: mainContentModel.filterEstateList2,
-                ))),
-        //row estateList 3
-        rowWidget(
-            itemsScreen: EstateListScreen.listOnMainScreen(
-                items: mainContentModel.estateList3),
-            title: GlobalString.dailyRent,
-            seeAll:  () => EstateListController().newPage(
-                context: context,
-                newScreen: EstateListScreen.withFilterScreen(
-                  filter: mainContentModel.filterEstateList3,
-                ))),
-        //buttons
-        Row(
-          children: [
-            TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0)),
-                  elevation: 17,
-                  backgroundColor: GlobalColor.colorBackground),
-              onPressed: () => CompanyListScreen.withFilterScreen(),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(GlobalString.companies,
-                      style: TextStyle(
-                          color: GlobalColor.colorPrimary, fontSize: 16)),
-                  SizedBox(width: 50),
-                  Image.asset(
-                    "assets/drawable/constructor.png",
-                    color: GlobalColor.colorPrimary,
-                    width: 34,
-                  ),
-                ],
-              ),
             ),
-            TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0)),
-                  elevation: 17,
-                  backgroundColor: GlobalColor.colorBackground),
-              onPressed: () => ProjectListScreen.withFilterScreen(),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(GlobalString.projects,
-                      style: TextStyle(
-                          color: GlobalColor.colorPrimary, fontSize: 16)),
-                  SizedBox(width: 50),
-                  Image.asset(
-                    "assets/drawable/projects.png",
-                    color: GlobalColor.colorPrimary,
-                    width: 34,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        //articles
-        rowWidget(
-            itemsScreen: ArticleListScreen.listOnMainScreen(
-                items: mainContentModel.articles),
-            title: GlobalString.article,
-            seeAll: () => ArticleController().newPage(
-                context: context,
-                newScreen:  ArticleListScreen.withFilterScreen())),
-        //spacer because of see search and new... btn
-        SizedBox(
-          height: 120,
-        )
-      ],
-    );
+            title: GlobalString.landUsedList,
+            seeAll: () =>
+                EstateLandUsedListController().newPage(
+                    context: context,
+                    newScreen: LandUsedListScreen.withFilterScreen()),
+          )),
+      //     //row sections
+      //     //todo
+      //     //row estateList 1
+      //     SizedBox(
+      //         height: GlobalData.screenHeight/4,
+      //         width:GlobalData.screenWidth,
+      //         child: rowWidget(
+      //             itemsScreen: EstateListScreen.listOnMainScreen(
+      //                 items: mainContentModel.estateList1),
+      //             title: GlobalString.newList,
+      //             seeAll: () => EstateListController().newPage(
+      //                 context: context,
+      //                 newScreen: EstateListScreen.withFilterScreen(
+      //                   filter: mainContentModel.filterEstateList1,
+      //                 )))),
+      //     //row estateList 2
+      // SizedBox(
+      // height: 300,
+      // width: double.infinity,
+      // child:  rowWidget(
+      //         itemsScreen: EstateListScreen.listOnMainScreen(
+      //             items: mainContentModel.estateList2),
+      //         title: GlobalString.suggestedEstate,
+      //         seeAll: () => EstateListController().newPage(
+      //             context: context,
+      //             newScreen: EstateListScreen.withFilterScreen(
+      //               filter: mainContentModel.filterEstateList2,
+      //             )))),
+      //     //row estateList 3
+      // SizedBox(
+      // height: 300,
+      // width: double.infinity,
+      // child:rowWidget(
+      //         itemsScreen: EstateListScreen.listOnMainScreen(
+      //             items: mainContentModel.estateList3),
+      //         title: GlobalString.dailyRent,
+      //         seeAll: () => EstateListController().newPage(
+      //             context: context,
+      //             newScreen: EstateListScreen.withFilterScreen(
+      //               filter: mainContentModel.filterEstateList3,
+      //             )))),
+      //     //buttons
+      //     Row(
+      //       children: [
+      //         TextButton(
+      //           style: TextButton.styleFrom(
+      //               shape: RoundedRectangleBorder(
+      //                   borderRadius: BorderRadius.circular(24.0)),
+      //               elevation: 17,
+      //               backgroundColor: GlobalColor.colorBackground),
+      //           onPressed: () => CompanyListScreen.withFilterScreen(),
+      //           child: Row(
+      //             mainAxisSize: MainAxisSize.min,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               const Text(GlobalString.companies,
+      //                   style: TextStyle(
+      //                       color: GlobalColor.colorPrimary, fontSize: 16)),
+      //               SizedBox(width: 50),
+      //               Image.asset(
+      //                 "assets/drawable/constructor.png",
+      //                 color: GlobalColor.colorPrimary,
+      //                 width: 34,
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //         TextButton(
+      //           style: TextButton.styleFrom(
+      //               shape: RoundedRectangleBorder(
+      //                   borderRadius: BorderRadius.circular(24.0)),
+      //               elevation: 17,
+      //               backgroundColor: GlobalColor.colorBackground),
+      //           onPressed: () => ProjectListScreen.withFilterScreen(),
+      //           child: Row(
+      //             mainAxisSize: MainAxisSize.min,
+      //             crossAxisAlignment: CrossAxisAlignment.center,
+      //             children: [
+      //               const Text(GlobalString.projects,
+      //                   style: TextStyle(
+      //                       color: GlobalColor.colorPrimary, fontSize: 16)),
+      //               SizedBox(width: 50),
+      //               Image.asset(
+      //                 "assets/drawable/projects.png",
+      //                 color: GlobalColor.colorPrimary,
+      //                 width: 34,
+      //               ),
+      //             ],
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //     //articles
+      //     SizedBox(
+      //     height: 300,
+      //     width: double.infinity,
+      // child:rowWidget(
+      //         itemsScreen: ArticleListScreen.listOnMainScreen(
+      //             items: mainContentModel.articles),
+      //         title: GlobalString.article,
+      //         seeAll: () => ArticleController().newPage(
+      //             context: context,
+      //             newScreen: ArticleListScreen.withFilterScreen()))),
+      //     //spacer because of see search and new... btn
+      //     const SizedBox(
+      //       height: 120,
+      //     )
+    ];
   }
 
   _showOverLay() async {
@@ -331,24 +345,26 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     ];
     List txt = [GlobalString.newEstate, GlobalString.newOrder];
     RenderBox? renderBox =
-        globalKey.currentContext!.findRenderObject() as RenderBox?;
+    globalKey.currentContext!.findRenderObject() as RenderBox?;
     Offset offset = renderBox!.localToGlobal(Offset.zero);
 
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
-        builder: (context) => Stack(children: <Widget>[
+        builder: (context) =>
+            Stack(children: <Widget>[
               Positioned.fill(
                   child: GestureDetector(
-                onTap: () async {
-                  await Future.delayed(const Duration(microseconds: 100))
-                      .whenComplete(() => animationController!
-                          .reverse()
-                          .whenComplete(() => overlayEntry!.remove()));
-                },
-                child: Container(
-                  color: Colors.transparent,
-                ),
-              )),
+                    onTap: () async {
+                      await Future.delayed(const Duration(microseconds: 100))
+                          .whenComplete(() =>
+                          animationController!
+                              .reverse()
+                              .whenComplete(() => overlayEntry!.remove()));
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
+                  )),
               Positioned(
                 left: offset.dx + renderBox.size.width / 3,
                 bottom: renderBox.size.height + 16,
@@ -363,14 +379,15 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                           child: TextButton(
                             onPressed: () async {
                               await Future.delayed(
-                                      const Duration(microseconds: 100))
+                                  const Duration(microseconds: 100))
                                   .whenComplete(
                                       () => animationController!.reverse())
                                   .whenComplete(() => overlayEntry!.remove())
-                                  .whenComplete(() => i == 0
-                                      ? NewEstateController.start(context)
-                                      : NewCustomerOrderController.start(
-                                          context));
+                                  .whenComplete(() =>
+                              i == 0
+                                  ? NewEstateController.start(context)
+                                  : NewCustomerOrderController.start(
+                                  context));
                             },
                             child: Container(
                               padding: const EdgeInsets.all(8),
@@ -381,7 +398,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                       width: 1)),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(txt[i]),
                                   const SizedBox(
@@ -412,10 +429,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     //     .whenComplete(() => overlayEntry!.remove());
   }
 
-  rowWidget(
-      {required Widget itemsScreen,
-      required String title,
-      required void Function() seeAll}) {
+  rowWidget({required Widget itemsScreen,
+    required String title,
+    required void Function() seeAll}) {
     return Column(
       children: [
         Row(

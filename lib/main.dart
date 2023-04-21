@@ -13,6 +13,7 @@ import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/generalized/splash_screen.dart';
 import 'package:ntk_flutter_estate/screen/test2.dart';
 import 'package:ntk_flutter_estate/screen/test_checkable.dart';
+import 'package:ntk_flutter_estate/screen/test_scroll.dart';
 import 'package:ntk_flutter_estate/screen/test_widget.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
     return MaterialApp(
         supportedLocales: const [
           Locale("fa"),
@@ -62,6 +65,7 @@ class MyApp extends StatelessWidget {
         // home:  EstateSearchScreen(),
         // home: TestCheck()
         home: const SplashScreen(),
+        // home: const TestScroll(),
         // home: Test(),
         // home:  MainScreen(),
         // home:  SubEmptyScreen(title: "موردی یافت نشد"),

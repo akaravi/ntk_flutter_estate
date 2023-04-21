@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class GlobalData {
   static const int appVersion = 2;
   static const String appName = "املاک آلونک";
+  static  double screenWidth=-1;
+  static double screenHeight=-1;
 }
 
 class GlobalColor {
@@ -79,7 +81,7 @@ class GlobalString {
   static const String addDotDotDot = "ثبت . . .";
   static const String landUsedList = "دسته بندی املاک";
   static const String seeAll = "مشاهده همه";
-  static const String newList = "حدیدترین";
+  static const String newList = "جدیدترین";
   static const String suggestedEstate = "پیشنهادی";
   static const String dailyRent = "اجاره روزانه";
   static const String companies = "انبوه سازان";

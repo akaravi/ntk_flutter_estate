@@ -38,27 +38,24 @@ class _LandUsedVerticalAdapterState
 
 class _EstatePropertyHorizontalAdapterState
     extends BaseEntityAdapterEstate<LandUsePropertyAdapter> {
-  static double width = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (width == 0) {
-      width = MediaQuery.of(context).size.width * (3 / 8);
-    }
     return InkWell(
       onTap: () async => widget.estateList(context),
       child: Padding(
         padding: const EdgeInsets.all(2),
         child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (widget.model.linkMainImageIdSrc != null)
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: Image.network(
                     fit: BoxFit.fill,
-                    width: 250,
+                    width: GlobalData.screenWidth*((1 / 8)),
+                    height: GlobalData.screenWidth*((1 / 8)),
                     widget.model.linkMainImageIdSrc!,
                   ),
                 ),
@@ -66,7 +63,7 @@ class _EstatePropertyHorizontalAdapterState
                 widget.model.title!,
                 maxLines: 1,
                 style: const TextStyle(
-                    fontSize: 15, color: GlobalColor.colorTextPrimary),
+                    fontSize: 11, color: GlobalColor.colorTextPrimary),
               ),
             ]),
       ),
