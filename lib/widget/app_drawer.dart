@@ -28,7 +28,7 @@ class AppDrawer extends StatelessWidget {
                             color: GlobalColor.colorPrimary),
                         child:
                             //user is login in app
-                            Column(
+                            Column(mainAxisSize: MainAxisSize.min,   mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             iconHeader(),
                             Text(
@@ -36,7 +36,11 @@ class AppDrawer extends StatelessWidget {
                               style: const TextStyle(
                                   color: GlobalColor.colorAccent, fontSize: 14),
                             ),
-                            Text(userModel.userId),
+                            Text(
+                              userModel.userId,
+                              style: const TextStyle(
+                                  color: GlobalColor.colorAccent, fontSize: 14),
+                            ),
                             TextButton(
                                 style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -45,9 +49,8 @@ class AppDrawer extends StatelessWidget {
                                   backgroundColor: GlobalColor.colorAccent,
                                 ),
                                 child: Container(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  alignment: Alignment.center,
-                                  child: Row(
+                                      padding: EdgeInsets.only(left: 18,right: 18),
+                                  child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
                                           (userModel.isLogin)
@@ -165,7 +168,7 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.help,
         icon: "assets/drawable/intro2.png",
-        page: IntroScreen(asHelpScreen:true)));
+        page: IntroScreen(asHelpScreen: true)));
     if (allowDirectShareApp) {
       items.add(_DrawerItem(
           name: GlobalString.inviteFriend,
