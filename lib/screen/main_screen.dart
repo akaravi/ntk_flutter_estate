@@ -138,9 +138,10 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               child: FutureBuilder<MainContentModel>(
                   future: MainScreenController().getMainData(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData)
+                    if (snapshot.hasData) {
                       return MainData(
                           context, snapshot.data ?? MainContentModel());
+                    }
                     return Container();
                   })),
           Positioned(
@@ -227,7 +228,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             itemsScreen: EstateListScreen.listOnMainScreen(
                 items: mainContentModel.estateList1),
             title: GlobalString.newList,
-            seeAll: EstateListController().newPage(
+            seeAll: () => EstateListController().newPage(
                 context: context,
                 newScreen: EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList1,
@@ -237,7 +238,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             itemsScreen: EstateListScreen.listOnMainScreen(
                 items: mainContentModel.estateList2),
             title: GlobalString.suggestedEstate,
-            seeAll: EstateListController().newPage(
+            seeAll: () => EstateListController().newPage(
                 context: context,
                 newScreen: EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList2,
@@ -247,7 +248,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             itemsScreen: EstateListScreen.listOnMainScreen(
                 items: mainContentModel.estateList3),
             title: GlobalString.dailyRent,
-            seeAll: EstateListController().newPage(
+            seeAll:  () => EstateListController().newPage(
                 context: context,
                 newScreen: EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList3,
@@ -308,9 +309,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             itemsScreen: ArticleListScreen.listOnMainScreen(
                 items: mainContentModel.articles),
             title: GlobalString.article,
-            seeAll: ArticleController().newPage(
+            seeAll: () => ArticleController().newPage(
                 context: context,
-                newScreen: ArticleListScreen.withFilterScreen())),
+                newScreen:  ArticleListScreen.withFilterScreen())),
         //spacer because of see search and new... btn
         SizedBox(
           height: 120,
@@ -424,7 +425,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               child: Container(),
             ),
             TextButton(
-                onPressed: seeAll, child: const Text(GlobalString.seeAll))
+                onPressed: () => seeAll, child: const Text(GlobalString.seeAll))
           ],
         ),
         itemsScreen
