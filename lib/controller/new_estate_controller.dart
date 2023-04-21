@@ -1,6 +1,6 @@
 import 'package:base/src/index.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
@@ -79,6 +79,12 @@ class NewEstateController {
         await CoreCurrencyService().getAll(FilterModel()..rowPerPage = 100);
     selectedCurrency = data.currencyList[0];
     return data;
+  }
+
+  static start(BuildContext context) {
+    Future.microtask(() =>
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => NewEstateScreen())));
   }
 }
 

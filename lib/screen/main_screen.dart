@@ -1,6 +1,8 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
+import 'package:ntk_flutter_estate/controller/new_customer_order_controller.dart';
+import 'package:ntk_flutter_estate/controller/new_estate_controller.dart';
 import 'package:ntk_flutter_estate/controller/search_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
@@ -31,14 +33,6 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   AnimationController? animationController;
   List animation = [];
-  List icons = [
-    Icons.add_home,
-    Icons.web_rounded,
-  ];
-  List colors = [
-    Colors.green,
-    Colors.blueGrey,
-  ];
   OverlayEntry? overlayEntry;
   GlobalKey globalKey = GlobalKey();
 
@@ -105,7 +99,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                             vertical: 4.0, horizontal: 8),
                         child: Container(
                           height: 40,
-                          child: TextField(controller: _searchController,
+                          child: TextField(
+                            controller: _searchController,
                             textInputAction: TextInputAction.search,
                             maxLines: 1,
                             style: const TextStyle(fontSize: 17),
@@ -116,7 +111,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                   child: const Icon(Icons.search,
                                       color: GlobalColor.colorPrimary),
                                   onTap: () {
-                                    MainScreenController.searchWithText(context,_searchController.text);
+                                    MainScreenController.searchWithText(
+                                        context, _searchController.text);
                                   }),
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
@@ -168,7 +164,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(GlobalString.addDotDotDot,
                             style: TextStyle(
                                 color: GlobalColor.colorPrimary, fontSize: 16)),
@@ -324,6 +320,15 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
   }
 
   _showOverLay() async {
+    List icons = [
+      Icons.add_home,
+      Icons.web_rounded,
+    ];
+    List colors = [
+     GlobalColor.colorPrimary,
+      GlobalColor.colorPrimary,
+    ];
+    List txt = [GlobalString.newEstate, GlobalString.newOrder];
     RenderBox? renderBox =
         globalKey.currentContext!.findRenderObject() as RenderBox?;
     Offset offset = renderBox!.localToGlobal(Offset.zero);
@@ -331,27 +336,48 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        left: offset.dx,
+        left: offset.dx + renderBox.size.width / 3,
         bottom: renderBox.size.height + 16,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (int i = 0; i < animation.length; i++)
-              ScaleTransition(
-                scale: animation[i],
-                child: FloatingActionButton(
-                  onPressed: () {
-                    //todo add page
-                  },
-                  child: Icon(
-                    icons[i],
+        child: IntrinsicWidth(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (int i = 0; i < animation.length; i++)
+                ScaleTransition(
+                  scale: animation[i],
+                  child: TextButton(
+                    onPressed: () async{
+                      await Future.delayed(const Duration(microseconds: 100))
+                          .whenComplete(() => animationController!.reverse())
+                          .whenComplete(() => overlayEntry!.remove()).whenComplete(() => i==0?NewEstateController.start(context):NewCustomerOrderController.start(context));
+
+
+                    }
+
+                    ,
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                              color: GlobalColor.colorAccentDark, width: 1)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(txt[i]),
+                          SizedBox(width: 10,),
+                          Icon(
+                            icons[i],
+                            color: colors[i],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  backgroundColor: colors[i],
-                  mini: true,
-                ),
-              )
-          ],
+                )
+            ],
+          ),
         ),
       ),
     );

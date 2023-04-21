@@ -1,7 +1,7 @@
 
 import 'package:base/src/index.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
 
 class NewCustomerOrderController {
   EstatePropertyModel item;
@@ -80,6 +80,12 @@ class NewCustomerOrderController {
     await CoreCurrencyService().getAll(FilterModel()..rowPerPage = 100);
     selectedCurrency = data.currencyList[0];
     return data;
+  }
+
+    static start(BuildContext context) {
+      Future.microtask(() =>
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => NewCustomerOrderScreen())));
   }
 }
 
