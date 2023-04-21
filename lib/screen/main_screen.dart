@@ -1,6 +1,7 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
+import 'package:ntk_flutter_estate/controller/search_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/company/comany_list_screen.dart';
@@ -187,7 +188,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                       backgroundColor:
                           MaterialStateProperty.all(GlobalColor.colorAccent),
                       shape: MaterialStateProperty.all(const CircleBorder())),
-                  onPressed: () => EstateSearchScreen(),
+                  onPressed: () => SearchController.start(context),
                   child: const Icon(
                     Icons.search,
                     color: GlobalColor.colorPrimary,
