@@ -15,24 +15,27 @@ class _TestScrollState extends State<TestScroll> {
   @override
   Widget build(BuildContext context) {
     GlobalData.screenWidth = MediaQuery.of(context).size.width;
-    return FutureBuilder<List<EstatePropertyModel>>(
-        future: EstatePropertyService().getAll(FilterModel()),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: [
-                sd(snapshot.data ?? []),
-                Expanded(child: sd(snapshot.data ?? []))
-              ],
-            );
-          }
-          return Container();
-        });
+    GlobalData.screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: FutureBuilder<List<EstatePropertyModel>>(
+          future: EstatePropertyService().getAll(FilterModel()),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(shrinkWrap: true,
+                children: [
+                  Expanded(child: sd(snapshot.data ?? [])),
+                  sd(snapshot.data ?? [])
+                ],
+              );
+            }
+            return Container();
+          }),
+    );
   }
 
   sd(List<EstatePropertyModel> landUseList) {
     return rowWidget(
-        itemsScreen: SizedBox( height: 3 * GlobalData.screenWidth / 7,
+        itemsScreen: SizedBox(width: GlobalData.screenWidth, height: 3 * GlobalData.screenWidth / 6,
             child: EstateListScreen.listOnMainScreen(items:  landUseList)),
         title: GlobalString.landUsedList,
         seeAll: () => {});

@@ -45,8 +45,9 @@ class _ArticleModelAdapterState extends BaseEntityAdapterEstate<ArticleModelAdap
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    fit: BoxFit.contain,
-                    width: 300,
+                    fit: BoxFit.cover,
+                    width: GlobalData.screenWidth-60,
+                    height: 80,
                     widget.model.linkMainImageIdSrc!,
                   ),
                 ),

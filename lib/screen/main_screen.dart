@@ -227,107 +227,120 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       //     //todo
       //     //row estateList 1
       if (mainContentModel.estateList1.isNotEmpty)
-            rowWidget(
-                itemsScreen: EstateListScreen.listOnMainScreen(
-                    items: mainContentModel.estateList1),
-                title: GlobalString.newList,
-                seeAll: () => EstateListController().newPage(
-                    context: context,
-                    newScreen: EstateListScreen.withFilterScreen(
-                      filter: mainContentModel.filterEstateList1,
-                    ))),
+        rowWidget(
+            itemsScreen: SizedBox(
+              width: GlobalData.screenWidth,
+              height: 3 * GlobalData.screenWidth / 6,
+              child: EstateListScreen.listOnMainScreen(
+                  items: mainContentModel.estateList1),
+            ),
+            title: GlobalString.newList,
+            seeAll: () => EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList1,
+                ))),
       //     //row estateList 2
       rowWidget(
-              itemsScreen: SizedBox(   height: 3*GlobalData.screenHeight /5,
-
-                child: EstateListScreen.listOnMainScreen(
-                    items: mainContentModel.estateList2),
-              ),
-              title: GlobalString.suggestedEstate,
-              seeAll: () => EstateListController().newPage(
-                  context: context,
-                  newScreen: EstateListScreen.withFilterScreen(
-                    filter: mainContentModel.filterEstateList2,
-                  ))),
+          itemsScreen: SizedBox(
+            width: GlobalData.screenWidth,
+            height: 3 * GlobalData.screenWidth / 6,
+            child: EstateListScreen.listOnMainScreen(
+                items: mainContentModel.estateList2),
+          ),
+          title: GlobalString.suggestedEstate,
+          seeAll: () => EstateListController().newPage(
+              context: context,
+              newScreen: EstateListScreen.withFilterScreen(
+                filter: mainContentModel.filterEstateList2,
+              ))),
       //     //row estateList 3
-      // SizedBox(
-      // height: 300,
-      // width: double.infinity,
-      // child:rowWidget(
-      //         itemsScreen: EstateListScreen.listOnMainScreen(
-      //             items: mainContentModel.estateList3),
-      //         title: GlobalString.dailyRent,
-      //         seeAll: () => EstateListController().newPage(
-      //             context: context,
-      //             newScreen: EstateListScreen.withFilterScreen(
-      //               filter: mainContentModel.filterEstateList3,
-      //             )))),
+
+      rowWidget(
+          itemsScreen: SizedBox(
+            width: GlobalData.screenWidth,
+            height: 3 * GlobalData.screenWidth / 6,
+            child: EstateListScreen.listOnMainScreen(
+                items: mainContentModel.estateList3),
+          ),
+          title: GlobalString.dailyRent,
+          seeAll: () => EstateListController().newPage(
+              context: context,
+              newScreen: EstateListScreen.withFilterScreen(
+                filter: mainContentModel.filterEstateList3,
+              ))),
       //     //buttons
-      //     Row(
-      //       children: [
-      //         TextButton(
-      //           style: TextButton.styleFrom(
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.circular(24.0)),
-      //               elevation: 17,
-      //               backgroundColor: GlobalColor.colorBackground),
-      //           onPressed: () => CompanyListScreen.withFilterScreen(),
-      //           child: Row(
-      //             mainAxisSize: MainAxisSize.min,
-      //             crossAxisAlignment: CrossAxisAlignment.center,
-      //             children: [
-      //               const Text(GlobalString.companies,
-      //                   style: TextStyle(
-      //                       color: GlobalColor.colorPrimary, fontSize: 16)),
-      //               SizedBox(width: 50),
-      //               Image.asset(
-      //                 "assets/drawable/constructor.png",
-      //                 color: GlobalColor.colorPrimary,
-      //                 width: 34,
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //         TextButton(
-      //           style: TextButton.styleFrom(
-      //               shape: RoundedRectangleBorder(
-      //                   borderRadius: BorderRadius.circular(24.0)),
-      //               elevation: 17,
-      //               backgroundColor: GlobalColor.colorBackground),
-      //           onPressed: () => ProjectListScreen.withFilterScreen(),
-      //           child: Row(
-      //             mainAxisSize: MainAxisSize.min,
-      //             crossAxisAlignment: CrossAxisAlignment.center,
-      //             children: [
-      //               const Text(GlobalString.projects,
-      //                   style: TextStyle(
-      //                       color: GlobalColor.colorPrimary, fontSize: 16)),
-      //               SizedBox(width: 50),
-      //               Image.asset(
-      //                 "assets/drawable/projects.png",
-      //                 color: GlobalColor.colorPrimary,
-      //                 width: 34,
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ],
-      //     ),
+      IntrinsicHeight(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0)),
+                    elevation: 17,
+                    backgroundColor: GlobalColor.colorBackground),
+                onPressed: () => CompanyListScreen.withFilterScreen(),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(GlobalString.companies,
+                        style: TextStyle(
+                            color: GlobalColor.colorPrimary, fontSize: 16)),
+                    SizedBox(width: 50),
+                    Image.asset(
+                      "assets/drawable/constructor.png",
+                      color: GlobalColor.colorPrimary,
+                      width: 34,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0)),
+                    elevation: 17,
+                    backgroundColor: GlobalColor.colorBackground),
+                onPressed: () => ProjectListScreen.withFilterScreen(),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(GlobalString.projects,
+                        style: TextStyle(
+                            color: GlobalColor.colorPrimary, fontSize: 16)),
+                    SizedBox(width: 50),
+                    Image.asset(
+                      "assets/drawable/projects.png",
+                      color: GlobalColor.colorPrimary,
+                      width: 34,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       //     //articles
-      //     SizedBox(
-      //     height: 300,
-      //     width: double.infinity,
-      // child:rowWidget(
-      //         itemsScreen: ArticleListScreen.listOnMainScreen(
-      //             items: mainContentModel.articles),
-      //         title: GlobalString.article,
-      //         seeAll: () => ArticleController().newPage(
-      //             context: context,
-      //             newScreen: ArticleListScreen.withFilterScreen()))),
-      //     //spacer because of see search and new... btn
-      //     const SizedBox(
-      //       height: 120,
-      //     )
+      rowWidget(
+          itemsScreen: SizedBox(width: GlobalData.screenWidth-40,height: 100,
+            child: ArticleListScreen.listOnMainScreen(
+                items: mainContentModel.articles),
+          ),
+          title: GlobalString.article,
+          seeAll: () => ArticleController().newPage(
+              context: context,
+              newScreen: ArticleListScreen.withFilterScreen())),
+      //spacer because of see search and new... btn
+      const SizedBox(
+        height: 120,
+      )
     ];
   }
 
