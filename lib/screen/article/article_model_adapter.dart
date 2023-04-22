@@ -11,7 +11,8 @@ class ArticleModelAdapter extends BaseEntityAdapter<ArticleContentModel> {
   ArticleModelAdapter._(
       {required super.model, super.key, required super.stateCreator});
 
-  factory ArticleModelAdapter.verticalType({required ArticleContentModel model}) {
+  factory ArticleModelAdapter.verticalType(
+      {required ArticleContentModel model}) {
     return ArticleModelAdapter._(
         model: model, stateCreator: () => _ArticleModelAdapterState());
   }
@@ -27,88 +28,7 @@ class ArticleModelAdapter extends BaseEntityAdapter<ArticleContentModel> {
   }
 }
 
-class _ArticleModelAdapterState extends BaseEntityAdapterEstate<ArticleModelAdapter> {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: InkWell(
-        onTap: () async => _launchURL(context),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.model.linkMainImageIdSrc != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    fit: BoxFit.cover,
-                    width: GlobalData.screenWidth-60,
-                    height: 80,
-                    widget.model.linkMainImageIdSrc!,
-                  ),
-                ),
-              Text(
-                widget.model.title!,
-                maxLines: 1,
-                style: const TextStyle(
-                    fontSize: 15, color: GlobalColor.colorTextPrimary),
-              ),
-              Text(
-                widget.model.description!,
-                maxLines: 1,
-                style: const TextStyle(
-                    fontSize: 15, color: GlobalColor.colorTextPrimary),
-              ),
-              Row(
-                children: [
-                  StarDisplay(
-                      ViewCount: widget.model.viewCount,
-                      ScoreSumPercent: widget.model.scoreSumPercent,
-                      color: GlobalColor.colorAccent),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Text(
-                      widget.model.viewCount.toString(),
-                      style: const TextStyle(
-                          fontSize: 15, color: GlobalColor.colorAccent),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.remove_red_eye,
-                    size: 15,
-                    color: GlobalColor.colorAccent,
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _launchURL(BuildContext context) async {
-    final url = 'https://raywenderlich.com/redirect?uri=${widget.model.source}';
-    if (Platform.isIOS || await canLaunch(url)) {
-      await launch(url);
-    } else {
-      // Scaffold.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Could\'nt launch the article\'s URL.'),
-      //   ),
-      // );
-    }
-  }
-}
-
-class _ArticleModelAdapterForMainState
+class _ArticleModelAdapterState
     extends BaseEntityAdapterEstate<ArticleModelAdapter> {
   @override
   Widget build(BuildContext context) {
@@ -142,6 +62,65 @@ class _ArticleModelAdapterForMainState
                       fontSize: 15, color: GlobalColor.colorTextPrimary),
                 ),
               ]),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchURL(BuildContext context) async {
+    final url = 'https://raywenderlich.com/redirect?uri=${widget.model.source}';
+    if (Platform.isIOS || await canLaunch(url)) {
+      await launch(url);
+    } else {
+      // Scaffold.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text('Could\'nt launch the article\'s URL.'),
+      //   ),
+      // );
+    }
+  }
+}
+
+class _ArticleModelAdapterForMainState
+    extends BaseEntityAdapterEstate<ArticleModelAdapter> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: GlobalData.screenWidth-80,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: InkWell(
+          onTap: () async => widget.detailScreen(context),
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.model.linkMainImageIdSrc != null)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      fit: BoxFit.cover,
+                      width: GlobalData.screenWidth / 8,
+                      height: GlobalData.screenWidth / 8,
+                      widget.model.linkMainImageIdSrc!,
+                    ),
+                  ),
+                Center(
+                  child: Expanded(
+                    child: Text(
+                      widget.model.title!,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                          fontSize: 15, color: GlobalColor.colorTextPrimary),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

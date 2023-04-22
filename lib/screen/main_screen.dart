@@ -329,7 +329,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       ),
       //     //articles
       rowWidget(
-          itemsScreen: SizedBox(width: GlobalData.screenWidth-40,height: 100,
+          itemsScreen: SizedBox(width: GlobalData.screenWidth-40,height:  20+GlobalData.screenWidth / 8,
             child: ArticleListScreen.listOnMainScreen(
                 items: mainContentModel.articles),
           ),
