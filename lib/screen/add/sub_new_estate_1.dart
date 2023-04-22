@@ -200,11 +200,11 @@ mixin Sub {
         keyboardType: keyboardType ?? TextInputType.number,
         decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: GlobalColor.colorPrimary, width: 1),
+              borderSide: const BorderSide(color: GlobalColor.colorPrimary, width: 1),
               borderRadius: BorderRadius.circular(16),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: GlobalColor.colorPrimary, width: 1),
+              borderSide: const BorderSide(color: GlobalColor.colorPrimary, width: 1),
               borderRadius: BorderRadius.circular(16),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.auto,

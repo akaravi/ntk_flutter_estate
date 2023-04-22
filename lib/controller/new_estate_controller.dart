@@ -68,13 +68,21 @@ class NewEstateController {
   }
 
   Future<Sub2Data> subTowLoad() async {
-    Sub2Data data = Sub2Data();
-    data.propertydetailGroups =
-        await EstatePropertyDetailGroupService().getAll(FilterModel()
-          ..addFilter(FilterDataModel()
-            ..setPropertyName("linkPropertyTypeLanduseId")
-            ..value = item.propertyTypeLanduse?.id ?? ""));
-    return data;
+    if (item.propertyDetailGroups == null) {
+      Sub2Data data = Sub2Data();
+      data.propertydetailGroups =
+          await EstatePropertyDetailGroupService().getAll(FilterModel()
+            ..addFilter(FilterDataModel()
+              ..setPropertyName("linkPropertyTypeLanduseId")
+              ..value = item.propertyTypeLanduse?.id ?? ""));
+      item.propertyDetailGroups = data.propertydetailGroups;
+      return data;
+    } else {
+      await Future.delayed(const Duration(microseconds: 1000));
+      Sub2Data data = Sub2Data();
+      data.propertydetailGroups = item.propertyDetailGroups ?? [];
+      return data;
+    }
   }
 
   Future<Sub4Data> subFourLoad() async {
