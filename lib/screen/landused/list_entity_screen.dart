@@ -166,7 +166,7 @@ class _ListOnlyState<model> extends State<EntityListScreen<model>> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(scrollDirection: Axis.horizontal,
+    return ListView.builder(clipBehavior: Clip.none,scrollDirection: Axis.horizontal,
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           return widget.controller.widgetAdapter(context, items[index], index);

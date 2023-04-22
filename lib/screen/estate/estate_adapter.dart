@@ -218,48 +218,50 @@ class _EstatePropertyHorizontalAdapterState
     extends _EstatePropertyVerticalAdapterState {
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 12,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: SizedBox(
-            width: 2 * GlobalData.screenWidth / 5,
-            child: InkWell(
-              onTap: () async => viewDetail(context),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //1st's is iamge
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        fit: BoxFit.cover,
-                        width: 2 * GlobalData.screenWidth / 5,
-                        height: 2*GlobalData.screenHeight / 7,
-                        widget.model.linkMainImageIdSrc!,
-                      )),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  //title and price container
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          widget.model.title!,
-                          maxLines: 1,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: GlobalColor.colorTextPrimary),
-                        ),
-                        ...ContractWidget().getPriceWidget(widget.model)
-                      ],
+    return Container(margin: EdgeInsets.only(bottom: 8),
+      child: Card(
+          elevation: 30,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: SizedBox(
+              width: 2 * GlobalData.screenWidth / 5,
+              child: InkWell(
+                onTap: () async => viewDetail(context),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //1st's is iamge
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          fit: BoxFit.cover,
+                          width: 2 * GlobalData.screenWidth / 5,
+                          height: 2*GlobalData.screenHeight / 7,
+                          widget.model.linkMainImageIdSrc!,
+                        )),
+                    const SizedBox(
+                      width: 4,
                     ),
-                  ),
-                ],
-              ),
-            )));
+                    //title and price container
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.model.title!,
+                            maxLines: 1,
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: GlobalColor.colorTextPrimary),
+                          ),
+                          ...ContractWidget().getPriceWidget(widget.model)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ))),
+    );
   }
 }

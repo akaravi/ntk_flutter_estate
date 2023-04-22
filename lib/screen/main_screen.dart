@@ -232,14 +232,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       //     //row estateList 1
 
       if (mainContentModel.estateList1.isNotEmpty) ...[
-        Material(
-            color: Colors.transparent,
-            clipBehavior: Clip.none,
-            elevation: 70,
-            child: SizedBox(
-              width: GlobalData.screenWidth,
-              height: 10,
-            )),
+
         rowWidget(
             itemsScreen: SizedBox(
               width: GlobalData.screenWidth,
@@ -259,10 +252,10 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
         Material(
             color: Colors.transparent,
             clipBehavior: Clip.none,
-            elevation: 70,
+            elevation: 60,
             child: SizedBox(
               width: GlobalData.screenWidth,
-              height: 10,
+              height: 20,
             )),
         rowWidget(
             itemsScreen: SizedBox(
