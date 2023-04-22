@@ -105,7 +105,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                             maxLines: 1,
                             style: const TextStyle(fontSize: 17),
                             textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(fillColor: Colors.transparent,
+                            decoration: InputDecoration(
+                              fillColor: Colors.transparent,
                               filled: true,
                               prefixIcon: InkWell(
                                   child: const Icon(Icons.search,
@@ -130,7 +131,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       body: Stack(
         children: [
           Container(
-            color: GlobalColor.colorBackground,
+            color: GlobalColor.colorSemiBackground,
           ),
           FutureBuilder<MainContentModel>(
               future: MainScreenController().getMainData(),
@@ -205,32 +206,44 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     return [
       //news section
       SizedBox(
-          width: GlobalData.screenWidth,
+          width: GlobalData.screenWidth + 10,
           height: GlobalData.screenHeight / 3,
           child: NewsListScreen.listOnMainScreen(items: mainContentModel.news)),
       // landUsedProperty section
-      Card(
-          color: GlobalColor.colorBackground,
-          elevation: 18,
-          child: rowWidget(
-            itemsScreen: SizedBox(
-              height: GlobalData.screenWidth / 5,
-              child: LandUsedListScreen.listOnMainScreen(
-                  items: mainContentModel.landUseList),
-            ),
-            title: GlobalString.landUsedList,
-            seeAll: () => EstateLandUsedListController().newPage(
-                context: context,
-                newScreen: LandUsedListScreen.withFilterScreen()),
-          )),
+      Container(
+        width: GlobalData.screenWidth + 10,
+        child: Card(
+            color: GlobalColor.colorBackground,
+            elevation: 18,
+            child: rowWidget(
+              itemsScreen: SizedBox(
+                height: GlobalData.screenWidth / 5,
+                child: LandUsedListScreen.listOnMainScreen(
+                    items: mainContentModel.landUseList),
+              ),
+              title: GlobalString.landUsedList,
+              seeAll: () => EstateLandUsedListController().newPage(
+                  context: context,
+                  newScreen: LandUsedListScreen.withFilterScreen()),
+            )),
+      ),
       //     //row sections
       //     //todo
       //     //row estateList 1
-      if (mainContentModel.estateList1.isNotEmpty)
+
+      if (mainContentModel.estateList1.isNotEmpty) ...[
+        Material(
+            color: Colors.transparent,
+            clipBehavior: Clip.none,
+            elevation: 70,
+            child: SizedBox(
+              width: GlobalData.screenWidth,
+              height: 10,
+            )),
         rowWidget(
             itemsScreen: SizedBox(
               width: GlobalData.screenWidth,
-              height: 3 * GlobalData.screenWidth / 6,
+              height: 3 * GlobalData.screenHeight / 7,
               child: EstateListScreen.listOnMainScreen(
                   items: mainContentModel.estateList1),
             ),
@@ -239,36 +252,56 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                 context: context,
                 newScreen: EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList1,
-                ))),
+                )))
+      ],
       //     //row estateList 2
-      rowWidget(
-          itemsScreen: SizedBox(
-            width: GlobalData.screenWidth,
-            height: 3 * GlobalData.screenWidth / 6,
-            child: EstateListScreen.listOnMainScreen(
-                items: mainContentModel.estateList2),
-          ),
-          title: GlobalString.suggestedEstate,
-          seeAll: () => EstateListController().newPage(
-              context: context,
-              newScreen: EstateListScreen.withFilterScreen(
-                filter: mainContentModel.filterEstateList2,
-              ))),
+      if (mainContentModel.estateList2.isNotEmpty) ...[
+        Material(
+            color: Colors.transparent,
+            clipBehavior: Clip.none,
+            elevation: 70,
+            child: SizedBox(
+              width: GlobalData.screenWidth,
+              height: 10,
+            )),
+        rowWidget(
+            itemsScreen: SizedBox(
+              width: GlobalData.screenWidth,
+              height: 3 * GlobalData.screenHeight / 7,
+              child: EstateListScreen.listOnMainScreen(
+                  items: mainContentModel.estateList2),
+            ),
+            title: GlobalString.suggestedEstate,
+            seeAll: () => EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList2,
+                )))
+      ],
       //     //row estateList 3
-
-      rowWidget(
-          itemsScreen: SizedBox(
-            width: GlobalData.screenWidth,
-            height: 3 * GlobalData.screenWidth / 6,
-            child: EstateListScreen.listOnMainScreen(
-                items: mainContentModel.estateList3),
-          ),
-          title: GlobalString.dailyRent,
-          seeAll: () => EstateListController().newPage(
-              context: context,
-              newScreen: EstateListScreen.withFilterScreen(
-                filter: mainContentModel.filterEstateList3,
-              ))),
+      if (mainContentModel.estateList3.isNotEmpty) ...[
+        Material(
+            color: Colors.transparent,
+            clipBehavior: Clip.none,
+            elevation: 70,
+            child: SizedBox(
+              width: GlobalData.screenWidth,
+              height: 10,
+            )),
+        rowWidget(
+            itemsScreen: SizedBox(
+              width: GlobalData.screenWidth,
+              height: 3 * GlobalData.screenHeight / 7,
+              child: EstateListScreen.listOnMainScreen(
+                  items: mainContentModel.estateList3),
+            ),
+            title: GlobalString.dailyRent,
+            seeAll: () => EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList3,
+                )))
+      ],
       //     //buttons
       IntrinsicHeight(
         child: Row(
@@ -329,7 +362,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       ),
       //     //articles
       rowWidget(
-          itemsScreen: SizedBox(width: GlobalData.screenWidth-40,height:  20+GlobalData.screenWidth / 8,
+          itemsScreen: SizedBox(
+            width: GlobalData.screenWidth - 40,
+            height: 20 + GlobalData.screenWidth / 8,
             child: ArticleListScreen.listOnMainScreen(
                 items: mainContentModel.articles),
           ),
@@ -444,12 +479,21 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
       children: [
         Row(
           children: [
-            Text(title),
+            Text(
+              title,
+              style: const TextStyle(
+                  color: GlobalColor.colorPrimary, fontSize: 14),
+            ),
             Expanded(
               child: Container(),
             ),
             TextButton(
-                onPressed: () => seeAll, child: const Text(GlobalString.seeAll))
+                onPressed: () => seeAll,
+                child: const Text(
+                  GlobalString.seeAll,
+                  style: TextStyle(
+                      color: GlobalColor.extraPriceColor, fontSize: 14),
+                ))
           ],
         ),
         itemsScreen

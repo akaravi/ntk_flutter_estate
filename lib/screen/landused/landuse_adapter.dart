@@ -43,8 +43,8 @@ class _EstatePropertyHorizontalAdapterState
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async => widget.estateList(context),
-      child: Padding(
-        padding: const EdgeInsets.all(2),
+      child: Container(
+        margin: const EdgeInsets.all(4),
         child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,

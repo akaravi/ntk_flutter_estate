@@ -225,7 +225,6 @@ class _EstatePropertyHorizontalAdapterState
         ),
         child: SizedBox(
             width: 2 * GlobalData.screenWidth / 5,
-            height: 2*GlobalData.screenHeight / 3,
             child: InkWell(
               onTap: () async => viewDetail(context),
               child: Column(
@@ -236,8 +235,9 @@ class _EstatePropertyHorizontalAdapterState
                   ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                         width: 2 * GlobalData.screenWidth / 5,
+                        height: 2*GlobalData.screenHeight / 7,
                         widget.model.linkMainImageIdSrc!,
                       )),
                   const SizedBox(
