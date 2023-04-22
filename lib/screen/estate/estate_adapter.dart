@@ -220,7 +220,6 @@ class _EstatePropertyHorizontalAdapterState
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(

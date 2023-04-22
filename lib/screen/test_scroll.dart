@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:base/src/index.dart';
+import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'landused/landused_screen.dart';
 
 class TestScroll extends StatefulWidget {
@@ -13,27 +14,28 @@ class TestScroll extends StatefulWidget {
 class _TestScrollState extends State<TestScroll> {
   @override
   Widget build(BuildContext context) {
-    GlobalData.screenWidth=MediaQuery.of(context).size.width;
-    return FutureBuilder<List<EstatePropertyTypeLanduseModel>>(
-        future: EstatePropertyTypeLandUseService().getAll(FilterModel()),
+    GlobalData.screenWidth = MediaQuery.of(context).size.width;
+    return FutureBuilder<List<EstatePropertyModel>>(
+        future: EstatePropertyService().getAll(FilterModel()),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(
-              children: [SizedBox(height: 3*GlobalData.screenWidth/7,child: sd(snapshot.data ?? []),),Expanded(child: sd(snapshot.data ?? []))],
+              children: [
+                sd(snapshot.data ?? []),
+                Expanded(child: sd(snapshot.data ?? []))
+              ],
             );
           }
           return Container();
         });
   }
 
-  sd(List<EstatePropertyTypeLanduseModel> landUseList) {
-    return Card(
-        color: GlobalColor.colorBackground,
-        child: rowWidget(
-            itemsScreen:
-                LandUsedListScreen.listOnMainScreen(items: landUseList),
-            title: GlobalString.landUsedList,
-            seeAll: () => {}));
+  sd(List<EstatePropertyModel> landUseList) {
+    return rowWidget(
+        itemsScreen: SizedBox( height: 3 * GlobalData.screenWidth / 7,
+            child: EstateListScreen.listOnMainScreen(items:  landUseList)),
+        title: GlobalString.landUsedList,
+        seeAll: () => {});
   }
 
   rowWidget(
