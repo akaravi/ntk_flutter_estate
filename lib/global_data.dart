@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class GlobalData {
   static const int appVersion = 2;
   static const String appName = "املاک آلونک";
-  static  double screenWidth=-1;
-  static double screenHeight=-1;
+  static double screenWidth = -1;
+  static double screenHeight = -1;
 }
 
 class GlobalColor {
@@ -127,7 +127,17 @@ class GlobalString {
   static const String select = "انتخاب";
 
   static const String plzInsertTitle = "عنوان نورد نظر خود را وارد کنید";
+  static const String insertTypeUsage = "نوع کاربری را انتخاب نمایید";
+  static const String insertTypeUse = "نوع ملک را انتخاب نمایید";
+  static const String insertArea = "متراژ را وارد نمایید";
+
+  static const String insertDesc= "توضیحات  را وارد نمایید";
+  static const String insertLocation =  "منظقه مورد نظر  را وارد نمایید";
+  static const String insertAddress =   " آدرس را وارد نمایید";
+  static const String plzInsertContract = "لطفا برای این ملک حداقل یک نوع معامله وارد نمایید";
   static const String projects1 = "";
   static const String projects2 = "";
+
+
 
 }

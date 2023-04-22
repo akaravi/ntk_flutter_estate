@@ -18,7 +18,7 @@ class NewEstateScreen extends StatefulWidget {
 }
 
 class NewEstateState extends State<NewEstateScreen> {
-  int index = 2;
+  int index = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +132,7 @@ class NewEstateState extends State<NewEstateScreen> {
           elevation: 10,
           backgroundColor: GlobalColor.colorPrimary),
       onPressed: () {
-        if (widget.controller.isValidForNext()) {
+        if (widget.controller.isValid(index)) {
           index++;
           setState(() {});
         }
@@ -154,7 +154,7 @@ class NewEstateState extends State<NewEstateScreen> {
             style: TextStyle(color: GlobalColor.colorPrimary),
           ),
           onPressed: () {
-            if (widget.controller.isValidForPrev()) {
+            if (widget.controller.isValid(index)) {
               index--;
               setState(() {});
             }

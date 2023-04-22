@@ -1,5 +1,6 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 
 class NewEstateController {
@@ -50,14 +51,20 @@ class NewEstateController {
         .toList();
   }
 
-  bool isValidForNext() {
+  bool isValid(int index) {
+    switch (index) {
+      case 1:
+        return sub1Validation();
+      case 2:
+        return sub2Validation();
+      case 3:
+        return sub3Validation();
+      case 4:
+        return sub4Validation();
+      case 5:
+        return sub5Validation();
+    }
     return true;
-    //todo
-  }
-
-  bool isValidForPrev() {
-    return true;
-    //todo
   }
 
   Future<Sub2Data> subTowLoad() async {
@@ -82,10 +89,94 @@ class NewEstateController {
   }
 
   static start(BuildContext context) {
-    Future.microtask(() =>
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => NewEstateScreen())));
+    Future.microtask(() => Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => NewEstateScreen())));
   }
+
+  bool sub1Validation() {
+    if (item.propertyTypeUsage == null) {
+      toast(GlobalString.insertTypeUsage);
+      return false;
+    }
+    if (item.propertyTypeLanduse == null) {
+      toast(GlobalString.insertTypeUse);
+      return false;
+    }
+    if (areaController.text.isEmpty) {
+      toast(GlobalString.insertArea);
+      return false;
+    }
+    //for renewing details
+    if (item.linkPropertyTypeLanduseId != null &&
+        item.linkPropertyTypeLanduseId !=
+            (item.propertyTypeLanduse?.id ?? "")) {
+      item.propertyDetailGroups = null;
+      item.propertyDetailValues = null;
+    }
+    item.linkPropertyTypeLanduseId = item.propertyTypeLanduse?.id;
+    item.linkPropertyTypeUsageId = item.propertyTypeUsage?.id;
+    item.area = double.parse(areaController.text);
+    if (createdYearController.text.isNotEmpty) {
+      item.createdYaer = int.parse(createdYearController.text);
+    }
+    if (partitionController.text.isNotEmpty) {
+      item.partition = int.parse(partitionController.text);
+    }
+    return true;
+  }
+
+  bool sub2Validation() {
+    item.propertyDetailValues = [];
+    for (EstatePropertyDetailGroupModel group
+        in item.propertyDetailGroups ?? []) {
+      (group.propertyDetails ?? [])
+          .where((estatePropertyDetailModel) =>
+              estatePropertyDetailModel.value != null)
+          .toList()
+          .forEach((estatePropertyDetailModel) {
+        var v = EstatePropertyDetailValueModel()
+          ..id = estatePropertyDetailModel.id
+          ..value = estatePropertyDetailModel.value;
+        item.propertyDetailValues?.add(v);
+      });
+    }
+    return true;
+  }
+
+  bool sub3Validation() {
+    if (titleTextWidget.text.isEmpty) {
+      toast(GlobalString.plzInsertTitle);
+      return false;
+    }
+    if (descTextWidget.text.isEmpty) {
+      toast(GlobalString.insertDesc);
+      return false;
+    }
+    if (addressTextWidget.text.isEmpty) {
+      toast(GlobalString.insertDesc);
+      return false;
+    }
+    if (item.linkLocationId != null) {
+      toast(GlobalString.insertLocation);
+      return false;
+    }
+
+    return true;
+  }
+
+  bool sub4Validation() {
+    if ((item.contracts ?? []).isEmpty) {
+      toast(GlobalString.plzInsertContract);
+      return false;
+    }
+    return true;
+  }
+
+  bool sub5Validation() {
+    return true;
+  }
+
+  void toast(insertTypeUsage) {}
 }
 
 class Sub1Data {

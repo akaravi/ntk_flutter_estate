@@ -1,3 +1,4 @@
+import 'package:base/src/models/entity/estate/estate_property_type_usage_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:collection/collection.dart';
@@ -7,7 +8,9 @@ class WrapWidgetModel<model> extends StatefulWidget {
 
   Color colorBackground;
   Color colorSelectedBackground;
+  Color colorSelectedText;
   Color borderColor;
+  int index;
 
   WrapWidgetModel(
       {Key? key,
@@ -15,33 +18,41 @@ class WrapWidgetModel<model> extends StatefulWidget {
       required this.titleModelMethod,
       required this.selectMethod,
       Color? colorBackground,
+      Color? colorSelectedText,
       Color? colorSelectedBackground,
-      Color? borderColor})
+      Color? borderColor,
+      bool Function(model)? isSelected})
       : colorSelectedBackground =
             colorSelectedBackground ?? GlobalColor.colorAccent,
+        colorSelectedText = colorSelectedText ?? GlobalColor.colorOnAccent,
         colorBackground = colorBackground ?? GlobalColor.colorBackground,
         borderColor = borderColor ?? GlobalColor.colorPrimary,
+        index = isSelected != null ? models.indexWhere(isSelected) : -1,
         super(key: key);
 
   @override
-  State<WrapWidgetModel<model>> createState() => _WrapWidgetModelState<model>();
+  State<WrapWidgetModel<model>> createState() =>
+      _WrapWidgetModelState<model>(index);
 
   String Function(model item) titleModelMethod;
   void Function(model item) selectMethod;
 }
 
 class _WrapWidgetModelState<model> extends State<WrapWidgetModel<model>> {
-  int selectedIndex = -1;
+  int selectedIndex;
+
+  _WrapWidgetModelState(this.selectedIndex);
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(runSpacing: 12,
+    return Wrap(
+      runSpacing: 12,
       spacing: 18,
       children: <Widget>[
         ...widget.models.mapIndexed((index, item) {
           return InkWell(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 4),
                 decoration: BoxDecoration(
                     color: selectedIndex == index
                         ? widget.colorSelectedBackground
@@ -49,7 +60,11 @@ class _WrapWidgetModelState<model> extends State<WrapWidgetModel<model>> {
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(color: widget.borderColor)),
                 child: Text(widget.titleModelMethod(item),
-                    style: TextStyle(color: widget.borderColor, fontSize: 15)),
+                    style: TextStyle(
+                        color: selectedIndex == index
+                            ? widget.colorSelectedText
+                            : widget.borderColor,
+                        fontSize: 14)),
               ),
               onTap: () {
                 if (selectedIndex != index) {

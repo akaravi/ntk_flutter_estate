@@ -96,7 +96,7 @@ class NewEstateState extends State<NewCustomerOrderScreen> {
           elevation: 10,
           backgroundColor: GlobalColor.colorPrimary),
       onPressed: () {
-        if (widget.controller.isValidForNext()) {
+        if (widget.controller.isValid(index)) {
           index++;
           setState(() {});
         }
@@ -118,7 +118,7 @@ class NewEstateState extends State<NewCustomerOrderScreen> {
             style: TextStyle(color: GlobalColor.colorPrimary),
           ),
           onPressed: () {
-            if (widget.controller.isValidForPrev()) {
+            if (widget.controller.isValid(index)) {
               index--;
               setState(() {});
             }
