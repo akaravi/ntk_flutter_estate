@@ -105,7 +105,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                             maxLines: 1,
                             style: const TextStyle(fontSize: 17),
                             textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
+                            decoration: InputDecoration(fillColor: Colors.transparent,
                               filled: true,
                               prefixIcon: InkWell(
                                   child: const Icon(Icons.search,
