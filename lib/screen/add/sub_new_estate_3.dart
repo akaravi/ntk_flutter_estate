@@ -26,24 +26,32 @@ class _Container1State extends State<SubNewEstate3> {
       children: [
         widget.card(children: [
           //code estate
-          widget.textFieldBoxWidget(
-              title: GlobalString.estateCode,
-              keyboardType: TextInputType.text,
-              textController: widget.controller.codeTextWidget)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: widget.textFieldBoxWidget(
+                title: GlobalString.estateCode,
+                keyboardType: TextInputType.text,
+                textController: widget.controller.codeTextWidget),
+          )
         ]),
         widget.card(children: [
           //title
-          widget.textFieldBoxWidget(
-              title: GlobalString.title,
-              keyboardType: TextInputType.text,
-              textController: widget.controller.titleTextWidget)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: widget.textFieldBoxWidget(
+                title: GlobalString.title,
+                keyboardType: TextInputType.text,
+                textController: widget.controller.titleTextWidget),
+          )
         ]),
         //desc
         widget.card(children: [
-          widget.textFieldBoxWidget(
-              title: GlobalString.desc,
-              keyboardType: TextInputType.text,
-              textController: widget.controller.descTextWidget)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),            child: widget.textFieldBoxWidget(
+                title: GlobalString.desc,
+                keyboardType: TextInputType.text,
+                textController: widget.controller.descTextWidget),
+          )
         ]),
 
         widget.card(children: [
@@ -94,7 +102,8 @@ class _Container1State extends State<SubNewEstate3> {
                   ]),
             ),
           ),
-          Container(margin: EdgeInsets.only(bottom: 35),
+          Container(
+            margin: EdgeInsets.only(bottom: 35),
             child: TextButton(
               style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
