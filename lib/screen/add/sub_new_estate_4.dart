@@ -48,7 +48,8 @@ class _Container1State extends State<SubNewEstate4> {
                             widget.controller.selectedContractModel = item;
                             setState(() {});
                           })),
-                  widget.box(verticalPadding: 0,
+                  widget.box(
+                    verticalPadding: 0,
                     title: GlobalString.currency,
                     fitContainer: true,
                     widget: Padding(
@@ -76,6 +77,9 @@ class _Container1State extends State<SubNewEstate4> {
                         value: widget.controller.selectedCurrency,
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 6,
                   ),
                   //sale price
                   if (widget.controller.selectedContractModel != null)
@@ -189,39 +193,43 @@ class _Container1State extends State<SubNewEstate4> {
       required TextEditingController textController,
       required bool value}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SizedBox(
-            width: (2 * widget.screenWidth / 5),
-            child: TextField(
-              controller: textController,
-              decoration: InputDecoration(
-                filled: true,
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                labelText: hintPriceMl,
+      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 6),
+      child: Container( clipBehavior: Clip.hardEdge,decoration: BoxDecoration(color : GlobalColor.colorAccent.withOpacity(.3),borderRadius:BorderRadius.all(Radius.circular(8)) ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(
+              width: (2 * widget.screenWidth / 5),
+              child: TextField(
+                controller: textController,
+                style: TextStyle(fontSize: 13),
+                decoration: InputDecoration(  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(3),
+                  filled: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  labelText: hintPriceMl,
+                ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [ThousandsSeparatorInputFormatter()],
               ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [ThousandsSeparatorInputFormatter()],
             ),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: value,
-                onChanged: (val) {},
-              ),
-              const Text(
-                GlobalString.agreementSale,
-                style: TextStyle(fontSize: 17.0),
-              ),
-            ],
-          )
-        ],
+            const SizedBox(
+              width: 15,
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: value,
+                  onChanged: (val) {},
+                ),
+                const Text(
+                  GlobalString.agreementSale,
+                  style: TextStyle(fontSize: 17.0),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
