@@ -154,10 +154,8 @@ class NewEstateState extends State<NewEstateScreen> {
             style: TextStyle(color: GlobalColor.colorPrimary),
           ),
           onPressed: () {
-            if (widget.controller.isValid(index)) {
               index--;
               setState(() {});
-            }
           });
     } else {
       return Container();

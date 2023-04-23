@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +19,14 @@ class SubNewEstate3 extends SubNewEstateBase {
 }
 
 class _Container1State extends State<SubNewEstate3> {
+  @override
+  void initState() {
+    widget.controller.codeTextWidget.text =
+        (Random().nextInt(90000000) + 10000000).toString();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.screenWidth == -1) {
@@ -47,7 +57,8 @@ class _Container1State extends State<SubNewEstate3> {
         //desc
         widget.card(children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),            child: widget.textFieldBoxWidget(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: widget.textFieldBoxWidget(
                 title: GlobalString.desc,
                 keyboardType: TextInputType.text,
                 textController: widget.controller.descTextWidget),
@@ -56,10 +67,16 @@ class _Container1State extends State<SubNewEstate3> {
 
         widget.card(children: [
           //location
-          widget.textFieldBoxWidget(
-              title: GlobalString.location,
-              keyboardType: TextInputType.text,
-              textController: widget.controller.descTextWidget),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: widget.textFieldBoxWidget(
+                readOnly: true,onClick: () {
+                  
+                },
+                title: GlobalString.location,
+                keyboardType: TextInputType.text,
+                textController: widget.controller.descTextWidget),
+          ),
           //address
           widget.textFieldBoxWidget(
               title: GlobalString.address,

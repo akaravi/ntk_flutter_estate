@@ -189,22 +189,28 @@ mixin Sub {
 
   Widget textFieldBoxWidget(
       {required String title,
+      bool? readOnly,
+      void Function()? onClick,
       required TextEditingController textController,
       TextInputType? keyboardType}) {
     return Container(
       margin: EdgeInsets.only(top: 2, bottom: 2),
       padding: const EdgeInsets.only(top: 4, bottom: 4, left: 16.0, right: 16),
       child: TextField(
+        readOnly: readOnly ?? false,
+        onTap: onClick,
         style: const TextStyle(fontSize: 13),
         controller: textController,
         keyboardType: keyboardType ?? TextInputType.number,
         decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderSide: const BorderSide(color: GlobalColor.colorPrimary, width: 1),
+              borderSide:
+                  const BorderSide(color: GlobalColor.colorPrimary, width: 1),
               borderRadius: BorderRadius.circular(16),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: GlobalColor.colorPrimary, width: 1),
+              borderSide:
+                  const BorderSide(color: GlobalColor.colorPrimary, width: 1),
               borderRadius: BorderRadius.circular(16),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
