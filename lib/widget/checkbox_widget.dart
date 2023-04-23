@@ -22,7 +22,8 @@ class Check extends StatelessWidget {
             value: value,
             onChanged: (value) {},
           ),
-        ) , Text(
+        ),
+        Text(
           title ?? "",
           style: TextStyle(
               color: value
@@ -30,6 +31,24 @@ class Check extends StatelessWidget {
                   : GlobalColor.colorPrimary),
         ),
       ],
+    );
+  }
+}
+
+class CheckInk extends StatelessWidget {
+  Check child;
+
+  void Function() toggleValue;
+
+  CheckInk({required Check widget, required Function() clickListener})
+      : child = widget,
+        toggleValue=clickListener;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: toggleValue,
+      child: child,
     );
   }
 }

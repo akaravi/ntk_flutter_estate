@@ -5,6 +5,7 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
+import 'package:ntk_flutter_estate/widget/checkbox_widget.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 
 import '../../controller/new_estate_controller.dart';
@@ -15,10 +16,6 @@ class SubNewEstate4 extends SubNewEstateBase {
 
   @override
   State<SubNewEstate4> createState() => _Container1State();
-  bool salePriceAgreement = false;
-  bool rentPriceAgreement = false;
-  bool depositPriceAgreement = false;
-  bool periodPriceAgreement = false;
 }
 
 class _Container1State extends State<SubNewEstate4> {
@@ -90,7 +87,10 @@ class _Container1State extends State<SubNewEstate4> {
                                   ?.titleSalePrice ??
                               "",
                           textController: widget.controller.salePriceController,
-                          value: widget.salePriceAgreement,
+                          value: widget.controller.salePriceAgreement,
+                          clickListener: () =>
+                              widget.controller.salePriceAgreement =
+                                  !widget.controller.salePriceAgreement,
                           allowAgreement: widget
                                   .controller
                                   .selectedContractModel
@@ -105,7 +105,10 @@ class _Container1State extends State<SubNewEstate4> {
                                   ?.titleRentPrice ??
                               "",
                           textController: widget.controller.rentPriceController,
-                          value: widget.rentPriceAgreement,
+                          value: widget.controller.rentPriceAgreement,
+                          clickListener: () =>
+                              widget.controller.rentPriceAgreement =
+                                  !widget.controller.rentPriceAgreement,
                           allowAgreement: widget
                                   .controller
                                   .selectedContractModel
@@ -122,7 +125,10 @@ class _Container1State extends State<SubNewEstate4> {
                               "",
                           textController:
                               widget.controller.depositPriceController,
-                          value: widget.depositPriceAgreement,
+                          value: widget.controller.depositPriceAgreement,
+                          clickListener: () =>
+                              widget.controller.depositPriceAgreement =
+                                  !widget.controller.depositPriceAgreement,
                           allowAgreement: widget
                                   .controller
                                   .selectedContractModel
@@ -138,7 +144,10 @@ class _Container1State extends State<SubNewEstate4> {
                                   ?.titlePeriodPrice ??
                               "",
                           textController: widget.controller.salePriceController,
-                          value: widget.periodPriceAgreement,
+                          value: widget.controller.periodPriceAgreement,
+                          clickListener: () =>
+                              widget.controller.periodPriceAgreement =
+                                  !widget.controller.periodPriceAgreement,
                           allowAgreement: widget
                                   .controller
                                   .selectedContractModel
@@ -191,10 +200,15 @@ class _Container1State extends State<SubNewEstate4> {
       {required String hintPriceMl,
       required bool allowAgreement,
       required TextEditingController textController,
+      required Function() clickListener,
       required bool value}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 6),
-      child: Container( clipBehavior: Clip.hardEdge,decoration: BoxDecoration(color : GlobalColor.colorAccent.withOpacity(.3),borderRadius:BorderRadius.all(Radius.circular(8)) ),
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+            color: GlobalColor.colorAccent.withOpacity(.3),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -203,7 +217,8 @@ class _Container1State extends State<SubNewEstate4> {
               child: TextField(
                 controller: textController,
                 style: TextStyle(fontSize: 13),
-                decoration: InputDecoration(  border: InputBorder.none,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
                   contentPadding: EdgeInsets.all(3),
                   filled: true,
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -216,18 +231,14 @@ class _Container1State extends State<SubNewEstate4> {
             const SizedBox(
               width: 15,
             ),
-            Row(
-              children: [
-                Checkbox(
-                  value: value,
-                  onChanged: (val) {},
-                ),
-                const Text(
-                  GlobalString.agreementSale,
-                  style: TextStyle(fontSize: 17.0),
-                ),
-              ],
-            )
+            CheckInk(
+                clickListener: () {
+                  setState(() {});
+                },
+                widget: Check(
+                  title: GlobalString.agreementSale,
+                  checked: value,
+                )),
           ],
         ),
       ),

@@ -19,9 +19,11 @@ class NewEstateController {
   TextEditingController salePriceController = TextEditingController();
   TextEditingController rentPriceController = TextEditingController();
   TextEditingController depositPriceController = TextEditingController();
-
   TextEditingController periodPriceController = TextEditingController();
-
+  bool salePriceAgreement = false;
+  bool rentPriceAgreement = false;
+  bool depositPriceAgreement = false;
+  bool periodPriceAgreement = false;
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
