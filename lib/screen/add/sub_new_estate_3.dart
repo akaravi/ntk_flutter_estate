@@ -139,8 +139,8 @@ class _Container1State extends State<SubNewEstate3> {
               onPressed: () {
                 //todo
               },
-              child: Text(GlobalString.selectLoc,
-                  style: const TextStyle(
+              child: const Text(GlobalString.selectLoc,
+                  style: TextStyle(
                       color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
             ),
           )

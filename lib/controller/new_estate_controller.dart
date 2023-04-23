@@ -166,7 +166,7 @@ class NewEstateController {
       toast(GlobalString.insertDesc);
       return false;
     }
-    if (item.linkLocationId != null) {
+    if (item.linkLocationId == null) {
       toast(GlobalString.insertLocation);
       return false;
     }

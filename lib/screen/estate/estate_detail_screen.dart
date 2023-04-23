@@ -3,6 +3,7 @@ import 'package:base/src/index.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/add/user_location_on_map_screen.dart';
 import 'package:ntk_flutter_estate/widget/contract_widget.dart';
 import 'package:ntk_flutter_estate/widget/dash_separator.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -122,10 +123,7 @@ class _DetailState extends State<_Detail> {
         zoom: 12,
         minZoom: 12,
       ),
-      nonRotatedChildren: [
-        LiveLocationPage.attributionWidgetDefault()
-        ),
-      ],
+      nonRotatedChildren: [LiveLocationPage.attributionWidgetDefault()],
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
