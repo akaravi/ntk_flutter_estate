@@ -9,6 +9,22 @@ import 'package:base/src/index.dart';
 class LiveLocationPage extends StatefulWidget {
   static const String route = '/live_location';
 
+  static Widget attributionWidgetDefault() {
+    return const Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: EdgeInsets.only(right: 4.0),
+          child: ColoredBox(
+              color: Color(0xCCFFFFFF),
+              child: Padding(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    'OpenStreetMap contributors',
+                    style: TextStyle(color: Color(0xFF0078a8)),
+                  ))),
+        ));
+  }
+
   const LiveLocationPage({Key? key}) : super(key: key);
 
   @override
@@ -149,27 +165,41 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                 ),
                 MarkerLayer(markers: [
                   if (_currentLocation != null)
-                    Marker(height: 150,width: 150,
+                    Marker(
+                      height: 150,
+                      width: 150,
                       point: currentLatLng,
                       builder: (context) {
                         return Container(
-                          child: Column(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(width: 40,height: 40,
+                              Container(
+                                width: 40,
+                                height: 40,
                                 decoration: new BoxDecoration(
-                                  color: GlobalColor.colorAccent.withOpacity(.9),
+                                  color:
+                                      GlobalColor.colorAccent.withOpacity(.9),
                                   shape: BoxShape.circle,
                                 ),
                               ),
-                              const Text(GlobalString.estimateLoc,style: TextStyle(color: GlobalColor.colorPrimary,fontSize: 16),)
+                              const Text(
+                                GlobalString.estimateLoc,
+                                style: TextStyle(
+                                    color: GlobalColor.colorPrimary,
+                                    fontSize: 16),
+                              )
                             ],
                           ),
                         );
                       },
                     ),
                   if (selectLatLng != null)
-                    Marker(width: 60,height: 60,
-                      point: selectLatLng ??  LatLng(0, 0),
+                    Marker(
+                      width: 60,
+                      height: 60,
+                      point: selectLatLng ?? LatLng(0, 0),
                       builder: (ctx) => const FlutterLogo(
                         textColor: Colors.blue,
                         key: ObjectKey(Colors.blue),
@@ -179,29 +209,33 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
               ],
             ),
           ),
-          Positioned(bottom: 15,right: 15,left:40,child:       Center(
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0)),
-                  elevation: 17,
-                  backgroundColor: GlobalColor.colorPrimary),
-              onPressed: () {
-                  if(selectLatLng==null) {
+          Positioned(
+            bottom: 15,
+            right: 15,
+            left: 40,
+            child: Center(
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0)),
+                    elevation: 17,
+                    backgroundColor: GlobalColor.colorPrimary),
+                onPressed: () {
+                  if (selectLatLng == null) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          GlobalString.noLocSelected),
+                      content: Text(GlobalString.noLocSelected),
                     ));
                   }
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: const Text(GlobalString.submitLocation,
-                    style: TextStyle(
-                        color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: const Text(GlobalString.submitLocation,
+                      style: TextStyle(
+                          color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
+                ),
               ),
             ),
-          ),)
+          )
         ],
       ),
       floatingActionButton: Builder(builder: (BuildContext context) {

@@ -14,12 +14,14 @@ class NewEstateController {
   TextEditingController codeTextWidget = TextEditingController();
   TextEditingController titleTextWidget = TextEditingController();
   TextEditingController descTextWidget = TextEditingController();
+  TextEditingController locationTextController = TextEditingController();
   TextEditingController addressTextWidget = TextEditingController();
   TextEditingController salePriceController = TextEditingController();
   TextEditingController rentPriceController = TextEditingController();
   TextEditingController depositPriceController = TextEditingController();
 
   TextEditingController periodPriceController = TextEditingController();
+
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
