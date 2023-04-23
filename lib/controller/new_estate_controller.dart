@@ -26,7 +26,6 @@ class NewEstateController {
   bool rentPriceAgreement = false;
   bool depositPriceAgreement = false;
   bool periodPriceAgreement = false;
-  FToast fToast = FToast();
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
@@ -58,18 +57,18 @@ class NewEstateController {
         .toList();
   }
 
-  bool isValid(BuildContext context, int index) {
+  bool isValid(int index) {
     switch (index) {
       case 1:
-        return sub1Validation(context);
+        return sub1Validation();
       case 2:
         return sub2Validation();
       case 3:
-        return sub3Validation(context);
+        return sub3Validation();
       case 4:
-        return sub4Validation(context);
+        return sub4Validation();
       case 5:
-        return sub5Validation(context);
+        return sub5Validation();
     }
     return true;
   }
@@ -108,17 +107,17 @@ class NewEstateController {
         .push(MaterialPageRoute(builder: (context) => NewEstateScreen())));
   }
 
-  bool sub1Validation(BuildContext context) {
+  bool sub1Validation() {
     if (item.propertyTypeUsage == null) {
-      toast(context, GlobalString.insertTypeUsage);
+      toast(GlobalString.insertTypeUsage);
       return false;
     }
     if (item.propertyTypeLanduse == null) {
-      toast(context, GlobalString.insertTypeUse);
+      toast(GlobalString.insertTypeUse);
       return false;
     }
     if (areaController.text.isEmpty) {
-      toast(context, GlobalString.insertArea);
+      toast(GlobalString.insertArea);
       return false;
     }
     //for renewing details
@@ -158,40 +157,40 @@ class NewEstateController {
     return true;
   }
 
-  bool sub3Validation(BuildContext context) {
+  bool sub3Validation() {
     if (titleTextWidget.text.isEmpty) {
-      toast(context, GlobalString.plzInsertTitle);
+      toast(GlobalString.plzInsertTitle);
       return false;
     }
     if (descTextWidget.text.isEmpty) {
-      toast(context, GlobalString.insertDesc);
+      toast(GlobalString.insertDesc);
       return false;
     }
     if (addressTextWidget.text.isEmpty) {
-      toast(context, GlobalString.insertDesc);
+      toast(GlobalString.insertDesc);
       return false;
     }
     if (item.linkLocationId == null) {
-      toast(context, GlobalString.insertLocation);
+      toast(GlobalString.insertLocation);
       return false;
     }
 
     return true;
   }
 
-  bool sub4Validation(BuildContext context) {
+  bool sub4Validation() {
     if ((item.contracts ?? []).isEmpty) {
-      toast(context, GlobalString.plzInsertContract);
+      toast(GlobalString.plzInsertContract);
       return false;
     }
     return true;
   }
 
-  bool sub5Validation(BuildContext context) {
+  bool sub5Validation() {
     return true;
   }
 
-  void toast(BuildContext c, String detail) {}
+  void toast(insertTypeUsage) {}
 
   bool addToContracts(BuildContext context) {
     EstateContractModel contract = EstateContractModel()
@@ -208,13 +207,11 @@ class NewEstateController {
         //price is empty
         if (salePriceController.text.isEmpty) {
           toast(
-            context,
             "${selectedContractModel?.titleSalePriceML ?? ""} ${GlobalString.plzInsertNum}",
           );
           return false;
         } else {
-          contract.salePrice = double.parse(salePriceController.text
-              .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+          contract.salePrice = double.parse(salePriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,"" ));
         }
       }
     }
@@ -226,13 +223,11 @@ class NewEstateController {
         //price is empty
         if (rentPriceController.text.isEmpty) {
           toast(
-            context,
             "${selectedContractModel?.titleRentPriceML ?? ""} ${GlobalString.plzInsertNum}",
           );
           return false;
         } else {
-          contract.rentPrice = double.parse(rentPriceController.text
-              .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+          contract.rentPrice = double.parse(rentPriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,""));
         }
       }
     }
@@ -244,13 +239,11 @@ class NewEstateController {
         //price is empty
         if (depositPriceController.text.isEmpty) {
           toast(
-            context,
             "${selectedContractModel?.titleDepositPriceML ?? ""} ${GlobalString.plzInsertNum}",
           );
           return false;
         } else {
-          contract.depositPrice = double.parse(depositPriceController.text
-              .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+          contract.depositPrice = double.parse(depositPriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,""));
         }
       }
     }
@@ -262,13 +255,11 @@ class NewEstateController {
         //price is empty
         if (periodPriceController.text.isEmpty) {
           toast(
-            context,
             "${selectedContractModel?.titlePeriodPriceML ?? ""} ${GlobalString.plzInsertNum}",
           );
           return false;
         } else {
-          contract.depositPrice = double.parse(periodPriceController.text
-              .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+          contract.depositPrice = double.parse(periodPriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,""));
         }
       }
     }

@@ -132,7 +132,7 @@ class NewEstateState extends State<NewEstateScreen> {
           elevation: 10,
           backgroundColor: GlobalColor.colorPrimary),
       onPressed: () {
-        if (widget.controller.isValid(context,index)) {
+        if (widget.controller.isValid(index)) {
           index++;
           setState(() {});
         }
