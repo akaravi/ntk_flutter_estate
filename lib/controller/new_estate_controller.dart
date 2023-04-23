@@ -2,6 +2,7 @@ import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
@@ -189,6 +190,82 @@ class NewEstateController {
   }
 
   void toast(insertTypeUsage) {}
+
+  bool addToContracts(BuildContext context) {
+    EstateContractModel contract = EstateContractModel()
+      ..contractType = selectedContractModel
+      ..linkEstateContractTypeId = selectedContractModel?.id
+      ..salePriceByAgreement = salePriceAgreement
+      ..rentPriceByAgreement = rentPriceAgreement
+      ..depositPriceByAgreement = depositPriceAgreement
+      ..periodPriceByAgreement = periodPriceAgreement;
+    if ((selectedContractModel?.hasSalePrice ?? false) ||
+        (selectedContractModel?.salePriceAllowAgreement ?? false)) {
+      //add price
+      if (!salePriceAgreement) {
+        //price is empty
+        if (salePriceController.text.isEmpty) {
+          toast(
+            "${selectedContractModel?.titleSalePriceML ?? ""} ${GlobalString.plzInsertNum}",
+          );
+          return false;
+        } else {
+          contract.salePrice = double.parse(salePriceController.text);
+        }
+      }
+    }
+    //rent
+    if ((selectedContractModel?.hasRentPrice ?? false) ||
+        (selectedContractModel?.rentPriceAllowAgreement ?? false)) {
+      //add price
+      if (!rentPriceAgreement) {
+        //price is empty
+        if (rentPriceController.text.isEmpty) {
+          toast(
+            "${selectedContractModel?.titleRentPriceML ?? ""} ${GlobalString.plzInsertNum}",
+          );
+          return false;
+        } else {
+          contract.rentPrice = double.parse(rentPriceController.text);
+        }
+      }
+    }
+    //deposit
+    if ((selectedContractModel?.hasDepositPrice ?? false) ||
+        (selectedContractModel?.depositPriceAllowAgreement ?? false)) {
+      //add price
+      if (!depositPriceAgreement) {
+        //price is empty
+        if (depositPriceController.text.isEmpty) {
+          toast(
+            "${selectedContractModel?.titleDepositPriceML ?? ""} ${GlobalString.plzInsertNum}",
+          );
+          return false;
+        } else {
+          contract.depositPrice = double.parse(depositPriceController.text);
+        }
+      }
+    }
+    //Period
+    if ((selectedContractModel?.hasPeriodPrice ?? false) ||
+        (selectedContractModel?.periodPriceAllowAgreement ?? false)) {
+      //add price
+      if (!periodPriceAgreement) {
+        //price is empty
+        if (periodPriceController.text.isEmpty) {
+          toast(
+            "${selectedContractModel?.titlePeriodPriceML ?? ""} ${GlobalString.plzInsertNum}",
+          );
+          return false;
+        } else {
+          contract.depositPrice = double.parse(periodPriceController.text);
+        }
+      }
+    }
+    item.contracts ??= [];
+    item.contracts?.add(contract);
+    return true;
+  }
 }
 
 class Sub1Data {

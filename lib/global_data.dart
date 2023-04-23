@@ -22,7 +22,6 @@ class GlobalColor {
   static const Color colorSemiBackground = Color(0xffd8d7d7);
   static const Color colorError = Color(0xFFB71C1C);
 
-
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
       50: Color.fromRGBO(136, 14, 79, .1),
@@ -133,21 +132,17 @@ class GlobalString {
   static const String insertTypeUse = "نوع ملک را انتخاب نمایید";
   static const String insertArea = "متراژ را وارد نمایید";
 
-  static const String insertDesc= "توضیحات  را وارد نمایید";
-  static const String insertLocation =  "منظقه مورد نظر  را وارد نمایید";
-  static const String insertAddress =   " آدرس را وارد نمایید";
-  static const String plzInsertContract = "لطفا برای این ملک حداقل یک نوع معامله وارد نمایید";
+  static const String insertDesc = "توضیحات  را وارد نمایید";
+  static const String insertLocation = "منظقه مورد نظر  را وارد نمایید";
+  static const String insertAddress = " آدرس را وارد نمایید";
+  static const String plzInsertContract =
+      "لطفا برای این ملک حداقل یک نوع معامله وارد نمایید";
   static const String countryLoc = "کشور";
   static const String provinceLoc = "استان";
   static const String cityLoc = "شهر";
   static const String areaLoc = "منطقه";
   static const String confirmLocation = "ثبت موقعیت";
   static const String plzSelectLocation = "موقعیت جهت ثبت انتخاب کنید";
+  static const String plzInsertNum = " مورد نظر خود را وارد نمایید";
   static const String projects2 = "";
-
-
-
-
-
-
 }

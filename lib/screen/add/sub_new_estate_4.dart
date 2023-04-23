@@ -162,10 +162,10 @@ class _Container1State extends State<SubNewEstate4> {
                           elevation: 10,
                           backgroundColor: GlobalColor.colorAccent),
                       onPressed: () {
-                        //todo
+                       widget.controller.addToContracts(context);
                       },
-                      child: Text(GlobalString.addToContract,
-                          style: const TextStyle(
+                      child: const Text(GlobalString.addToContract,
+                          style: TextStyle(
                               color: GlobalColor.colorTextOnPrimary,
                               fontSize: 16)),
                     ),
@@ -233,7 +233,9 @@ class _Container1State extends State<SubNewEstate4> {
             ),
             CheckInk(
                 clickListener: () {
-                  setState(() {});
+                  setState(() {
+                    clickListener();
+                  });
                 },
                 widget: Check(
                   title: GlobalString.agreementSale,
