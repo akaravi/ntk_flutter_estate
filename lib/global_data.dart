@@ -109,7 +109,7 @@ class GlobalString {
   static const String contractType = "نوع قرارداد";
   static const String currency = "واحد پولی";
   static const String noSelected = "موردی انتخاب نشده است";
-  static const String agreementSale = "به صورت توافقی";
+  static const String agreement = "به صورت توافقی";
   static const String mainPic = "عکس اصلی";
   static const String morePic = "عکس های بیشتر";
   static const String estimateLoc = "مکان تقریبی";

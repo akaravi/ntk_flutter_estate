@@ -367,7 +367,7 @@ class MyHomePageState extends State<MyHomePage> {
                 onChanged: (val) {},
               ),
               const Text(
-                GlobalString.agreementSale,
+                GlobalString.agreement,
                 style: TextStyle(fontSize: 17.0),
               ),
             ],

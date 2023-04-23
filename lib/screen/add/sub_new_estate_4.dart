@@ -7,7 +7,7 @@ import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/checkbox_widget.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
-
+import 'package:intl/intl.dart';
 import '../../controller/new_estate_controller.dart';
 
 class SubNewEstate4 extends SubNewEstateBase {
@@ -162,7 +162,10 @@ class _Container1State extends State<SubNewEstate4> {
                           elevation: 10,
                           backgroundColor: GlobalColor.colorAccent),
                       onPressed: () {
-                       widget.controller.addToContracts(context);
+                        var isAdded = widget.controller.addToContracts(context);
+                        if (isAdded) {
+                          setState(() {});
+                        }
                       },
                       child: const Text(GlobalString.addToContract,
                           style: TextStyle(
@@ -238,7 +241,7 @@ class _Container1State extends State<SubNewEstate4> {
                   });
                 },
                 widget: Check(
-                  title: GlobalString.agreementSale,
+                  title: GlobalString.agreement,
                   checked: value,
                 )),
           ],
@@ -248,7 +251,135 @@ class _Container1State extends State<SubNewEstate4> {
   }
 
   Widget contractWidget(EstateContractModel e) {
-    return Text("");
+    return Row(
+      children: [
+        Container(
+          color: GlobalColor.colorPrimary,
+          child: RotatedBox(
+            quarterTurns: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Text(e.contractType?.titleML ?? "",
+                  style: const TextStyle(
+                      color: GlobalColor.colorTextOnPrimary, fontSize: 15)),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: IntrinsicWidth(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (e.contractType?.hasSalePrice ?? false)
+                  Text.rich(
+                    TextSpan(
+                        text: "${e.contractType?.titleSalePriceML ?? ""} : ",
+                        children: [
+                          if (e.salePrice != null && e.salePrice != 0)
+                            TextSpan(
+                              text: ThousandsSeparatorString.stringValue(
+                                  e.salePrice ?? 0),
+                            ),
+                          if (e.salePrice != null &&
+                              e.salePrice != 0 &&
+                              (e.salePriceByAgreement ?? false))
+                            const WidgetSpan(
+                              child: Icon(Icons.numbers_rounded),
+                            ),
+                          if (e.salePriceByAgreement ?? false)
+                            TextSpan(text: GlobalString.agreement)
+                        ]),
+                  ),
+                if (e.contractType?.hasRentPrice ?? false)
+                  Text.rich(
+                    TextSpan(
+                        text: "${e.contractType?.titleRentPriceML ?? ""} : ",
+                        children: [
+                          if (e.rentPrice != null && e.rentPrice != 0)
+                            TextSpan(
+                                text: ThousandsSeparatorString.stringValue(
+                                    e.rentPrice ?? 0)),
+                          if (e.rentPrice != null &&
+                              e.rentPrice != 0 &&
+                              (e.rentPriceByAgreement ?? false))
+                            const WidgetSpan(
+                              child: Icon(Icons.numbers_rounded),
+                            ),
+                          if (e.rentPriceByAgreement ?? false)
+                            TextSpan(text: GlobalString.agreement)
+                        ]),
+                  ),
+                if (e.contractType?.hasDepositPrice ?? false)
+                  Text.rich(
+                    TextSpan(
+                        text: "${e.contractType?.titleDepositPriceML ?? ""} : ",
+                        children: [
+                          if (e.depositPrice != null && e.depositPrice != 0)
+                            TextSpan(
+                                text: ThousandsSeparatorString.stringValue(
+                                    e.depositPrice ?? 0)),
+                          if (e.depositPrice != null &&
+                              e.depositPrice != 0 &&
+                              (e.depositPriceByAgreement ?? false))
+                            const WidgetSpan(
+                              child: Icon(Icons.numbers_rounded),
+                            ),
+                          if (e.depositPriceByAgreement ?? false)
+                            TextSpan(text: GlobalString.agreement)
+                        ]),
+                  ),
+                if (e.contractType?.hasPeriodPrice ?? false)
+                  Text.rich(
+                    TextSpan(
+                        text: "${e.contractType?.titlePeriodPriceML ?? ""} : ",
+                        children: [
+                          if (e.periodPrice != null && e.periodPrice != 0)
+                            TextSpan(
+                                text: ThousandsSeparatorString.stringValue(
+                                    e.periodPrice ?? 0)),
+                          if (e.periodPrice != null &&
+                              e.periodPrice != 0 &&
+                              (e.periodPriceByAgreement ?? false))
+                            const WidgetSpan(
+                              child: Icon(Icons.numbers_rounded),
+                            ),
+                          if (e.salePriceByAgreement ?? false)
+                            TextSpan(text: GlobalString.agreement)
+                        ]),
+                  )
+              ],
+            ),
+          ),
+        ),
+       Expanded(child: Container()),
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: InkWell(
+            child: Material(
+              elevation: 12,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(color: GlobalColor.colorError, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                  Icons.delete_forever,
+                  size: 24,
+                  color: GlobalColor.colorError,
+                ),
+              ),
+            ),
+            onTap: () {
+              setState(() {
+                widget.controller.item.contracts?.remove(e);
+              });
+            },
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -295,5 +426,12 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
 
     // If the new value and old value are the same, just return as-is
     return newValue;
+  }
+}
+
+class ThousandsSeparatorString {
+  static String stringValue(double val) {
+    var formatter = NumberFormat("###,###,###,###,###,###");
+    return formatter.format(val);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
@@ -210,7 +211,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.salePrice = double.parse(salePriceController.text);
+          contract.salePrice = double.parse(salePriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,"" ));
         }
       }
     }
@@ -226,7 +227,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.rentPrice = double.parse(rentPriceController.text);
+          contract.rentPrice = double.parse(rentPriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,""));
         }
       }
     }
@@ -242,7 +243,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.depositPrice = double.parse(depositPriceController.text);
+          contract.depositPrice = double.parse(depositPriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,""));
         }
       }
     }
@@ -258,7 +259,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.depositPrice = double.parse(periodPriceController.text);
+          contract.depositPrice = double.parse(periodPriceController.text.replaceAll(ThousandsSeparatorInputFormatter.separator,""));
         }
       }
     }

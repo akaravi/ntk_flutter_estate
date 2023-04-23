@@ -217,7 +217,7 @@ class _Container1State extends State<SubNewCustomerOrder3> {
                 onChanged: (val) {},
               ),
               const Text(
-                GlobalString.agreementSale,
+                GlobalString.agreement,
                 style: TextStyle(fontSize: 17.0),
               ),
             ],
