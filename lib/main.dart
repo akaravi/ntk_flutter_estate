@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
@@ -46,7 +45,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      builder: FToastBuilder(),
       supportedLocales: const [Locale("fa"), Locale("en")],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

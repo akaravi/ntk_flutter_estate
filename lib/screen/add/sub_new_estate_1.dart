@@ -14,11 +14,6 @@ class SubNewEstate1 extends SubNewEstateBase {
 }
 
 class _Container1State extends State<SubNewEstate1> {
-  @override
-  void initState() {
-    super.initState();
-    widget.controller.fToast.init(context);
-  }
 
   @override
   Widget build(BuildContext context) {

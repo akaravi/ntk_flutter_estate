@@ -2,8 +2,8 @@ import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
@@ -26,7 +26,6 @@ class NewEstateController {
   bool rentPriceAgreement = false;
   bool depositPriceAgreement = false;
   bool periodPriceAgreement = false;
-  FToast fToast = FToast();
 
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
@@ -191,7 +190,9 @@ class NewEstateController {
     return true;
   }
 
-  void toast(BuildContext c, String detail) {}
+  void toast(BuildContext c, String detail) {
+    MotionToast.error( description: Text(detail)).show(c);
+  }
 
   bool addToContracts(BuildContext context) {
     EstateContractModel contract = EstateContractModel()
