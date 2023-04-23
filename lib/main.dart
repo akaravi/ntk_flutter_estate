@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
@@ -44,35 +45,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-
     return MaterialApp(
-        supportedLocales: const [
-          Locale("fa"),
-          Locale("en")
-        ],
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        locale: const Locale("fa"),
-        title: "الونک",
-        theme: ThemeData(
-          primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
-        ),
-        // home: const TestWidget(),
-        // home:  EstateSearchScreen(),
-        // home: TestCheck()
-        home: const SplashScreen(),
-        // home: const TestCheck(),
-        // home: Test(),
-        // home:  MainScreen(),
-        // home:  SubEmptyScreen(title: "موردی یافت نشد"),
-        // home: AuthSmsConfirmScreen("09132131542"),
-        // home: NewEstateScreen(),
-        // home: NewCustomerOrderScreen(),
-        // home: ( ArticleList()),
-        );
+      builder: FToastBuilder(),
+      supportedLocales: const [Locale("fa"), Locale("en")],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      locale: const Locale("fa"),
+      title: "الونک",
+      theme: ThemeData(
+        primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
+      ),
+      // home: const TestWidget(),
+      // home:  EstateSearchScreen(),
+      // home: TestCheck()
+      home: const SplashScreen(),
+      // home: const TestCheck(),
+      // home: Test(),
+      // home:  MainScreen(),
+      // home:  SubEmptyScreen(title: "موردی یافت نشد"),
+      // home: AuthSmsConfirmScreen("09132131542"),
+      // home: NewEstateScreen(),
+      // home: NewCustomerOrderScreen(),
+      // home: ( ArticleList()),
+    );
   }
 }

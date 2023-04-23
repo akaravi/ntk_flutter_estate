@@ -63,8 +63,8 @@ class _SplashScreenState extends State<SplashScreen>
               SplashController().nextPage(context,
                   intro: IntroScreen(),
                   login: AuthSmsScreen(),
-                  // main: MainScreen());
-              main: NewEstateScreen());
+                  main: MainScreen());
+              // main: NewEstateScreen());
               // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
               // main: NewsListScreen.withFilterScreen());
             } else {
