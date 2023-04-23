@@ -123,9 +123,7 @@ class _DetailState extends State<_Detail> {
         minZoom: 12,
       ),
       nonRotatedChildren: [
-        AttributionWidget.defaultWidget(
-          source: 'OpenStreetMap contributors',
-          onSourceTapped: () {},
+        LiveLocationPage.attributionWidgetDefault()
         ),
       ],
       children: [

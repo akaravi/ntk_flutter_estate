@@ -9,10 +9,10 @@ import 'package:base/src/index.dart';
 class LiveLocationPage extends StatefulWidget {
   static const String route = '/live_location';
 
-  static Widget attributionWidgetDefault() {
-    return const Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
+  static Widget attributionWidgetDefault({AlignmentGeometry? alignment}) {
+    return Align(
+        alignment: alignment ?? Alignment.bottomRight,
+        child: const Padding(
           padding: EdgeInsets.only(right: 4.0),
           child: ColoredBox(
               color: Color(0xCCFFFFFF),
