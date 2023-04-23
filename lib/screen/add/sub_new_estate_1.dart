@@ -15,6 +15,12 @@ class SubNewEstate1 extends SubNewEstateBase {
 
 class _Container1State extends State<SubNewEstate1> {
   @override
+  void initState() {
+    super.initState();
+    widget.controller.fToast.init(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.screenWidth == -1) {
       widget.screenWidth = MediaQuery.of(context).size.width;
@@ -125,12 +131,16 @@ abstract class SubNewEstateBase extends StatefulWidget with Sub {
 
 mixin Sub {
   Container box(
-      {bool? fitContainer,double?verticalPadding, required String title, required Widget widget}) {
+      {bool? fitContainer,
+      double? verticalPadding,
+      required String title,
+      required Widget widget}) {
     fitContainer ??= false;
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(color: GlobalColor.colorBackground),
-      margin:  EdgeInsets.symmetric(vertical:verticalPadding??16, horizontal: 16),
+      margin:
+          EdgeInsets.symmetric(vertical: verticalPadding ?? 16, horizontal: 16),
       child: Stack(
         clipBehavior: Clip.none,
         children: <Widget>[
