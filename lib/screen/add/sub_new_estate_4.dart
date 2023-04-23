@@ -25,10 +25,7 @@ class _Container1State extends State<SubNewEstate4> {
   @override
   Widget build(BuildContext context) {
     if (widget.screenWidth == -1) {
-      widget.screenWidth = MediaQuery
-          .of(context)
-          .size
-          .width;
+      widget.screenWidth = MediaQuery.of(context).size.width;
     }
     return FutureBuilder<Sub4Data>(
         future: widget.controller.subFourLoad(),
@@ -44,11 +41,14 @@ class _Container1State extends State<SubNewEstate4> {
                       widget: WrapWidgetModel<EstateContractTypeModel>(
                           models: snapshot.data?.contractsList ?? [],
                           titleModelMethod: (item) => item?.title ?? "",
+                          isSelected: (p0) =>
+                              p0.id ==
+                              widget.controller.selectedContractModel?.id,
                           selectMethod: (item) {
                             widget.controller.selectedContractModel = item;
                             setState(() {});
                           })),
-                  widget.box(
+                  widget.box(verticalPadding: 0,
                     title: GlobalString.currency,
                     fitContainer: true,
                     widget: Padding(
@@ -56,8 +56,7 @@ class _Container1State extends State<SubNewEstate4> {
                       child: DropdownButton<CoreCurrencyModel>(
                         isExpanded: true,
                         items: (snapshot.data?.currencyList ?? [])
-                            .map((e) =>
-                            DropdownMenuItem<CoreCurrencyModel>(
+                            .map((e) => DropdownMenuItem<CoreCurrencyModel>(
                                 value: e,
                                 child: Padding(
                                   padding: const EdgeInsets.all(0.0),
@@ -84,14 +83,14 @@ class _Container1State extends State<SubNewEstate4> {
                         false)
                       rowContract(
                           hintPriceMl: widget.controller.selectedContractModel
-                              ?.titleSalePrice ??
+                                  ?.titleSalePrice ??
                               "",
                           textController: widget.controller.salePriceController,
                           value: widget.salePriceAgreement,
                           allowAgreement: widget
-                              .controller
-                              .selectedContractModel
-                              ?.salePriceAllowAgreement ??
+                                  .controller
+                                  .selectedContractModel
+                                  ?.salePriceAllowAgreement ??
                               false),
                   //rent price
                   if (widget.controller.selectedContractModel != null)
@@ -99,47 +98,47 @@ class _Container1State extends State<SubNewEstate4> {
                         false)
                       rowContract(
                           hintPriceMl: widget.controller.selectedContractModel
-                              ?.titleRentPrice ??
+                                  ?.titleRentPrice ??
                               "",
                           textController: widget.controller.rentPriceController,
                           value: widget.rentPriceAgreement,
                           allowAgreement: widget
-                              .controller
-                              .selectedContractModel
-                              ?.rentPriceAllowAgreement ??
+                                  .controller
+                                  .selectedContractModel
+                                  ?.rentPriceAllowAgreement ??
                               false),
                   //deposit price
                   if (widget.controller.selectedContractModel != null)
                     if (widget.controller.selectedContractModel
-                        ?.hasDepositPrice ??
+                            ?.hasDepositPrice ??
                         false)
                       rowContract(
                           hintPriceMl: widget.controller.selectedContractModel
-                              ?.titleDepositPrice ??
+                                  ?.titleDepositPrice ??
                               "",
                           textController:
-                          widget.controller.depositPriceController,
+                              widget.controller.depositPriceController,
                           value: widget.depositPriceAgreement,
                           allowAgreement: widget
-                              .controller
-                              .selectedContractModel
-                              ?.depositPriceAllowAgreement ??
+                                  .controller
+                                  .selectedContractModel
+                                  ?.depositPriceAllowAgreement ??
                               false),
                   //period price
                   if (widget.controller.selectedContractModel != null)
                     if (widget
-                        .controller.selectedContractModel?.hasPeriodPrice ??
+                            .controller.selectedContractModel?.hasPeriodPrice ??
                         false)
                       rowContract(
                           hintPriceMl: widget.controller.selectedContractModel
-                              ?.titlePeriodPrice ??
+                                  ?.titlePeriodPrice ??
                               "",
                           textController: widget.controller.salePriceController,
                           value: widget.periodPriceAgreement,
                           allowAgreement: widget
-                              .controller
-                              .selectedContractModel
-                              ?.periodPriceAllowAgreement ??
+                                  .controller
+                                  .selectedContractModel
+                                  ?.periodPriceAllowAgreement ??
                               false),
                   //add button
                   if (widget.controller.selectedContractModel != null)
@@ -161,14 +160,15 @@ class _Container1State extends State<SubNewEstate4> {
               ),
               //card contract list
               widget.card(children: [
-                widget.box(fitContainer: true,
+                widget.box(
+                    fitContainer: true,
                     title: GlobalString.contractsList,
                     widget: Column(
                       children: [
-                        if(widget.controller.item.contracts!=null)
-                          ... (widget.controller.item.contracts ?? []).map((
-                              e) =>
-                              contractWidget(e)).toList()
+                        if (widget.controller.item.contracts != null)
+                          ...(widget.controller.item.contracts ?? [])
+                              .map((e) => contractWidget(e))
+                              .toList()
                         else
                           const Padding(
                             padding: EdgeInsets.all(8.0),
@@ -183,10 +183,11 @@ class _Container1State extends State<SubNewEstate4> {
         });
   }
 
-  Widget rowContract({required String hintPriceMl,
-    required bool allowAgreement,
-    required TextEditingController textController,
-    required bool value}) {
+  Widget rowContract(
+      {required String hintPriceMl,
+      required bool allowAgreement,
+      required TextEditingController textController,
+      required bool value}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8),
       child: Row(
@@ -234,8 +235,8 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
   static const separator = ','; // Change this to '.' for other locales
 
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue,
-      TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
     // Short-circuit if the new value is empty
     if (newValue.text.length == 0) {
       return newValue.copyWith(text: '');

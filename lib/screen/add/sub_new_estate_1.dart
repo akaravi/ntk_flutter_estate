@@ -125,12 +125,12 @@ abstract class SubNewEstateBase extends StatefulWidget with Sub {
 
 mixin Sub {
   Container box(
-      {bool? fitContainer, required String title, required Widget widget}) {
+      {bool? fitContainer,double?verticalPadding, required String title, required Widget widget}) {
     fitContainer ??= false;
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(color: GlobalColor.colorBackground),
-      margin: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+      margin:  EdgeInsets.symmetric(vertical:verticalPadding??16, horizontal: 16),
       child: Stack(
         clipBehavior: Clip.none,
         children: <Widget>[
