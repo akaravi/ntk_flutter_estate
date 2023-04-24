@@ -144,8 +144,10 @@ class GlobalString {
   static const String confirmLocation = "ثبت موقعیت";
   static const String plzSelectLocation = "موقعیت جهت ثبت انتخاب کنید";
   static const String plzInsertNum = " مورد نظر خود را وارد نمایید";
+  static const String max = "حداکثر";
+  static const String min = "حداقل";
+  static const String from = " از : ";
+  static const String to = " تا : ";
+  static const String confirm = "تایید";
   static const String projects2 = "";
-
-  static var max="حداکثر";
-  static var min="حداقل";
 }

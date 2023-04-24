@@ -5,9 +5,12 @@ import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
+import 'package:ntk_flutter_estate/widget/checkbox_widget.dart';
+import 'package:ntk_flutter_estate/widget/location_model_selector_widget.dart';
 import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
+
 
 class EstateSearchScreen extends StatelessWidget {
   SearchController controller = SearchController();
@@ -93,8 +96,66 @@ class MyHomePageState extends State<MyHomePage> {
           divider(),
           //location Card
           searchCard(
+              isFilled: true,
               title: GlobalString.location,
-              expandedWidget: Text(GlobalString.location)),
+              expandedWidget: Row(
+                children: [
+                  Expanded(
+                    child: widget.box(
+                      title: GlobalString.location,
+                      widget: (widget.controller.locationTitles.isNotEmpty)
+                          ? Wrap(runSpacing: 10, spacing: 12, children: [
+                              ...(widget.controller.locationTitles)
+                                  .map((e) => locationWidget(e))
+                                  .toList()
+                            ])
+                          : const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text(GlobalString.noContractsAdd),
+                            ),
+                    ),
+                  ),
+                  //add button
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: InkWell(
+                      child: Material(
+                        elevation: 12,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border.all(
+                                  color: GlobalColor.colorAccent, width: 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
+                          padding: const EdgeInsets.all(4),
+                          child: const Icon(
+                            Icons.add_location_alt,
+                            size: 24,
+                            color: GlobalColor.colorAccent,
+                          ),
+                        ),
+                      ),
+                      onTap: () async {
+                        CoreLocationModel? model =
+                            await LocationModelSelectorDialog().show(context);
+                        if (model != null) {
+                          widget.controller.locationTitles ??= [];
+                          widget.controller.linkLocationIds ??= [];
+                          if (!(widget.controller.linkLocationIds ?? [])
+                              .contains(model.id)) {
+                            widget.controller.locationTitles
+                                .add(model.title ?? "");
+                            widget.controller.linkLocationIds
+                                .add(model.id ?? 0);
+                            setState(() {});
+                          }
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              )),
           //some space
           divider(),
           //contract type card
@@ -141,6 +202,7 @@ class MyHomePageState extends State<MyHomePage> {
                 )),
             divider()
           ],
+          //area partition...
           if (widget.controller.propertyTypeUsage != null) ...[
             searchCard(
                 title: GlobalString.estateTypeUsageProperties,
@@ -229,7 +291,8 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  searchCard({required String title, required expandedWidget}) {
+  searchCard(
+      {required String title, required expandedWidget, bool isFilled = false}) {
     return Material(
       elevation: 15,
       borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -244,7 +307,9 @@ class MyHomePageState extends State<MyHomePage> {
                   bottomRight: Radius.circular(16),
                   bottomLeft: Radius.circular(16))),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+            padding: isFilled
+                ? EdgeInsets.all(0)
+                : const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
             child: expandedWidget,
           ),
         ),
@@ -283,7 +348,11 @@ class MyHomePageState extends State<MyHomePage> {
         rowContract(
             hintPriceMl:
                 widget.controller.selectedContractModel?.titleSalePrice ?? "",
+            maxTextController: widget.controller.saleMaxController,
+            minTextController: widget.controller.saleMinController,
             value: widget.controller.salePriceAgreement,
+            clickListener: () => widget.controller.salePriceAgreement =
+                !widget.controller.salePriceAgreement,
             allowAgreement: widget.controller.selectedContractModel
                     ?.salePriceAllowAgreement ??
                 false),
@@ -293,6 +362,10 @@ class MyHomePageState extends State<MyHomePage> {
             hintPriceMl:
                 widget.controller.selectedContractModel?.titleRentPrice ?? "",
             value: widget.controller.rentPriceAgreement,
+            clickListener: () => widget.controller.rentPriceAgreement =
+                !widget.controller.rentPriceAgreement,
+            maxTextController: widget.controller.rentMaxController,
+            minTextController: widget.controller.rentMinController,
             allowAgreement: widget.controller.selectedContractModel
                     ?.rentPriceAllowAgreement ??
                 false),
@@ -303,6 +376,10 @@ class MyHomePageState extends State<MyHomePage> {
                 widget.controller.selectedContractModel?.titleDepositPrice ??
                     "",
             value: widget.controller.depositPriceAgreement,
+            maxTextController: widget.controller.depositMaxController,
+            minTextController: widget.controller.depositMinController,
+            clickListener: () => widget.controller.depositPriceAgreement =
+                !widget.controller.depositPriceAgreement,
             allowAgreement: widget.controller.selectedContractModel
                     ?.depositPriceAllowAgreement ??
                 false),
@@ -314,6 +391,10 @@ class MyHomePageState extends State<MyHomePage> {
                   widget.controller.selectedContractModel?.titlePeriodPrice ??
                       "",
               value: widget.controller.periodPriceAgreement,
+              clickListener: () => widget.controller.periodPriceAgreement =
+                  !widget.controller.periodPriceAgreement,
+              maxTextController: widget.controller.periodMaxController,
+              minTextController: widget.controller.periodMinController,
               allowAgreement: widget.controller.selectedContractModel
                       ?.periodPriceAllowAgreement ??
                   false),
@@ -321,6 +402,7 @@ class MyHomePageState extends State<MyHomePage> {
     if (children.length > 0) {
       return [
         searchCard(
+            isFilled: true,
             title: GlobalString.contractProperties,
             expandedWidget: Column(
               children: children,
@@ -338,42 +420,104 @@ class MyHomePageState extends State<MyHomePage> {
 
   Widget rowContract(
       {required String hintPriceMl,
+      required TextEditingController maxTextController,
+      required TextEditingController minTextController,
       required bool allowAgreement,
+      required Function() clickListener,
       required bool value}) {
+    TextEditingController _txt = TextEditingController();
+    if (minTextController.text.trim().isNotEmpty) {
+      _txt.text = GlobalString.from +
+          widget.priceFormat(int.tryParse(minTextController.text.toString()) ?? 0);
+    }
+    if (maxTextController.text.trim().isNotEmpty) {
+      _txt.text = _txt.text +
+          GlobalString.to +
+          widget.priceFormat(int.tryParse(maxTextController.text.toString()) ?? 0);
+    }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SizedBox(
-            width: (2 * widget.screenWidth / 5),
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                labelText: hintPriceMl,
+        padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 6),
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+              color: GlobalColor.colorAccent.withOpacity(.3),
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          child: Row(mainAxisSize: MainAxisSize.max, children: [
+            SizedBox(
+              width: (2 * widget.screenWidth / 5),
+              child: TextField(
+                readOnly: true,
+                controller: _txt,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(3),
+                  filled: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  labelText: hintPriceMl,
+                ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [ThousandsSeparatorInputFormatter()],
               ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [ThousandsSeparatorInputFormatter()],
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            CheckInk(
+                clickListener: () {
+                  setState(() {
+                    clickListener();
+                  });
+                },
+                widget: Check(
+                  title: GlobalString.agreement,
+                  checked: value,
+                )),
+          ]),
+        ));
+  }
+
+  Widget locationWidget(String e) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+          color: GlobalColor.colorBackground,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: GlobalColor.colorAccent)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(e,
+              style: const TextStyle(
+                  color: GlobalColor.colorPrimary, fontSize: 14)),
+          Padding(
+            padding: const EdgeInsets.only(left: 0, right: 8),
+            child: InkWell(
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent,
+                  border: Border.all(color: GlobalColor.colorError, width: 1),
+                ),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                  Icons.delete_forever,
+                  size: 13,
+                  color: GlobalColor.colorError,
+                ),
+              ),
+              onTap: () {
+                setState(() {
+                  int? index = widget.controller.locationTitles.indexOf(e);
+                  widget.controller.locationTitles.remove(e);
+                  widget.controller.linkLocationIds.removeAt(index ?? 0);
+                });
+              },
             ),
           ),
-          const SizedBox(
-            width: 15,
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: value,
-                onChanged: (val) {},
-              ),
-              const Text(
-                GlobalString.agreement,
-                style: TextStyle(fontSize: 17.0),
-              ),
-            ],
-          )
         ],
       ),
     );
   }
+
+
 }

@@ -4,6 +4,7 @@ import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import 'package:base/src/index.dart';
 import '../../controller/new_estate_controller.dart';
+import 'package:intl/intl.dart';
 
 class SubNewEstate1 extends SubNewEstateBase {
   SubNewEstate1({Key? key, required NewEstateController controller})
@@ -14,7 +15,6 @@ class SubNewEstate1 extends SubNewEstateBase {
 }
 
 class _Container1State extends State<SubNewEstate1> {
-
   @override
   Widget build(BuildContext context) {
     if (widget.screenWidth == -1) {
@@ -226,5 +226,55 @@ mixin Sub {
             )),
       ),
     );
+  }
+
+  Widget fromToTextFieldBoxWidget(
+      {required String title,
+      void Function()? onClick,
+      required TextEditingController maxTextController,
+      required TextEditingController minTextController,
+      TextInputType? keyboardType}) {
+    TextEditingController _txt = TextEditingController();
+    if (minTextController.text.trim().isNotEmpty) {
+      _txt.text = GlobalString.from +
+          priceFormat(int.tryParse(minTextController.text.toString()) ?? 0);
+    }
+    if (maxTextController.text.trim().isNotEmpty) {
+      _txt.text = _txt.text +
+          GlobalString.to +
+          priceFormat(int.tryParse(maxTextController.text.toString()) ?? 0);
+    }
+    return Container(
+      margin: EdgeInsets.only(top: 2, bottom: 2),
+      padding: const EdgeInsets.only(top: 4, bottom: 4, left: 16.0, right: 16),
+      child: TextField(
+        readOnly: true,
+        onTap: onClick,
+        style: const TextStyle(fontSize: 13),
+        controller: _txt,
+        keyboardType: keyboardType ?? TextInputType.number,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: GlobalColor.colorPrimary, width: 1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+                  const BorderSide(color: GlobalColor.colorPrimary, width: 1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            labelText: title,
+            labelStyle: const TextStyle(
+              fontSize: 13,
+              color: GlobalColor.colorAccent,
+            )),
+      ),
+    );
+  }
+
+  String priceFormat(int price) {
+    return NumberFormat("###,###,###,###,###,###").format(price);
   }
 }
