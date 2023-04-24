@@ -143,7 +143,7 @@ class _Container1State extends State<SubNewEstate4> {
                           hintPriceMl: widget.controller.selectedContractModel
                                   ?.titlePeriodPrice ??
                               "",
-                          textController: widget.controller.salePriceController,
+                          textController: widget.controller.periodPriceController,
                           value: widget.controller.periodPriceAgreement,
                           clickListener: () =>
                               widget.controller.periodPriceAgreement =
@@ -430,7 +430,7 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
 }
 
 class ThousandsSeparatorString {
-  static String stringValue(double val) {
+  static String stringValue(int val) {
     var formatter = NumberFormat("###,###,###,###,###,###");
     return formatter.format(val);
   }

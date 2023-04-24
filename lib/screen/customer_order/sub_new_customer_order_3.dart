@@ -19,10 +19,6 @@ class SubNewCustomerOrder3 extends SubNewCustomerOrderBase {
 
   @override
   State<SubNewCustomerOrder3> createState() => _Container1State();
-  bool salePriceAgreement = false;
-  bool rentPriceAgreement = false;
-  bool depositPriceAgreement = false;
-  bool periodPriceAgreement = false;
 }
 
 class _Container1State extends State<SubNewCustomerOrder3> {
@@ -45,6 +41,9 @@ class _Container1State extends State<SubNewCustomerOrder3> {
                       widget: WrapWidgetModel<EstateContractTypeModel>(
                           models: snapshot.data?.contractsList ?? [],
                           titleModelMethod: (item) => item?.title ?? "",
+                          isSelected: (p0) =>
+                              p0.id ==
+                              widget.controller.selectedContractModel?.id,
                           selectMethod: (item) {
                             widget.controller.selectedContractModel = item;
                             setState(() {});
@@ -78,156 +77,127 @@ class _Container1State extends State<SubNewCustomerOrder3> {
                       ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 6,
+                  ),
                   //sale price
                   if (widget.controller.selectedContractModel != null)
                     if (widget.controller.selectedContractModel?.hasSalePrice ??
                         false)
                       rowContract(
-                          hintPriceMl: widget.controller.selectedContractModel
-                                  ?.titleSalePrice ??
-                              "",
-                          textController: widget.controller.salePriceController,
-                          value: widget.salePriceAgreement,
-                          allowAgreement: widget
-                                  .controller
-                                  .selectedContractModel
-                                  ?.salePriceAllowAgreement ??
-                              false),
+                        hintPriceMl: widget.controller.selectedContractModel
+                                ?.titleSalePrice ??
+                            "",
+                        maxTextController:
+                            widget.controller.maxSalePriceController,
+                        minTextController:
+                            widget.controller.minSalePriceController,
+                      ),
                   //rent price
                   if (widget.controller.selectedContractModel != null)
                     if (widget.controller.selectedContractModel?.hasRentPrice ??
                         false)
                       rowContract(
-                          hintPriceMl: widget.controller.selectedContractModel
-                                  ?.titleRentPrice ??
-                              "",
-                          textController: widget.controller.rentPriceController,
-                          value: widget.rentPriceAgreement,
-                          allowAgreement: widget
-                                  .controller
-                                  .selectedContractModel
-                                  ?.rentPriceAllowAgreement ??
-                              false),
+                        hintPriceMl: widget.controller.selectedContractModel
+                                ?.titleRentPrice ??
+                            "",
+                        maxTextController:
+                            widget.controller.maxRentPriceController,
+                        minTextController:
+                            widget.controller.minRentPriceController,
+                      ),
                   //deposit price
                   if (widget.controller.selectedContractModel != null)
                     if (widget.controller.selectedContractModel
                             ?.hasDepositPrice ??
                         false)
                       rowContract(
-                          hintPriceMl: widget.controller.selectedContractModel
-                                  ?.titleDepositPrice ??
-                              "",
-                          textController:
-                              widget.controller.depositPriceController,
-                          value: widget.depositPriceAgreement,
-                          allowAgreement: widget
-                                  .controller
-                                  .selectedContractModel
-                                  ?.depositPriceAllowAgreement ??
-                              false),
+                        hintPriceMl: widget.controller.selectedContractModel
+                                ?.titleDepositPrice ??
+                            "",
+                        maxTextController:
+                            widget.controller.maxDepositPriceController,
+                        minTextController:
+                            widget.controller.minDepositPriceController,
+                      ),
                   //period price
                   if (widget.controller.selectedContractModel != null)
                     if (widget
                             .controller.selectedContractModel?.hasPeriodPrice ??
                         false)
                       rowContract(
-                          hintPriceMl: widget.controller.selectedContractModel
-                                  ?.titlePeriodPrice ??
-                              "",
-                          textController: widget.controller.salePriceController,
-                          value: widget.periodPriceAgreement,
-                          allowAgreement: widget
-                                  .controller
-                                  .selectedContractModel
-                                  ?.periodPriceAllowAgreement ??
-                              false),
-                  //add button
-                  if (widget.controller.selectedContractModel != null)
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0)),
-                          elevation: 10,
-                          backgroundColor: GlobalColor.colorAccent),
-                      onPressed: () {
-                        //todo
-                      },
-                      child: Text(GlobalString.addToContract,
-                          style: const TextStyle(
-                              color: GlobalColor.colorTextOnPrimary,
-                              fontSize: 16)),
-                    ),
+                        hintPriceMl: widget.controller.selectedContractModel
+                                ?.titlePeriodPrice ??
+                            "",
+                        maxTextController:
+                            widget.controller.maxPeriodPriceController,
+                        minTextController:
+                            widget.controller.minPeriodPriceController,
+                      ),
                 ],
               ),
-              //card contract list
-              widget.card(children: [
-                widget.box(
-                    fitContainer: true,
-                    title: GlobalString.contractsList,
-                    widget: Column(
-                      children: [
-                        if (widget.controller.item.contracts != null)
-                          ...(widget.controller.item.contracts ?? [])
-                              .map((e) => contractWidget(e))
-                              .toList()
-                        else
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(GlobalString.noContractsAdd),
-                          )
-                      ],
-                    ))
-              ]),
             ]);
           }
-          return SubLoadingScreen();
+          return SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: const SubLoadingScreen());
         });
   }
 
-  Widget rowContract(
-      {required String hintPriceMl,
-      required bool allowAgreement,
-      required TextEditingController textController,
-      required bool value}) {
+  Widget rowContract({
+    required String hintPriceMl,
+    required TextEditingController minTextController,
+    required TextEditingController maxTextController,
+  }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          SizedBox(
-            width: (2 * widget.screenWidth / 5),
-            child: TextField(
-              controller: textController,
-              decoration: InputDecoration(
-                filled: true,
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                labelText: hintPriceMl,
+      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 6),
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+            color: GlobalColor.colorAccent.withOpacity(.3),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SizedBox(
+              width: (2 * widget.screenWidth / 5),
+              child: TextField(
+                controller: minTextController,
+                style: TextStyle(fontSize: 13),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(3),
+                  filled: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  labelText: "${GlobalString.min} $hintPriceMl",
+                ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [ThousandsSeparatorInputFormatter()],
               ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [ThousandsSeparatorInputFormatter()],
             ),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: value,
-                onChanged: (val) {},
+            const SizedBox(
+              width: 15,
+            ),
+            SizedBox(
+              width: (2 * widget.screenWidth / 5),
+              child: TextField(
+                controller: maxTextController,
+                style: TextStyle(fontSize: 13),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(3),
+                  filled: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  labelText: "${GlobalString.max} $hintPriceMl",
+                ),
+                keyboardType: TextInputType.number,
+                inputFormatters: [ThousandsSeparatorInputFormatter()],
               ),
-              const Text(
-                GlobalString.agreement,
-                style: TextStyle(fontSize: 17.0),
-              ),
-            ],
-          )
-        ],
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  Widget contractWidget(EstateContractModel e) {
-    return Text("");
   }
 }

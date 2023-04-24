@@ -23,24 +23,27 @@ class _Container1State extends State<SubNewCustomerOrder2> {
         future: widget.controller.subTowLoad(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return SingleChildScrollView(
-              child: Column(
-                  children: (snapshot.data?.propertydetailGroups ?? [])
-                      .map((e) => widget.card(children: [
+            return Column(  mainAxisSize: MainAxisSize.min,
+                children: (snapshot.data?.propertydetailGroups ?? [])
+                    .map((e) => widget.card(
+                  children: [
                     widget.box(
                         title: e.title ?? "",
-                        widget: Flexible(
-                          child: Wrap(runSpacing: 8,spacing: 8,
-                            children: ((e.propertyDetails ?? []).map((t) =>
-                                PropertyDetailSelector().viewHolder(context,t)))
-                                .toList(),
-                          ),
-                        ))
-                  ]))
-                      .toList()),
-            );
-          }
-          return SubLoadingScreen();
+                        widget: Wrap(
+                          children: ((e.propertyDetails ?? []).map(
+                                  (t) => Container(width: 4*widget.screenWidth/10,
+                                child: PropertyDetailSelector()
+                                    .viewHolder(context,t),
+                              ))).toList(),
+                        )),
+                  ],
+                ))
+                    .toList());
+                }
+                return SizedBox(
+                width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: const SubLoadingScreen());
         });
   }
 }

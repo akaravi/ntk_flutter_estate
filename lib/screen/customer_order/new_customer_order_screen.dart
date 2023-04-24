@@ -33,24 +33,31 @@ class NewEstateState extends State<NewCustomerOrderScreen> {
           onPressed: () => BaseController().close(context),
         ),
       ),
-      body: Stack(children: [
-        Expanded(
-            child: CustomScrollView(scrollDirection: Axis.vertical, slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Container(
-                width: double.infinity,
-                color: GlobalColor.colorSemiBackground,
-                padding: EdgeInsets.all(8),
-                child: currentSub()),
+      body: Container(width: MediaQuery
+          .of(context)
+          .size
+          .width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height, color: GlobalColor.colorSemiBackground,
+        child: Stack(children: [
+          Positioned.fill(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                padding: EdgeInsets.only(bottom: 78),
+                child: currentSub(),),
+            ),
           ),
-        ])),
-        Positioned(
-            bottom: 12,
-            left: 12,
-            right: 12,
-            child: Row(children: [nextButton(), Spacer(), prevButton()]))
-      ]),
+          Positioned(
+              bottom: 12,
+              left: 12,
+              right: 12,
+              child: Row(children: [nextButton(), Spacer(), prevButton()]))
+        ]
+        ),
+      ),
     );
   }
 
@@ -96,7 +103,7 @@ class NewEstateState extends State<NewCustomerOrderScreen> {
           elevation: 10,
           backgroundColor: GlobalColor.colorPrimary),
       onPressed: () {
-        if (widget.controller.isValid(index)) {
+        if (widget.controller.isValid(context,index)) {
           index++;
           setState(() {});
         }
@@ -118,10 +125,8 @@ class NewEstateState extends State<NewCustomerOrderScreen> {
             style: TextStyle(color: GlobalColor.colorPrimary),
           ),
           onPressed: () {
-            if (widget.controller.isValid(index)) {
-              index--;
-              setState(() {});
-            }
+            index--;
+            setState(() {});
           });
     } else {
       return Container();

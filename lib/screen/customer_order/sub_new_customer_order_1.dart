@@ -39,6 +39,9 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                             widget.controller.item.propertyTypeLanduse = null;
                           });
                         },
+                        isSelected: (element) =>
+                        element.id ==
+                            widget.controller.item.propertyTypeUsage?.id,
                         models: snapshot.data?.typeUsagesList ?? [],
                         titleModelMethod: (item) => item.title ?? "",
                       )),
@@ -54,6 +57,9 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                               widget.controller.item.propertyTypeLanduse = item;
                             });
                           },
+                          isSelected: (p0) =>
+                          p0.id ==
+                              widget.controller.item.propertyTypeLanduse?.id,
                           models: widget.controller.usageList(snapshot.data),
                           titleModelMethod: (item) => item.title ?? "",
                         )),
@@ -98,12 +104,15 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                               "",
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: false, decimal: false),
-                          textController: widget.controller.partitionController)
-                  ]),
+                          textController: widget.controller.partitionController),
+                    const SizedBox(height: 8),  ]),
               ],
             );
           }
-          return SubLoadingScreen();
+          return SizedBox(
+              width: GlobalData.screenWidth,
+              height: GlobalData.screenHeight,
+              child: const SubLoadingScreen());
         });
   }
 }

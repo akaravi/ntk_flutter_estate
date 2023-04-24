@@ -1,10 +1,12 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 class NewCustomerOrderController {
-  EstatePropertyModel item;
+  EstateCustomerOrderModel item;
   late CoreCurrencyModel selectedCurrency;
   String mainGUID = "";
   EstateContractTypeModel? selectedContractModel;
@@ -15,14 +17,18 @@ class NewCustomerOrderController {
   TextEditingController titleTextWidget = TextEditingController();
   TextEditingController descTextWidget = TextEditingController();
   TextEditingController addressTextWidget = TextEditingController();
-  TextEditingController salePriceController = TextEditingController();
-  TextEditingController rentPriceController = TextEditingController();
-  TextEditingController depositPriceController = TextEditingController();
+  TextEditingController maxSalePriceController = TextEditingController();
+  TextEditingController minSalePriceController = TextEditingController();
+  TextEditingController maxRentPriceController = TextEditingController();
+  TextEditingController minRentPriceController = TextEditingController();
+  TextEditingController maxDepositPriceController = TextEditingController();
+  TextEditingController minDepositPriceController = TextEditingController();
 
-  TextEditingController periodPriceController = TextEditingController();
+  TextEditingController maxPeriodPriceController = TextEditingController();
+  TextEditingController minPeriodPriceController = TextEditingController();
 
-  NewCustomerOrderController({EstatePropertyModel? model})
-      : item = model ?? EstatePropertyModel();
+  NewCustomerOrderController({EstateCustomerOrderModel? model})
+      : item = model ?? EstateCustomerOrderModel();
 
   Future<Sub1CustomerData> subOneLoad() async {
     var sub1data = Sub1CustomerData();
@@ -51,31 +57,37 @@ class NewCustomerOrderController {
         .toList();
   }
 
-  bool isValid(int index) {
+  bool isValid(BuildContext context, int index) {
     switch (index) {
       case 1:
-        return sub1Validation();
+        return sub1Validation(context);
       case 2:
         return sub2Validation();
       case 3:
-        return sub3Validation();
+        return sub3Validation(context);
       case 4:
-        return sub4Validation();
+        return sub4Validation(context);
       case 5:
         return sub5Validation();
     }
     return true;
-
   }
 
   Future<Sub2CustomerData> subTowLoad() async {
-    Sub2CustomerData data = Sub2CustomerData();
-    data.propertydetailGroups =
-        await EstatePropertyDetailGroupService().getAll(FilterModel()
-          ..addFilter(FilterDataModel()
-            ..setPropertyName("linkPropertyTypeLanduseId")
-            ..value = item.propertyTypeLanduse?.id ?? ""));
-    return data;
+    if (item.propertyDetailGroups == null) {
+      Sub2CustomerData data = Sub2CustomerData();
+      data.propertydetailGroups =
+          await EstatePropertyDetailGroupService().getAll(FilterModel()
+            ..addFilter(FilterDataModel()
+              ..setPropertyName("linkPropertyTypeLanduseId")
+              ..value = item.propertyTypeLanduse?.id ?? ""));
+      return data;
+    } else {
+      await Future.delayed(const Duration(microseconds: 1000));
+      Sub2CustomerData data = Sub2CustomerData();
+      data.propertydetailGroups = item.propertyDetailGroups ?? [];
+      return data;
+    }
   }
 
   Future<Sub3Data> subThreeLoad() async {
@@ -94,18 +106,17 @@ class NewCustomerOrderController {
         MaterialPageRoute(builder: (context) => NewCustomerOrderScreen())));
   }
 
-  bool sub1Validation() {
+  bool sub1Validation(BuildContext context) {
     if (item.propertyTypeUsage == null) {
-      toast(GlobalString.insertTypeUsage);
+      toast(context, GlobalString.insertTypeUsage);
       return false;
     }
     if (item.propertyTypeLanduse == null) {
-      toast(GlobalString.insertTypeUse);
+      toast(context, GlobalString.insertTypeUse);
       return false;
     }
-    if (areaController.text.isEmpty) {
-      toast(GlobalString.insertArea);
-      return false;
+    if (areaController.text.isNotEmpty) {
+      item.area = double.parse(areaController.text);
     }
     if (item.linkPropertyTypeLanduseId != null &&
         item.linkPropertyTypeLanduseId !=
@@ -115,9 +126,13 @@ class NewCustomerOrderController {
     }
     item.linkPropertyTypeLanduseId = item.propertyTypeLanduse?.id;
     item.linkPropertyTypeUsageId = item.propertyTypeUsage?.id;
-    item.area = areaController.text as double?;
-    item.createdYaer = createdYearController.text as int?;
-    item.partition = partitionController.text as int?;
+
+    if (createdYearController.text.isNotEmpty) {
+      item.createdYaer = int.parse(createdYearController.text);
+    }
+    if (partitionController.text.isNotEmpty) {
+      item.partition = int.parse(partitionController.text);
+    }
     return true;
   }
 
@@ -139,31 +154,80 @@ class NewCustomerOrderController {
     return true;
   }
 
-  bool sub3Validation() {
+  bool sub3Validation(BuildContext context) {
     if (titleTextWidget.text.isEmpty) {
-      toast(GlobalString.plzInsertTitle);
+      toast(context, GlobalString.plzInsertTitle);
       return false;
     }
     if (descTextWidget.text.isEmpty) {
-      toast(GlobalString.insertDesc);
+      toast(context, GlobalString.insertDesc);
       return false;
     }
     if (addressTextWidget.text.isEmpty) {
-      toast(GlobalString.insertDesc);
+      toast(context, GlobalString.insertDesc);
       return false;
     }
-    if (item.linkLocationId != null) {
-      toast(GlobalString.insertLocation);
+    if (item.linkLocationIds != null) {
+      toast(context, GlobalString.insertLocation);
       return false;
     }
 
     return true;
   }
 
-  bool sub4Validation() {
-    if ((item.contracts ?? []).isEmpty) {
-      toast(GlobalString.plzInsertContract);
+  bool sub4Validation(BuildContext context) {
+    if (selectedContractModel == null) {
+      toast(context, GlobalString.plzInsertContract);
       return false;
+    }
+    //sale price
+    if (selectedContractModel?.hasSalePrice ?? false) {
+      //price is empty
+      if (maxSalePriceController.text.isNotEmpty) {
+        item.salePriceMax = int.parse(maxSalePriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+      if (minSalePriceController.text.isNotEmpty) {
+        item.salePriceMin = int.parse(minSalePriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+    }
+    //rent
+    if (selectedContractModel?.hasRentPrice ?? false) {
+      //add price
+      if (maxRentPriceController.text.isEmpty) {
+        item.rentPriceMax = int.parse(maxRentPriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+      if (minRentPriceController.text.isNotEmpty) {
+        item.rentPriceMin = int.parse(minRentPriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+    }
+
+    //deposit
+    if (selectedContractModel?.hasDepositPrice ?? false) {
+      //price is empty
+      if (maxDepositPriceController.text.isNotEmpty) {
+        item.depositPriceMax = int.parse(maxDepositPriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+      if (minDepositPriceController.text.isNotEmpty) {
+        item.depositPriceMin = int.parse(minDepositPriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+    }
+    //Period
+    if (selectedContractModel?.hasPeriodPrice ?? false) {
+      //price is empty
+      if (maxPeriodPriceController.text.isNotEmpty) {
+        item.periodPriceMax = int.parse(maxPeriodPriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
+      if (minPeriodPriceController.text.isNotEmpty) {
+        item.periodPriceMin = int.parse(minPeriodPriceController.text
+            .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
+      }
     }
     return true;
   }
@@ -172,7 +236,9 @@ class NewCustomerOrderController {
     return true;
   }
 
-  void toast(insertTypeUsage) {}
+  void toast(BuildContext c, String detail) {
+    MotionToast.error(description: Text(detail)).show(c);
+  }
 }
 
 class Sub1CustomerData {

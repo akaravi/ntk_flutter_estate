@@ -14,7 +14,7 @@ class ContractWidget {
           String price = "";
           if (m.salePrice != null && m.salePrice != 0) {
             price =
-                PriceFormat(m.salePrice ?? 0) + "  " + m.currencyTitle! ?? "";
+                priceFormat(m.salePrice ?? 0) + "  " + m.currencyTitle! ?? "";
           }
           if (m.salePriceByAgreement ?? false) {
             price = (price.isEmpty ? "توافقی" : price + "||" + " توافقی");
@@ -31,7 +31,7 @@ class ContractWidget {
           String price = "";
           if (m.depositPrice != null && m.depositPrice != 0) {
             price =
-                PriceFormat(m.depositPrice ?? 0) + "  " + m.currencyTitle! ??
+                priceFormat(m.depositPrice ?? 0) + "  " + m.currencyTitle! ??
                     "";
           }
           if (m.depositPriceByAgreement ?? false) {
@@ -49,7 +49,7 @@ class ContractWidget {
           String price = "";
           if (m.rentPrice != null && m.rentPrice != 0) {
             price =
-                PriceFormat(m.rentPrice ?? 0) + "  " + m.currencyTitle! ?? "";
+                priceFormat(m.rentPrice ?? 0) + "  " + m.currencyTitle! ?? "";
           }
           if (m.rentPriceByAgreement ?? false) {
             price = (price.isEmpty ? "توافقی" : price + "||" + " توافقی");
@@ -70,7 +70,7 @@ class ContractWidget {
             fontSize: 13, color: GlobalColor.colorTextSecondary));
   }
 
-  String PriceFormat(double price) {
+  String priceFormat(int price) {
     return NumberFormat("###,###,###,###,###,###").format(price);
   }
 

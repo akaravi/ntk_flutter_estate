@@ -214,7 +214,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.salePrice = double.parse(salePriceController.text
+          contract.salePrice = int.parse(salePriceController.text
               .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
         }
       }
@@ -232,7 +232,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.rentPrice = double.parse(rentPriceController.text
+          contract.rentPrice = int.parse(rentPriceController.text
               .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
         }
       }
@@ -250,7 +250,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.depositPrice = double.parse(depositPriceController.text
+          contract.depositPrice = int.parse(depositPriceController.text
               .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
         }
       }
@@ -268,7 +268,7 @@ class NewEstateController {
           );
           return false;
         } else {
-          contract.depositPrice = double.parse(periodPriceController.text
+          contract.depositPrice = int.parse(periodPriceController.text
               .replaceAll(ThousandsSeparatorInputFormatter.separator, ""));
         }
       }
