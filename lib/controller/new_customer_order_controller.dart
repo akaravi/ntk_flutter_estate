@@ -154,7 +154,7 @@ class NewCustomerOrderController {
     return true;
   }
 
-  bool sub3Validation(BuildContext context) {
+  bool sub4Validation(BuildContext context) {
     if (titleTextWidget.text.isEmpty) {
       toast(context, GlobalString.plzInsertTitle);
       return false;
@@ -175,7 +175,7 @@ class NewCustomerOrderController {
     return true;
   }
 
-  bool sub4Validation(BuildContext context) {
+  bool sub3Validation(BuildContext context) {
     if (selectedContractModel == null) {
       toast(context, GlobalString.plzInsertContract);
       return false;
