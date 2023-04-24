@@ -114,20 +114,21 @@ class _Container1State extends State<SubNewCustomerOrder4> {
           color: GlobalColor.colorBackground,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(color: GlobalColor.colorAccent)),
-      child: Row(mainAxisSize: MainAxisSize.min,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(e,
               style: const TextStyle(
                   color: GlobalColor.colorPrimary, fontSize: 14)),
           Padding(
-            padding: const EdgeInsets.only(left: 4,right: 8),
+            padding: const EdgeInsets.only(left: 4, right: 8),
             child: InkWell(
               child: Container(
-                decoration: BoxDecoration(shape: BoxShape.circle,
-                    color: Colors.transparent,
-                    border:
-                        Border.all(color: GlobalColor.colorError, width: 1),
-                 ),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.transparent,
+                  border: Border.all(color: GlobalColor.colorError, width: 1),
+                ),
                 padding: const EdgeInsets.all(4),
                 child: const Icon(
                   Icons.delete_forever,
@@ -140,7 +141,7 @@ class _Container1State extends State<SubNewCustomerOrder4> {
                   int? index =
                       widget.controller.item.locationTitles?.indexOf(e);
                   widget.controller.item.locationTitles?.remove(e);
-                  widget.controller.item.linkLocationIds?.remove(index);
+                  widget.controller.item.linkLocationIds?.removeAt(index ?? 0);
                 });
               },
             ),
