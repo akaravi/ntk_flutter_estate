@@ -48,7 +48,9 @@ class _Container1State extends State<SubNewCustomerOrder4> {
             Expanded(
               child: widget.box(
                 title: GlobalString.location,
-                widget: (widget.controller.item.locationTitles != null)
+                widget: (widget.controller.item.locationTitles != null &&
+                        (widget.controller.item.locationTitles?.isNotEmpty ??
+                            false))
                     ? Wrap(runSpacing: 10, spacing: 12, children: [
                         if (widget.controller.item.locationTitles != null)
                           ...(widget.controller.item.locationTitles ?? [])
@@ -87,7 +89,7 @@ class _Container1State extends State<SubNewCustomerOrder4> {
                   if (model != null) {
                     widget.controller.item.locationTitles ??= [];
                     widget.controller.item.linkLocationIds ??= [];
-                    if ((widget.controller.item.linkLocationIds ?? [])
+                    if (!(widget.controller.item.linkLocationIds ?? [])
                         .contains(model.id)) {
                       widget.controller.item.locationTitles
                           ?.add(model.title ?? "");
@@ -104,18 +106,49 @@ class _Container1State extends State<SubNewCustomerOrder4> {
       ]),
     ]);
   }
-}
 
-Widget locationWidget(String e) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-    decoration: BoxDecoration(
-        color: GlobalColor.colorBackground,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: GlobalColor.colorAccent)),
-    child: Text(e,
-        style: const TextStyle(color: GlobalColor.colorPrimary, fontSize: 14)),
-  );
+  Widget locationWidget(String e) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+      decoration: BoxDecoration(
+          color: GlobalColor.colorBackground,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: GlobalColor.colorAccent)),
+      child: Row(mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(e,
+              style: const TextStyle(
+                  color: GlobalColor.colorPrimary, fontSize: 14)),
+          Padding(
+            padding: const EdgeInsets.only(left: 4,right: 8),
+            child: InkWell(
+              child: Container(
+                decoration: BoxDecoration(shape: BoxShape.circle,
+                    color: Colors.transparent,
+                    border:
+                        Border.all(color: GlobalColor.colorError, width: 1),
+                 ),
+                padding: const EdgeInsets.all(4),
+                child: const Icon(
+                  Icons.delete_forever,
+                  size: 13,
+                  color: GlobalColor.colorError,
+                ),
+              ),
+              onTap: () {
+                setState(() {
+                  int? index =
+                      widget.controller.item.locationTitles?.indexOf(e);
+                  widget.controller.item.locationTitles?.remove(e);
+                  widget.controller.item.linkLocationIds?.remove(index);
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 abstract class SubNewCustomerOrderBase extends StatefulWidget with Sub {
