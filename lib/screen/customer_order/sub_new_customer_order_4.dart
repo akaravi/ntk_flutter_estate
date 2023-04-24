@@ -109,7 +109,7 @@ class _Container1State extends State<SubNewCustomerOrder4> {
 
   Widget locationWidget(String e) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
           color: GlobalColor.colorBackground,
           borderRadius: BorderRadius.circular(18),
@@ -121,7 +121,7 @@ class _Container1State extends State<SubNewCustomerOrder4> {
               style: const TextStyle(
                   color: GlobalColor.colorPrimary, fontSize: 14)),
           Padding(
-            padding: const EdgeInsets.only(left: 4, right: 8),
+            padding: const EdgeInsets.only(left: 0, right: 8),
             child: InkWell(
               child: Container(
                 decoration: BoxDecoration(
