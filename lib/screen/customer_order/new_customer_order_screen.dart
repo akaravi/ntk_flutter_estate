@@ -108,7 +108,7 @@ class NewEstateState extends State<NewCustomerOrderScreen> {
           setState(() {});
         }
       },
-      child: Text(index != 5 ? GlobalString.continueStr : GlobalString.add,
+      child: Text(index != 4 ? GlobalString.continueStr : GlobalString.add,
           style: const TextStyle(
               color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
     );
