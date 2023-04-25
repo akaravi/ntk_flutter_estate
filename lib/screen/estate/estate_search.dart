@@ -11,7 +11,6 @@ import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
-
 class EstateSearchScreen extends StatelessWidget {
   SearchController controller = SearchController();
 
@@ -208,12 +207,16 @@ class MyHomePageState extends State<MyHomePage> {
                 title: GlobalString.estateTypeUsageProperties,
                 expandedWidget: Column(children: [
                   if (widget.controller.propertyTypeUsage != null) ...[
-                    widget.fromToTextFieldBoxWidget(context: context,
-                        title: GlobalString.areaAsMeter,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            signed: false, decimal: true),
-                        minNum: widget.controller.minArea,
-                        maxNum: widget.controller.maxArea,),
+                    widget.fromToTextFieldBoxWidget(
+                      context: context,
+                      title: GlobalString.areaAsMeter,
+                      changeState: () {
+                        setState(() {});
+                      },
+                      keyboardType: const TextInputType.numberWithOptions(
+                          signed: false, decimal: true),
+                      minMax: widget.controller.area,
+                    ),
                     //created year
                     if ((widget.controller.propertyTypeLanduse
                                     ?.titleCreatedYaer ??
@@ -223,16 +226,16 @@ class MyHomePageState extends State<MyHomePage> {
                                     ?.titleCreatedYaer ??
                                 "") !=
                             ("---"))
-                      widget
-                          .textFieldBoxWidget(
-                              title: widget.controller.propertyTypeLanduse
-                                      ?.titleCreatedYaer ??
-                                  "",
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      signed: false, decimal: false),
-                              textController:
-                                  widget.controller.createdYearController),
+                      widget.fromToTextFieldBoxWidget(
+                          context: context,
+                          title: widget.controller.propertyTypeLanduse
+                                  ?.titleCreatedYaer ??
+                              "",
+                          changeState: () {
+                            setState(() {});
+                          },
+                          keyboardType: TextInputType.number,
+                          minMax: widget.controller.createdYear),
                     //created year
                     if ((widget.controller.propertyTypeLanduse
                                     ?.titlePartition ??
@@ -242,13 +245,16 @@ class MyHomePageState extends State<MyHomePage> {
                                     ?.titlePartition ??
                                 "") !=
                             ("---"))
-                      widget.textFieldBoxWidget(
+                      widget.fromToTextFieldBoxWidget(
+                          context: context,
                           title: widget.controller.propertyTypeLanduse
                                   ?.titlePartition ??
                               "",
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: false, decimal: false),
-                          textController: widget.controller.partitionController)
+                          changeState: () {
+                            setState(() {});
+                          },
+                          keyboardType: TextInputType.number,
+                          minMax: widget.controller.partition)
                   ],
                 ])),
             divider()
@@ -429,12 +435,14 @@ class MyHomePageState extends State<MyHomePage> {
     TextEditingController _txt = TextEditingController();
     if (minTextController.text.trim().isNotEmpty) {
       _txt.text = GlobalString.from +
-          widget.priceFormat(int.tryParse(minTextController.text.toString()) ?? 0);
+          widget.priceFormat(
+              int.tryParse(minTextController.text.toString()) ?? 0);
     }
     if (maxTextController.text.trim().isNotEmpty) {
       _txt.text = _txt.text +
           GlobalString.to +
-          widget.priceFormat(int.tryParse(maxTextController.text.toString()) ?? 0);
+          widget.priceFormat(
+              int.tryParse(maxTextController.text.toString()) ?? 0);
     }
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 6),
@@ -519,6 +527,4 @@ class MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-
 }

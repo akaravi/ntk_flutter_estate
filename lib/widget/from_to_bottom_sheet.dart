@@ -67,7 +67,7 @@ class FromToBottomSheet {
                 children: [
                   Expanded(
                       child: TextField(
-                    controller: maxController,
+                    controller: minController,
                     keyboardType: keyboardType,
                     inputFormatters: [ThousandsSeparatorInputFormatter()],
                     decoration: InputDecoration(
@@ -91,7 +91,7 @@ class FromToBottomSheet {
                   )),
                   Expanded(
                       child: TextField(
-                    controller: minController,
+                    controller: maxController,
                     keyboardType: keyboardType,
                     inputFormatters: [ThousandsSeparatorInputFormatter()],
                     decoration: InputDecoration(
@@ -109,7 +109,7 @@ class FromToBottomSheet {
                         borderSide: BorderSide(
                             color: GlobalColor.colorAccentDark, width: 2),
                       ),
-                      labelText: GlobalString.from,
+                      labelText: GlobalString.to,
                       prefixIcon: const Icon(Icons.download_outlined, size: 18),
                     ),
                   ))

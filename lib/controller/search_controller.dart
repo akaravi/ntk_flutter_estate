@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 
+import '../screen/add/sub_new_estate_1.dart';
+
 class SearchController {
   TextEditingController textController = TextEditingController();
   TextEditingController areaController = TextEditingController();
@@ -31,8 +33,9 @@ class SearchController {
   List<String> locationTitles = [];
   List<int> linkLocationIds = [];
 
-  double? minArea;
-  double? maxArea;
+  MinMax area = MinMax();
+  MinMax createdYear = MinMax();
+  MinMax partition = MinMax();
 
   static start(BuildContext context) {
     Future.microtask(() => Navigator.of(context)

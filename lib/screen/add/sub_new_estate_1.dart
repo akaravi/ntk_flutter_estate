@@ -232,16 +232,15 @@ mixin Sub {
   Widget fromToTextFieldBoxWidget<T>(
       {required String title,
       required BuildContext context,
-      required num? maxNum,
-      required num? minNum,
+      required MinMax minMax,
+      required void Function() changeState,
       TextInputType? keyboardType}) {
     TextEditingController _txt = TextEditingController();
-    if (minNum != null && minNum != 0) {
-      _txt.text = GlobalString.from + priceFormat(minNum ?? 0);
+    if (minMax.min != null && minMax.min != 0) {
+      _txt.text = GlobalString.from + priceFormat(minMax.min ?? 0);
     }
-    if (maxNum != null && maxNum != 0) {
-      _txt.text =
-          _txt.text + GlobalString.to + priceFormat((maxNum) ?? 0);
+    if (minMax.max!= null &&minMax.max != 0) {
+      _txt.text = _txt.text + GlobalString.to + priceFormat((minMax.max) ?? 0);
     }
     return Container(
       margin: EdgeInsets.only(top: 2, bottom: 2),
@@ -252,11 +251,12 @@ mixin Sub {
           List<num?>? res = await FromToBottomSheet().show(context,
               title: GlobalString.range + title,
               keyboardType: keyboardType,
-              max: maxNum,
-              min: maxNum);
+              max: minMax.max,
+              min: minMax.min);
           if (res != null && res.length == 2) {
-            minNum = res[0];
-            maxNum = res[1];
+            minMax.min = res[0];
+            minMax.max = res[1];
+            changeState();
           }
         },
         style: const TextStyle(fontSize: 13),
@@ -286,4 +286,8 @@ mixin Sub {
   String priceFormat(num price) {
     return NumberFormat("###,###,###,###,###,###").format(price);
   }
+}
+class MinMax {
+  num? min;
+  num? max;
 }
