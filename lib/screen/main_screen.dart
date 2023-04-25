@@ -499,7 +499,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               child: Container(),
             ),
             TextButton(
-                onPressed: () => seeAll,
+                onPressed: () => seeAll(),
                 child: const Text(
                   GlobalString.seeAll,
                   style: TextStyle(
