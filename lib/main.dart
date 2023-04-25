@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
       // home: const TestWidget(),
       // home:  EstateSearchScreen(),
       // home: TestCheck()
-      home: const SplashScreen(),
+      home: const TestScroll(),
       // home: const TestCheck(),
       // home: Test(),
       // home:  MainScreen(),

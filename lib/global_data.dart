@@ -21,6 +21,9 @@ class GlobalColor {
   static const Color extraPriceColor = Color(0xff1242ed);
   static const Color colorSemiBackground = Color(0xffd8d7d7);
   static const Color colorError = Color(0xFFB71C1C);
+  static const Color colorShimmer = Color(0xffffebb1);
+
+
 
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {

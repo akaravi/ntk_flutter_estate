@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:base/src/index.dart';
 
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/controller/main_controller.dart';
 
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -128,8 +129,8 @@ class _NewsModelAdapterForMainState
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(12),
                         topLeft: Radius.circular(12)),
-                    child: Image.network(width:9*GlobalData.screenWidth/10 ,
-                      height: -40+GlobalData.screenHeight/3,
+                    child: Image.network(width:MainScreenSize().newsItemWidth ,
+                      height: MainScreenSize().newsItemHeight,
                       fit: BoxFit.fill,
                       widget.model.linkMainImageIdSrc!,
                     ),
