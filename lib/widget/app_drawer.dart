@@ -77,7 +77,7 @@ class AppDrawer extends StatelessWidget {
                         ))
                   ]..addAll(_DrawerItem.drawerItems(
                           userModel.isLogin, userModel.allowDirectShareApp)
-                      .map((element) => ListTile(
+                      .map((element) => ListTile(onTap:() =>BaseController().newPage(context: context, newScreen: element.page) ,
                             title: Text(
                               element.name,
                               style: const TextStyle(
