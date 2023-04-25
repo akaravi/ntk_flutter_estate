@@ -149,5 +149,7 @@ class GlobalString {
   static const String from = " از : ";
   static const String to = " تا : ";
   static const String confirm = "تایید";
+  static const String range = "مجدوده ی ";
   static const String projects2 = "";
+
 }

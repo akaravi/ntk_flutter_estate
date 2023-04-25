@@ -208,11 +208,12 @@ class MyHomePageState extends State<MyHomePage> {
                 title: GlobalString.estateTypeUsageProperties,
                 expandedWidget: Column(children: [
                   if (widget.controller.propertyTypeUsage != null) ...[
-                    widget.textFieldBoxWidget(
+                    widget.fromToTextFieldBoxWidget(context: context,
                         title: GlobalString.areaAsMeter,
                         keyboardType: const TextInputType.numberWithOptions(
                             signed: false, decimal: true),
-                        textController: widget.controller.areaController),
+                        minNum: widget.controller.minArea,
+                        maxNum: widget.controller.maxArea,),
                     //created year
                     if ((widget.controller.propertyTypeLanduse
                                     ?.titleCreatedYaer ??

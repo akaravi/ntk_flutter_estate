@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
+import 'package:ntk_flutter_estate/widget/from_to_bottom_sheet.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import 'package:base/src/index.dart';
 import '../../controller/new_estate_controller.dart';
@@ -228,28 +229,36 @@ mixin Sub {
     );
   }
 
-  Widget fromToTextFieldBoxWidget(
+  Widget fromToTextFieldBoxWidget<T>(
       {required String title,
-      void Function()? onClick,
-      required TextEditingController maxTextController,
-      required TextEditingController minTextController,
+      required BuildContext context,
+      required num? maxNum,
+      required num? minNum,
       TextInputType? keyboardType}) {
     TextEditingController _txt = TextEditingController();
-    if (minTextController.text.trim().isNotEmpty) {
-      _txt.text = GlobalString.from +
-          priceFormat(int.tryParse(minTextController.text.toString()) ?? 0);
+    if (minNum != null && minNum != 0) {
+      _txt.text = GlobalString.from + priceFormat(minNum ?? 0);
     }
-    if (maxTextController.text.trim().isNotEmpty) {
-      _txt.text = _txt.text +
-          GlobalString.to +
-          priceFormat(int.tryParse(maxTextController.text.toString()) ?? 0);
+    if (maxNum != null && maxNum != 0) {
+      _txt.text =
+          _txt.text + GlobalString.to + priceFormat((maxNum) ?? 0);
     }
     return Container(
       margin: EdgeInsets.only(top: 2, bottom: 2),
       padding: const EdgeInsets.only(top: 4, bottom: 4, left: 16.0, right: 16),
       child: TextField(
         readOnly: true,
-        onTap: onClick,
+        onTap: () async {
+          List<num?>? res = await FromToBottomSheet().show(context,
+              title: GlobalString.range + title,
+              keyboardType: keyboardType,
+              max: maxNum,
+              min: maxNum);
+          if (res != null && res.length == 2) {
+            minNum = res[0];
+            maxNum = res[1];
+          }
+        },
         style: const TextStyle(fontSize: 13),
         controller: _txt,
         keyboardType: keyboardType ?? TextInputType.number,
@@ -274,7 +283,7 @@ mixin Sub {
     );
   }
 
-  String priceFormat(int price) {
+  String priceFormat(num price) {
     return NumberFormat("###,###,###,###,###,###").format(price);
   }
 }
