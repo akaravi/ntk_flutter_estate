@@ -150,6 +150,7 @@ class GlobalString {
   static const String to = " تا : ";
   static const String confirm = "تایید";
   static const String range = "مجدوده ی ";
+  static const String searchResult = "نتایج جست و جو";
   static const String projects2 = "";
 
 }

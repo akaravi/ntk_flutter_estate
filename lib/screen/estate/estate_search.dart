@@ -63,236 +63,257 @@ class MyHomePageState extends State<MyHomePage> {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: <Widget>[
-          divider(),
-          //search card
-          searchCard(
-              title: GlobalString.keywords,
-              //search edittext
-              expandedWidget: TextField(
-                controller: widget.controller.textController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: GlobalColor.colorPrimary, width: 1),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: GlobalColor.colorPrimary, width: 1),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    labelText: GlobalString.title,
-                    labelStyle: TextStyle(
-                      color: GlobalColor.colorAccent,
-                    )),
-              )),
-          //some space
-          divider(),
-          //location Card
-          searchCard(
-              isFilled: true,
-              title: GlobalString.location,
-              expandedWidget: Row(
-                children: [
-                  Expanded(
-                    child: widget.box(
-                      title: GlobalString.location,
-                      widget: (widget.controller.locationTitles.isNotEmpty)
-                          ? Wrap(runSpacing: 10, spacing: 12, children: [
-                              ...(widget.controller.locationTitles)
-                                  .map((e) => locationWidget(e))
-                                  .toList()
-                            ])
-                          : const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text(GlobalString.noContractsAdd),
-                            ),
-                    ),
-                  ),
-                  //add button
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: InkWell(
-                      child: Material(
-                        elevation: 12,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: GlobalColor.colorAccent, width: 1),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4))),
-                          padding: const EdgeInsets.all(4),
-                          child: const Icon(
-                            Icons.add_location_alt,
-                            size: 24,
-                            color: GlobalColor.colorAccent,
-                          ),
+      child: Stack(
+        children: [
+          ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+              divider(),
+              //search card
+              searchCard(
+                  title: GlobalString.keywords,
+                  //search edittext
+                  expandedWidget: TextField(
+                    controller: widget.controller.textController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              color: GlobalColor.colorPrimary, width: 1),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: GlobalColor.colorPrimary, width: 1),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        labelText: GlobalString.title,
+                        labelStyle: TextStyle(
+                          color: GlobalColor.colorAccent,
+                        )),
+                  )),
+              //some space
+              divider(),
+              //location Card
+              searchCard(
+                  isFilled: true,
+                  title: GlobalString.location,
+                  expandedWidget: Row(
+                    children: [
+                      Expanded(
+                        child: widget.box(
+                          title: GlobalString.location,
+                          widget: (widget.controller.locationTitles.isNotEmpty)
+                              ? Wrap(runSpacing: 10, spacing: 12, children: [
+                                  ...(widget.controller.locationTitles)
+                                      .map((e) => locationWidget(e))
+                                      .toList()
+                                ])
+                              : const Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Text(GlobalString.noContractsAdd),
+                                ),
                         ),
                       ),
-                      onTap: () async {
-                        CoreLocationModel? model =
-                            await LocationModelSelectorDialog().show(context);
-                        if (model != null) {
-                          widget.controller.locationTitles ??= [];
-                          widget.controller.linkLocationIds ??= [];
-                          if (!(widget.controller.linkLocationIds ?? [])
-                              .contains(model.id)) {
-                            widget.controller.locationTitles
-                                .add(model.title ?? "");
-                            widget.controller.linkLocationIds
-                                .add(model.id ?? 0);
-                            setState(() {});
-                          }
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              )),
-          //some space
-          divider(),
-          //contract type card
-          searchCard(
-              title: GlobalString.contractType,
-              expandedWidget: WrapWidgetModel<EstateContractTypeModel>(
-                  models: widget.data.contractsList ?? [],
-                  titleModelMethod: (item) => item.title ?? "",
-                  selectMethod: (item) {
-                    widget.controller.selectedContractModel = item;
-                    setState(() {});
-                  })),
-          //some sapce
-          divider(),
-          if (widget.controller.selectedContractModel != null)
-            ...contractsProperties(widget.data),
-
-          //propertyTypeUsages card
-          searchCard(
-              title: GlobalString.estateTypeUsage,
-              expandedWidget: WrapWidgetModel<EstatePropertyTypeUsageModel>(
-                selectMethod: (item) {
-                  widget.controller.propertyTypeUsage = item;
-                  widget.controller.propertyTypeLanduse = null;
-                  setState(() {});
-                },
-                models: widget.data.typeUsagesList ?? [],
-                titleModelMethod: (item) => item.title ?? "",
-              )),
-          //some space
-          divider(),
-          //property type usage if selected
-          if (widget.controller.propertyTypeUsage != null) ...[
-            searchCard(
-                title: GlobalString.estateType,
-                expandedWidget: WrapWidgetModel<EstatePropertyTypeLanduseModel>(
-                  selectMethod: (item) {
-                    setState(() {
-                      widget.controller.propertyTypeLanduse = item;
-                    });
-                  },
-                  models: widget.controller.usageList(widget.data),
-                  titleModelMethod: (item) => item.title ?? "",
-                )),
-            divider()
-          ],
-          //area partition...
-          if (widget.controller.propertyTypeUsage != null) ...[
-            searchCard(
-                title: GlobalString.estateTypeUsageProperties,
-                expandedWidget: Column(children: [
-                  if (widget.controller.propertyTypeUsage != null) ...[
-                    widget.fromToTextFieldBoxWidget(
-                      context: context,
-                      title: GlobalString.areaAsMeter,
-                      changeState: () {
+                      //add button
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16),
+                        child: InkWell(
+                          child: Material(
+                            elevation: 12,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                      color: GlobalColor.colorAccent, width: 1),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4))),
+                              padding: const EdgeInsets.all(4),
+                              child: const Icon(
+                                Icons.add_location_alt,
+                                size: 24,
+                                color: GlobalColor.colorAccent,
+                              ),
+                            ),
+                          ),
+                          onTap: () async {
+                            CoreLocationModel? model =
+                                await LocationModelSelectorDialog()
+                                    .show(context);
+                            if (model != null) {
+                              widget.controller.locationTitles ??= [];
+                              widget.controller.linkLocationIds ??= [];
+                              if (!(widget.controller.linkLocationIds ?? [])
+                                  .contains(model.id)) {
+                                widget.controller.locationTitles
+                                    .add(model.title ?? "");
+                                widget.controller.linkLocationIds
+                                    .add(model.id ?? 0);
+                                setState(() {});
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  )),
+              //some space
+              divider(),
+              //contract type card
+              searchCard(
+                  title: GlobalString.contractType,
+                  expandedWidget: WrapWidgetModel<EstateContractTypeModel>(
+                      models: widget.data.contractsList ?? [],
+                      titleModelMethod: (item) => item.title ?? "",
+                      selectMethod: (item) {
+                        widget.controller.selectedContractModel = item;
                         setState(() {});
+                      })),
+              //some sapce
+              divider(),
+              if (widget.controller.selectedContractModel != null)
+                ...contractsProperties(widget.data),
+
+              //propertyTypeUsages card
+              searchCard(
+                  title: GlobalString.estateTypeUsage,
+                  expandedWidget: WrapWidgetModel<EstatePropertyTypeUsageModel>(
+                    selectMethod: (item) {
+                      widget.controller.propertyTypeUsage = item;
+                      widget.controller.propertyTypeLanduse = null;
+                      setState(() {});
+                    },
+                    models: widget.data.typeUsagesList ?? [],
+                    titleModelMethod: (item) => item.title ?? "",
+                  )),
+              //some space
+              divider(),
+              //property type usage if selected
+              if (widget.controller.propertyTypeUsage != null) ...[
+                searchCard(
+                    title: GlobalString.estateType,
+                    expandedWidget:
+                        WrapWidgetModel<EstatePropertyTypeLanduseModel>(
+                      selectMethod: (item) {
+                        setState(() {
+                          widget.controller.propertyTypeLanduse = item;
+                        });
                       },
-                      keyboardType: const TextInputType.numberWithOptions(
-                          signed: false, decimal: true),
-                      minMax: widget.controller.area,
-                    ),
-                    //created year
-                    if ((widget.controller.propertyTypeLanduse
-                                    ?.titleCreatedYaer ??
-                                "")
-                            .isNotEmpty &&
-                        (widget.controller.propertyTypeLanduse
-                                    ?.titleCreatedYaer ??
-                                "") !=
-                            ("---"))
-                      widget.fromToTextFieldBoxWidget(
+                      models: widget.controller.usageList(widget.data),
+                      titleModelMethod: (item) => item.title ?? "",
+                    )),
+                divider()
+              ],
+              //area partition...
+              if (widget.controller.propertyTypeUsage != null) ...[
+                searchCard(
+                    title: GlobalString.estateTypeUsageProperties,
+                    expandedWidget: Column(children: [
+                      if (widget.controller.propertyTypeUsage != null) ...[
+                        widget.fromToTextFieldBoxWidget(
                           context: context,
-                          title: widget.controller.propertyTypeLanduse
-                                  ?.titleCreatedYaer ??
-                              "",
+                          title: GlobalString.areaAsMeter,
                           changeState: () {
                             setState(() {});
                           },
-                          keyboardType: TextInputType.number,
-                          minMax: widget.controller.createdYear),
-                    //created year
-                    if ((widget.controller.propertyTypeLanduse
-                                    ?.titlePartition ??
-                                "")
-                            .isNotEmpty &&
-                        (widget.controller.propertyTypeLanduse
-                                    ?.titlePartition ??
-                                "") !=
-                            ("---"))
-                      widget.fromToTextFieldBoxWidget(
-                          context: context,
-                          title: widget.controller.propertyTypeLanduse
-                                  ?.titlePartition ??
-                              "",
-                          changeState: () {
-                            setState(() {});
-                          },
-                          keyboardType: TextInputType.number,
-                          minMax: widget.controller.partition)
-                  ],
-                ])),
-            divider()
-          ],
-          //add property detail group
-          if (widget.controller.propertyTypeUsage != null &&
-              widget.controller.propertydetailGroups == null)
-            FutureBuilder<List<EstatePropertyDetailGroupModel>>(
-                future: widget.controller.getproperties(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                        children: (snapshot.data ?? [])
-                            .map((e) => Column(
-                                  children: [
-                                    widget.card(children: [
-                                      searchCard(
-                                          title: e.title ?? "",
-                                          expandedWidget: Wrap(
-                                            children: ((e.propertyDetails ?? [])
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: false, decimal: true),
+                          minMax: widget.controller.area,
+                        ),
+                        //created year
+                        if ((widget.controller.propertyTypeLanduse
+                                        ?.titleCreatedYaer ??
+                                    "")
+                                .isNotEmpty &&
+                            (widget.controller.propertyTypeLanduse
+                                        ?.titleCreatedYaer ??
+                                    "") !=
+                                ("---"))
+                          widget.fromToTextFieldBoxWidget(
+                              context: context,
+                              title: widget.controller.propertyTypeLanduse
+                                      ?.titleCreatedYaer ??
+                                  "",
+                              changeState: () {
+                                setState(() {});
+                              },
+                              keyboardType: TextInputType.number,
+                              minMax: widget.controller.createdYear),
+                        //created year
+                        if ((widget.controller.propertyTypeLanduse
+                                        ?.titlePartition ??
+                                    "")
+                                .isNotEmpty &&
+                            (widget.controller.propertyTypeLanduse
+                                        ?.titlePartition ??
+                                    "") !=
+                                ("---"))
+                          widget.fromToTextFieldBoxWidget(
+                              context: context,
+                              title: widget.controller.propertyTypeLanduse
+                                      ?.titlePartition ??
+                                  "",
+                              changeState: () {
+                                setState(() {});
+                              },
+                              keyboardType: TextInputType.number,
+                              minMax: widget.controller.partition)
+                      ],
+                    ])),
+                divider()
+              ],
+              //add property detail group
+              if (widget.controller.propertyTypeUsage != null &&
+                  widget.controller.propertydetailGroups == null)
+                FutureBuilder<List<EstatePropertyDetailGroupModel>>(
+                    future: widget.controller.getproperties(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Column(
+                            children: (snapshot.data ?? [])
+                                .map((e) => Column(
+                                      children: [
+                                        widget.card(children: [
+                                          searchCard(
+                                              title: e.title ?? "",
+                                              expandedWidget: Wrap(
+                                                children: ((e.propertyDetails ??
+                                                        [])
                                                     .map((t) =>
                                                         PropertyDetailSelector()
-                                                            .viewHolder(
-                                                                context, t)))
-                                                .toList(),
-                                          )),
-                                    ]),
-                                    divider(),
-                                  ],
-                                ))
-                            .toList());
-                  }
-                  return Container();
-                }),
+                                                            .viewHolder(context,
+                                                                t))).toList(),
+                                              )),
+                                        ]),
+                                        divider(),
+                                      ],
+                                    ))
+                                .toList());
+                      }
+                      return Container();
+                    }),
 
-          divider(),
+              divider(),
 
-          divider()
+              divider()
+            ],
+          ),
+          Positioned(
+              bottom: 5,
+              left: 5,
+              right: 5,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                    elevation: 10,
+                    backgroundColor: GlobalColor.colorPrimary),
+                onPressed: () {},
+                child: const Text(GlobalString.searchResult,
+                    style: TextStyle(
+                        color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
+              ))
         ],
       ),
     );
