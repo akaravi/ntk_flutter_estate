@@ -12,6 +12,7 @@ class ShimmerOnMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: GlobalData.screenWidth,height: GlobalData.screenHeight,
       color: GlobalColor.colorBackground,
       child: Shimmer.fromColors(
           baseColor: GlobalColor.colorSemiBackground,

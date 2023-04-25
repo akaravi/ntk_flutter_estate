@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
       // home: const TestWidget(),
       // home:  EstateSearchScreen(),
       // home: TestCheck()
-      home: const TestScroll(),
+      // home: const TestScroll(),
       // home: const TestCheck(),
-      // home: Test(),
+      home: SplashScreen(),
       // home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),
