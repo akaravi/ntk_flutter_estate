@@ -25,4 +25,14 @@ class LandUsedListScreen
               model: m,
             )),
   );
+
+  LandUsedListScreen.gridView({super.key})
+      : super.asGridScreen(
+  title: GlobalString.landUsedList,
+  controller: EstateLandUsedListController(
+  adapterCreatorFunction: (context, m, index) =>
+  LandUsePropertyAdapter.verticalType(
+  model: m,
+  )),
+  );
 }

@@ -24,6 +24,10 @@ class EntityListScreen<model> extends StatefulWidget {
       {required this.controller, required this.title, super.key})
       : stateCreator = (() => _ListWithFilterState());
 
+  EntityListScreen.asGridScreen(
+      {required this.controller, required this.title, super.key})
+      : stateCreator = (() => _GridListFilterState());
+
   EntityListScreen.horizontalListWidget(
       {required this.controller, required this.title, super.key})
       : stateCreator = (() => _HorizontalListState());
@@ -123,6 +127,71 @@ class _ListWithFilterState extends State<EntityListScreen> {
   }
 }
 
+class _GridListFilterState extends State<EntityListScreen> {
+  @override
+  void initState() {
+    widget.controller.initPageController();
+    widget.controller.pagingController.addPageRequestListener((pageKey) {
+      widget.controller.fetchPage(pageKey);
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: GlobalColor.colorAccent),
+          onPressed: () => widget.controller.close(context),
+        ),
+        iconTheme:
+            const IconThemeData(color: GlobalColor.colorAccent, size: 24),
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: GlobalColor.colorAccent),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.tune),
+            onPressed: () {
+              widget.controller.showFilters(context);
+            },
+          )
+        ],
+      ),
+      body: RefreshIndicator(
+        onRefresh: () => Future.sync(
+          () => widget.controller.pagingController.refresh(),
+        ),
+        child: PagedGridView(
+          showNewPageProgressIndicatorAsGridChild: false,
+          showNewPageErrorIndicatorAsGridChild: false,
+          showNoMoreItemsIndicatorAsGridChild: false,
+          pagingController: widget.controller.pagingController,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: .8,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 3,
+          ),
+          builderDelegate: PagedChildBuilderDelegate(
+            itemBuilder: (context, item, index) =>
+                widget.controller.widgetAdapter(context, item, index),
+            firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
+              error: widget.controller.pagingController.error,
+              onTryAgain: () => widget.controller.pagingController.refresh(),
+            ),
+            noItemsFoundIndicatorBuilder: (context) => const SubEmptyScreen(),
+          ),
+          padding: const EdgeInsets.all(8),
+        ),
+      ),
+      floatingActionButton: widget.floatingActionButton(context),
+    );
+  }
+}
+
 class _HorizontalListState extends State<EntityListScreen> {
   bool? isHorizontal;
 
@@ -166,7 +235,9 @@ class _ListOnlyState<model> extends State<EntityListScreen<model>> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(clipBehavior: Clip.none,scrollDirection: Axis.horizontal,
+    return ListView.builder(
+        clipBehavior: Clip.none,
+        scrollDirection: Axis.horizontal,
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
           return widget.controller.widgetAdapter(context, items[index], index);

@@ -8,6 +8,7 @@ import 'package:ntk_flutter_estate/screen/estate/estate_detail_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 import 'package:ntk_flutter_estate/screen/main_screen.dart';
+import 'package:ntk_flutter_estate/screen/test_scroll.dart';
 
 import '../add/new_estate_screen.dart';
 import '../auth/auth_sms_screen.dart';
@@ -66,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen>
                   intro: IntroScreen(),
                   login: AuthSmsScreen(),
                   main: MainScreen());
-                  // main: EstateSearchScreen());
+                  // main: TestScroll());
               // main: NewCustomerOrderScreen());
               // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
               // main: NewsListScreen.withFilterScreen());

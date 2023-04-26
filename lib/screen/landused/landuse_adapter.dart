@@ -1,6 +1,7 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 
 class LandUsePropertyAdapter
     extends BaseEntityAdapter<EstatePropertyTypeLanduseModel> {
@@ -20,27 +21,53 @@ class LandUsePropertyAdapter
         stateCreator: () => _EstatePropertyHorizontalAdapterState());
   }
 
-  estateList(BuildContext context) {}
+  estateList(BuildContext context) {
+    FilterModel filterModel = FilterModel()
+      ..sortType = EnumSortType.descending
+      ..sortColumn = "createDate"
+      ..addFilter(FilterDataModel()
+        ..setPropertyName("linkPropertyTypeLanduseId")
+        ..value = model.id);
+    BaseController().newPage(
+        context: context,
+        newScreen: EstateListScreen.withFilterScreen(
+          filter: filterModel,
+        ));
+  }
 }
 
 class _LandUsedVerticalAdapterState
     extends _EstatePropertyHorizontalAdapterState {
+  @override
+  generateWidth() {
+    width = GlobalData.screenWidth * ((1 / 4));
+    height = GlobalData.screenWidth * ((1 / 4));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: super.build(context),
+      child: Expanded(child: super.build(context)),
     );
   }
 }
 
 class _EstatePropertyHorizontalAdapterState
     extends BaseEntityAdapterEstate<LandUsePropertyAdapter> {
+  double? width;
+  double? height;
+
+  generateWidth() {
+    width = GlobalData.screenWidth * ((1 / 8));
+    height = GlobalData.screenWidth * ((1 / 8));
+  }
 
   @override
   Widget build(BuildContext context) {
+    generateWidth();
     return InkWell(
       onTap: () async => widget.estateList(context),
       child: Container(
@@ -54,8 +81,8 @@ class _EstatePropertyHorizontalAdapterState
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: Image.network(
                     fit: BoxFit.fill,
-                    width: GlobalData.screenWidth*((1 / 8)),
-                    height: GlobalData.screenWidth*((1 / 8)),
+                    width: width,
+                    height: height,
                     widget.model.linkMainImageIdSrc!,
                   ),
                 ),

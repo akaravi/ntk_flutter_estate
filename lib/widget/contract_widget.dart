@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:intl/intl.dart';
-import '../../global_data.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 
 class ContractWidget {
   List<Widget> getPriceWidget(EstatePropertyModel model) {
     List<Widget> contracs = List.empty(growable: true);
     for (EstateContractModel m in model.contracts!) {
+      if ((model.contracts?.length ?? 0) > 1) print(model.id);
+
       List<Widget> row = List.empty(growable: true);
       if (m.contractType?.hasSalePrice ?? false) {
         row.add(getContractTitleWidget(m.contractType?.titleML ?? ""));

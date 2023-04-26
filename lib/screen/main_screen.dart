@@ -231,7 +231,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               seeAll: () =>
                   EstateLandUsedListController().newPage(
                       context: context,
-                      newScreen: LandUsedListScreen.withFilterScreen()),
+                      newScreen: LandUsedListScreen.gridView()),
             )),
       ),
       //     //row sections
