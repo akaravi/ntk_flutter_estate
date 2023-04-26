@@ -1,15 +1,16 @@
+import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
-import 'package:ntk_flutter_estate/screen/add/my_estate_screen.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
-import 'package:ntk_flutter_estate/screen/estate/my_estate.dart';
-import 'package:flutter_exit_app/flutter_exit_app.dart';
+import 'package:ntk_flutter_estate/screen/estate/my_estate_screen.dart';
+import 'package:ntk_flutter_estate/screen/estate/test_wdiget.dart';
 import 'package:ntk_flutter_estate/screen/generalized/intro_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
+
 import '../controller/main_controller.dart';
 import '../controller/profile_controller.dart';
 import '../global_data.dart';
-import 'package:base/src/index.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -140,31 +141,31 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.article,
         icon: "assets/drawable/article_place_holder.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.ticket,
         icon: "assets/drawable/inbox.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.polling,
         icon: "assets/drawable/polling2.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.inbox,
         icon: "assets/drawable/notification2.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.faq,
         icon: "assets/drawable/faq2.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.feedback,
         icon: "assets/drawable/feedback2.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.aboutUs,
         icon: "assets/drawable/about_us2.png",
-        page: const TestMyEstateScreen()));
+        page: const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.help,
         icon: "assets/drawable/intro2.png",
@@ -173,13 +174,13 @@ class _DrawerItem {
       items.add(_DrawerItem(
           name: GlobalString.inviteFriend,
           icon: "assets/drawable/invite2.png",
-          page: const TestMyEstateScreen()));
+          page: const TestScreen()));
     }
     if (isLogin) {
       items.add(_DrawerItem(
           name: GlobalString.exit,
           icon: "assets/drawable/exit.png",
-          page: const TestMyEstateScreen()));
+          page: const TestScreen()));
     }
     return items;
   }

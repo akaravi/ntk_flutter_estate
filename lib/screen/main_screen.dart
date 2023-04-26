@@ -52,10 +52,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       key: scaffoldKey,
       drawer: AppDrawer(),
@@ -75,7 +72,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                 style: ButtonStyle(
                     elevation: MaterialStateProperty.all(17),
                     backgroundColor:
-                    MaterialStateProperty.all(GlobalColor.colorAccent),
+                        MaterialStateProperty.all(GlobalColor.colorAccent),
                     shape: MaterialStateProperty.all(const CircleBorder())),
                 onPressed: () {
                   if (scaffoldKey.currentState!.isDrawerOpen) {
@@ -143,7 +140,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Widget> mainData =
-                  MainData(context, snapshot.data ?? MainContentModel());
+                      MainData(context, snapshot.data ?? MainContentModel());
                   return ListView(
                     children: mainData,
                   );
@@ -156,7 +153,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             left: 0,
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
               child: Row(children: [
                 //add new
                 Expanded(
@@ -189,7 +186,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                   style: ButtonStyle(
                       elevation: MaterialStateProperty.all(17),
                       backgroundColor:
-                      MaterialStateProperty.all(GlobalColor.colorAccent),
+                          MaterialStateProperty.all(GlobalColor.colorAccent),
                       shape: MaterialStateProperty.all(const CircleBorder())),
                   onPressed: () => SearchController.start(context),
                   child: const Icon(
@@ -206,8 +203,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     );
   }
 
-  List<Widget> MainData(BuildContext context,
-      MainContentModel mainContentModel) {
+  List<Widget> MainData(
+      BuildContext context, MainContentModel mainContentModel) {
     MainScreenSize mainSize = MainScreenSize();
     return [
       //news section
@@ -228,10 +225,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                     items: mainContentModel.landUseList),
               ),
               title: GlobalString.landUsedList,
-              seeAll: () =>
-                  EstateLandUsedListController().newPage(
-                      context: context,
-                      newScreen: LandUsedListScreen.gridView()),
+              seeAll: () => EstateLandUsedListController().newPage(
+                  context: context, newScreen: LandUsedListScreen.gridView()),
             )),
       ),
       //     //row sections
@@ -247,12 +242,11 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                   items: mainContentModel.estateList1),
             ),
             title: GlobalString.newList,
-            seeAll: () =>
-                EstateListController().newPage(
-                    context: context,
-                    newScreen: EstateListScreen.withFilterScreen(
-                      filter: mainContentModel.filterEstateList1,
-                    )))
+            seeAll: () => EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList1,
+                )))
       ],
       //     //row estateList 2
       if (mainContentModel.estateList2.isNotEmpty) ...[
@@ -272,12 +266,11 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                   items: mainContentModel.estateList2),
             ),
             title: GlobalString.suggestedEstate,
-            seeAll: () =>
-                EstateListController().newPage(
-                    context: context,
-                    newScreen: EstateListScreen.withFilterScreen(
-                      filter: mainContentModel.filterEstateList2,
-                    )))
+            seeAll: () => EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList2,
+                )))
       ],
       //     //row estateList 3
       if (mainContentModel.estateList3.isNotEmpty) ...[
@@ -297,18 +290,20 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                   items: mainContentModel.estateList3),
             ),
             title: GlobalString.dailyRent,
-            seeAll: () =>
-                EstateListController().newPage(
-                    context: context,
-                    newScreen: EstateListScreen.withFilterScreen(
-                      filter: mainContentModel.filterEstateList3,
-                    )))
+            seeAll: () => EstateListController().newPage(
+                context: context,
+                newScreen: EstateListScreen.withFilterScreen(
+                  filter: mainContentModel.filterEstateList3,
+                )))
       ],
       //     //buttons
       IntrinsicHeight(
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
+            const SizedBox(
+              width: 8,
+            ),
             Expanded(
               child: TextButton(
                 style: TextButton.styleFrom(
@@ -316,7 +311,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(24.0)),
                     elevation: 17,
                     backgroundColor: GlobalColor.colorBackground),
-                onPressed: () => CompanyListScreen.withFilterScreen(),
+                onPressed: () => BaseController().newPage(
+                    context: context,
+                    newScreen: CompanyListScreen.withFilterScreen()),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -334,6 +331,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                 ),
               ),
             ),
+            const SizedBox(
+              width: 8,
+            ),
             Expanded(
               child: TextButton(
                 style: TextButton.styleFrom(
@@ -341,7 +341,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(24.0)),
                     elevation: 17,
                     backgroundColor: GlobalColor.colorBackground),
-                onPressed: () => ProjectListScreen.withFilterScreen(),
+                onPressed: () => BaseController().newPage(
+                    context: context,
+                    newScreen: ProjectListScreen.withFilterScreen()),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -359,6 +361,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                 ),
               ),
             ),
+            const SizedBox(
+              width: 8,
+            )
           ],
         ),
       ),
@@ -371,10 +376,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                 items: mainContentModel.articles),
           ),
           title: GlobalString.article,
-          seeAll: () =>
-              ArticleController().newPage(
-                  context: context,
-                  newScreen: ArticleListScreen.withFilterScreen())),
+          seeAll: () => ArticleController().newPage(
+              context: context,
+              newScreen: ArticleListScreen.withFilterScreen())),
       //spacer because of see search and new... btn
       const SizedBox(
         height: 120,
@@ -383,9 +387,15 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
   }
 
   Widget shimmer() {
-    return Shimmer.fromColors(child: Container(width: 200, height: 200,child: Text("asdasd"),),
+    return Shimmer.fromColors(
+      child: Container(
+        width: 200,
+        height: 200,
+        child: Text("asdasd"),
+      ),
       baseColor: GlobalColor.colorSemiBackground,
-      highlightColor: GlobalColor.colorAccentDark,);
+      highlightColor: GlobalColor.colorAccentDark,
+    );
   }
 
   _showOverLay() async {
@@ -399,26 +409,24 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     ];
     List txt = [GlobalString.newEstate, GlobalString.newOrder];
     RenderBox? renderBox =
-    globalKey.currentContext!.findRenderObject() as RenderBox?;
+        globalKey.currentContext!.findRenderObject() as RenderBox?;
     Offset offset = renderBox!.localToGlobal(Offset.zero);
 
     OverlayState? overlayState = Overlay.of(context);
     overlayEntry = OverlayEntry(
-        builder: (context) =>
-            Stack(children: <Widget>[
+        builder: (context) => Stack(children: <Widget>[
               Positioned.fill(
                   child: GestureDetector(
-                    onTap: () async {
-                      await Future.delayed(const Duration(microseconds: 100))
-                          .whenComplete(() =>
-                          animationController!
-                              .reverse()
-                              .whenComplete(() => overlayEntry!.remove()));
-                    },
-                    child: Container(
-                      color: Colors.transparent,
-                    ),
-                  )),
+                onTap: () async {
+                  await Future.delayed(const Duration(microseconds: 100))
+                      .whenComplete(() => animationController!
+                          .reverse()
+                          .whenComplete(() => overlayEntry!.remove()));
+                },
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              )),
               Positioned(
                 left: offset.dx + renderBox.size.width / 3,
                 bottom: renderBox.size.height + 16,
@@ -433,15 +441,14 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                           child: TextButton(
                             onPressed: () async {
                               await Future.delayed(
-                                  const Duration(microseconds: 100))
+                                      const Duration(microseconds: 100))
                                   .whenComplete(
                                       () => animationController!.reverse())
                                   .whenComplete(() => overlayEntry!.remove())
-                                  .whenComplete(() =>
-                              i == 0
-                                  ? NewEstateController.start(context)
-                                  : NewCustomerOrderController.start(
-                                  context));
+                                  .whenComplete(() => i == 0
+                                      ? NewEstateController.start(context)
+                                      : NewCustomerOrderController.start(
+                                          context));
                             },
                             child: Container(
                               padding: const EdgeInsets.all(8),
@@ -452,7 +459,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                       width: 1)),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(txt[i]),
                                   const SizedBox(
@@ -483,9 +490,10 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
     //     .whenComplete(() => overlayEntry!.remove());
   }
 
-  rowWidget({required Widget itemsScreen,
-    required String title,
-    required void Function() seeAll}) {
+  rowWidget(
+      {required Widget itemsScreen,
+      required String title,
+      required void Function() seeAll}) {
     return Column(
       children: [
         Row(

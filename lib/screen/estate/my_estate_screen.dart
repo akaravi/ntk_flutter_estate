@@ -1,5 +1,6 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/controller/my_estate_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/landused/list_entity_screen.dart';
 
@@ -9,7 +10,7 @@ class MyEstateListScreen extends EntityListScreen<EstatePropertyModel> {
   MyEstateListScreen.withFilterScreen({super.key})
       : super.withFilterScreen(
           title: GlobalString.myEstate,
-          controller: EstateListController(
+          controller: MyEstateController(
               adapterCreatorFunction: (context, m, index) => _Adapter(
                     model: m,
                   )),

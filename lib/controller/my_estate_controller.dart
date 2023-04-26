@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 class MyEstateController extends BaseListController<EstatePropertyModel> {
   Widget Function(BuildContext context, EstatePropertyModel m, int index)?
-      adapterCreatorFunction;
+  adapterCreatorFunction;
 
-  MyEstateController({ FilterModel? filter})
+  MyEstateController({this.adapterCreatorFunction, FilterModel? filter})
       : super(filterModel: filter);
 
   @override
