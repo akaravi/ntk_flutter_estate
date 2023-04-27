@@ -1,6 +1,7 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
+import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
 import 'package:ntk_flutter_estate/screen/estate/my_estate_screen.dart';
@@ -29,7 +30,9 @@ class AppDrawer extends StatelessWidget {
                             color: GlobalColor.colorPrimary),
                         child:
                             //user is login in app
-                            Column(mainAxisSize: MainAxisSize.min,   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             iconHeader(),
                             Text(
@@ -50,13 +53,16 @@ class AppDrawer extends StatelessWidget {
                                   backgroundColor: GlobalColor.colorAccent,
                                 ),
                                 child: Container(
-                                      padding: EdgeInsets.only(left: 18,right: 18),
-                                  child: Row(crossAxisAlignment: CrossAxisAlignment.center,mainAxisSize: MainAxisSize.min,
+                                  padding: EdgeInsets.only(left: 18, right: 18),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Text(
                                           (userModel.isLogin)
-                                              ? GlobalString.login
-                                              : GlobalString.profile,
+                                              ? GlobalString.profile
+                                              : GlobalString.login,
                                           style: const TextStyle(
                                               color: GlobalColor.colorPrimary,
                                               fontSize: 16)),
@@ -73,12 +79,18 @@ class AppDrawer extends StatelessWidget {
                                 ),
                                 onPressed: () => userModel.isLogin
                                     ? ProfileController.page(context)
-                                    : FlutterExitApp.exitApp())
+                                    : BaseController().replacePage(
+                                        context: context,
+                                        newScreen: AuthSmsScreen()))
                           ],
                         ))
                   ]..addAll(_DrawerItem.drawerItems(
                           userModel.isLogin, userModel.allowDirectShareApp)
-                      .map((element) => ListTile(onTap:() =>BaseController().newPage(context: context, newScreen: element.page) ,
+                      .map((element) => ListTile(
+                            onTap: () => (element.forExit ?? false)
+                                ? FlutterExitApp.exitApp()
+                                : BaseController().newPage(
+                                    context: context, newScreen: element.page),
                             title: Text(
                               element.name,
                               style: const TextStyle(
@@ -117,8 +129,13 @@ class _DrawerItem {
   String name;
   String icon;
   Widget page;
+  bool? forExit;
 
   _DrawerItem({required this.name, required this.icon, required this.page});
+
+  _DrawerItem.exit({required this.name, required this.icon})
+      : forExit = true,
+        page = Container();
 
   static List<_DrawerItem> drawerItems(bool isLogin, bool allowDirectShareApp) {
     List<_DrawerItem> items = [];
@@ -177,10 +194,10 @@ class _DrawerItem {
           page: const TestScreen()));
     }
     if (isLogin) {
-      items.add(_DrawerItem(
-          name: GlobalString.exit,
-          icon: "assets/drawable/exit.png",
-          page: const TestScreen()));
+      items.add(_DrawerItem.exit(
+        name: GlobalString.exit,
+        icon: "assets/drawable/exit.png",
+      ));
     }
     return items;
   }

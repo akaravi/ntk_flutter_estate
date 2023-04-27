@@ -156,5 +156,7 @@ class GlobalString {
   static const String noImageAdded = "فایلی انتخاب نشده است";
   static const String duplicateFileUpload = "فایل انتخاب شده تکراری است";
   static  const String  delete = "حذف";
+  static const String slider = "تصاویر";
   static const String projects2 = "";
+
 }

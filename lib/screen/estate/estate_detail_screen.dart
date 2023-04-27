@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/user_location_on_map_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/contract_widget.dart';
 import 'package:ntk_flutter_estate/widget/dash_separator.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -34,7 +35,7 @@ class EstateDetailScreen extends StatelessWidget {
                 child: Text('محددا تلاش کنید'),
               );
             }
-            return Container();
+            return SubLoadingScreen();
           }),
     );
   }
@@ -43,6 +44,7 @@ class EstateDetailScreen extends StatelessWidget {
 
 class _Detail extends StatefulWidget {
   EstatePropertyModel model;
+  bool sliderVisibillity = true;
 
   _Detail(this.model, {Key? key}) : super(key: key);
 
@@ -59,9 +61,10 @@ class _DetailState extends State<_Detail> {
         slivers: <Widget>[
           //2
           SliverAppBar(
+            automaticallyImplyLeading: false,
             expandedHeight: 250.0,
             floating: true,
-            pinned: true,
+            pinned: false,
             flexibleSpace: FlexibleSpaceBar(
               background: header(),
             ),
@@ -81,7 +84,7 @@ class _DetailState extends State<_Detail> {
                     ),
                     const Spacer(),
                     const Text(
-                      "120 rooz ghabl",
+                      "120 روز قبل",
                       style: TextStyle(
                           color: GlobalColor.colorTextPrimary, fontSize: 13),
                     ),
@@ -111,7 +114,44 @@ class _DetailState extends State<_Detail> {
 
   Widget header() {
     return Stack(
-      children: [Visibility(child: slider(), replacement: map())],
+      children: [
+        Visibility(
+            visible: widget.sliderVisibillity,
+            child: slider(),
+            replacement: map()),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24.0)),
+                  elevation: 17,
+                  backgroundColor: GlobalColor.colorPrimary),
+              onPressed: () {
+                widget.sliderVisibillity = !widget.sliderVisibillity;
+                setState(() {});
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                      widget.sliderVisibillity
+                          ? GlobalString.slider
+                          : GlobalString.mapLocation,
+                      style: const TextStyle(
+                          color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
+                  SizedBox(width: 50),
+                  Icon(widget.sliderVisibillity ? Icons.map : Icons.photo,
+                      color: GlobalColor.colorTextOnPrimary),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
