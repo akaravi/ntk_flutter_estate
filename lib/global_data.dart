@@ -23,8 +23,6 @@ class GlobalColor {
   static const Color colorError = Color(0xFFB71C1C);
   static const Color colorShimmer = Color(0xffffebb1);
 
-
-
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
       50: Color.fromRGBO(136, 14, 79, .1),
@@ -157,8 +155,6 @@ class GlobalString {
   static const String errorInUpload = "خطا در اپلود";
   static const String noImageAdded = "فایلی انتخاب نشده است";
   static const String duplicateFileUpload = "فایل انتخاب شده تکراری است";
+  static  const String  delete = "حذف";
   static const String projects2 = "";
-
-
-
 }

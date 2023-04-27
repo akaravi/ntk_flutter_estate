@@ -31,18 +31,26 @@ class _Container1State extends State<SubNewEstate5> {
           widget.box(
               fitContainer: true,
               title: GlobalString.mainPic,
-              widget: Container(
-                  color: GlobalColor.colorAccent.withOpacity(.9).withAlpha(50),
-                  child: InkWell(
-                    onTap: selectMainImage,
-                    child: const Padding(
-                      padding: EdgeInsets.all(40.0),
-                      child: Icon(
-                        Icons.add_a_photo,
-                        color: GlobalColor.colorPrimary,
-                      ),
-                    ),
-                  )))
+              widget: (widget.controller.mainImage == null)
+                  ? Container(
+                      color:
+                          GlobalColor.colorAccent.withOpacity(.9).withAlpha(50),
+                      child: InkWell(
+                        onTap: selectMainImage,
+                        child: const Padding(
+                          padding: EdgeInsets.all(40.0),
+                          child: Icon(
+                            Icons.add_a_photo,
+                            color: GlobalColor.colorPrimary,
+                          ),
+                        ),
+                      ))
+                  : imageWidget(
+                      widget.controller.mainImage ?? ImageUpload("", "", false),
+                      onDelete: () {
+                      widget.controller.mainImage = null;
+                      setState(() {});
+                    }))
         ]),
         if (widget.controller.mainImage != null &&
             widget.controller.mainImage?.path != null)
@@ -55,7 +63,13 @@ class _Container1State extends State<SubNewEstate5> {
                     widget: (widget.controller.otherImage.isNotEmpty)
                         ? Wrap(runSpacing: 10, spacing: 12, children: [
                             ...(widget.controller.otherImage)
-                                .map((e) => imageWidget(e))
+                                .map((e) => imageWidget(
+                                      e,
+                                      onDelete: () {
+                                        widget.controller.otherImage.remove(e);
+                                        setState(() {});
+                                      },
+                                    ))
                                 .toList()
                           ])
                         : const Padding(
@@ -121,12 +135,26 @@ class _Container1State extends State<SubNewEstate5> {
     }
   }
 
-  imageWidget(ImageUpload e) {
+  imageWidget(ImageUpload e, {required void Function() onDelete}) {
     return Container(
       decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8))),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          border: Border.fromBorderSide(
+              BorderSide(color: GlobalColor.colorPrimary))),
       clipBehavior: Clip.hardEdge,
-      child: e.isFromWeb ? Image.network(e.path) : Image.file(File(e.path)),
+      child: Column(
+        children: [
+          Container(
+              padding: EdgeInsets.all(8),
+              child: e.isFromWeb
+                  ? Image.network(e.path)
+                  : Image.file(File(e.path))),
+          Align(
+            child: TextButton(
+                onPressed: onDelete, child: const Text(GlobalString.delete)),
+          )
+        ],
+      ),
     );
   }
 }
