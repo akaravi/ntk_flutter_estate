@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
@@ -8,7 +10,8 @@ import 'package:motion_toast/motion_toast.dart';
 class NewEstateController {
   EstatePropertyModel item;
   late CoreCurrencyModel selectedCurrency;
-  String mainGUID = "";
+  ImageUpload? mainImage;
+  List<ImageUpload> otherImage = [];
   EstateContractTypeModel? selectedContractModel;
   TextEditingController areaController = TextEditingController();
   TextEditingController createdYearController = TextEditingController();
@@ -191,7 +194,7 @@ class NewEstateController {
   }
 
   void toast(BuildContext c, String detail) {
-    MotionToast.error( description: Text(detail)).show(c);
+    MotionToast.error(description: Text(detail)).show(c);
   }
 
   bool addToContracts(BuildContext context) {
@@ -277,6 +280,35 @@ class NewEstateController {
     item.contracts?.add(contract);
     return true;
   }
+
+  Future<bool> uploadMainImage(
+      {required BuildContext context, required File file}) async {
+    FileUploadModel? res = await FileUploadService().upload(file);
+    if (res == null) {
+      toast(context, GlobalString.errorInUpload);
+      return false;
+    }
+    mainImage = ImageUpload(file.path, res.fileKey ?? "0", false);
+    return true;
+  }
+
+  Future<bool> uploadOtherImage(
+      {required BuildContext context, required File file}) async {
+    if (otherImage
+        .where((element) => element.path == file.path)
+        .toList()
+        .isNotEmpty) {
+      toast(context, GlobalString.duplicateFileUpload);
+      return false;
+    }
+    FileUploadModel? res = await FileUploadService().upload(file);
+    if (res == null) {
+      toast(context, GlobalString.errorInUpload);
+      return false;
+    }
+    otherImage.add( ImageUpload(file.path, res.fileKey ?? "0", false));
+    return true;
+  }
 }
 
 class Sub1Data {
@@ -292,4 +324,12 @@ class Sub2Data {
 class Sub4Data {
   late List<CoreCurrencyModel> currencyList;
   late List<EstateContractTypeModel> contractsList;
+}
+
+class ImageUpload {
+  String path;
+  String guId;
+  bool isFromWeb = false;
+
+  ImageUpload(this.path, this.guId, this.isFromWeb);
 }

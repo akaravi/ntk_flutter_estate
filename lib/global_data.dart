@@ -154,6 +154,11 @@ class GlobalString {
   static const String confirm = "تایید";
   static const String range = "مجدوده ی ";
   static const String searchResult = "نتایج جست و جو";
+  static const String errorInUpload = "خطا در اپلود";
+  static const String noImageAdded = "فایلی انتخاب نشده است";
+  static const String duplicateFileUpload = "فایل انتخاب شده تکراری است";
   static const String projects2 = "";
+
+
 
 }

@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import '../../controller/new_estate_controller.dart';
 import 'package:base/src/index.dart';
 
@@ -33,9 +34,9 @@ class _Container1State extends State<SubNewEstate5> {
               widget: Container(
                   color: GlobalColor.colorAccent.withOpacity(.9).withAlpha(50),
                   child: InkWell(
-                    onTap: getFile,
-                    child: Padding(
-                      padding: const EdgeInsets.all(40.0),
+                    onTap: selectMainImage,
+                    child: const Padding(
+                      padding: EdgeInsets.all(40.0),
                       child: Icon(
                         Icons.add_a_photo,
                         color: GlobalColor.colorPrimary,
@@ -43,15 +44,56 @@ class _Container1State extends State<SubNewEstate5> {
                     ),
                   )))
         ]),
-        if (widget.controller.mainGUID != "")
+        if (widget.controller.mainImage != null &&
+            widget.controller.mainImage?.path != null)
           widget.card(children: [
-            widget.box(title: GlobalString.morePic, widget: widget)
-          ])
+            Row(
+              children: [
+                Expanded(
+                  child: widget.box(
+                    title: GlobalString.morePic,
+                    widget: (widget.controller.otherImage.isNotEmpty)
+                        ? Wrap(runSpacing: 10, spacing: 12, children: [
+                            ...(widget.controller.otherImage)
+                                .map((e) => imageWidget(e))
+                                .toList()
+                          ])
+                        : const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(GlobalString.noImageAdded),
+                          ),
+                  ),
+                ),
+                //add button
+                Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: InkWell(
+                        child: Material(
+                          elevation: 12,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                    color: GlobalColor.colorAccent, width: 1),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4))),
+                            padding: const EdgeInsets.all(4),
+                            child: const Icon(
+                              Icons.add_a_photo,
+                              size: 24,
+                              color: GlobalColor.colorAccent,
+                            ),
+                          ),
+                        ),
+                        onTap: () => selectOtherImage()))
+              ],
+            )
+          ]),
       ],
     );
   }
 
-  void getFile() async {
+  void selectMainImage() async {
     List<PlatformFile> file = (await FilePicker.platform.pickFiles(
       type: FileType.image,
       allowMultiple: false,
@@ -60,7 +102,31 @@ class _Container1State extends State<SubNewEstate5> {
         .files;
     // var upload =await ChunkedUploader()
     //     .upload(filePlatform: file.elementAt(0) );
-    var upload =await FileUploadService().upload(File(file.first.path ?? ""));
-    print(upload.toString());
+    if (await widget.controller
+        .uploadMainImage(context: context, file: File(file.first.path ?? ""))) {
+      setState(() {});
+    }
+  }
+
+  selectOtherImage() async {
+    List<PlatformFile> file = (await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+      onFileLoading: (FilePickerStatus status) => print(status),
+    ))!
+        .files;
+    if (await widget.controller.uploadOtherImage(
+        context: context, file: File(file.first.path ?? ""))) {
+      setState(() {});
+    }
+  }
+
+  imageWidget(ImageUpload e) {
+    return Container(
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+      clipBehavior: Clip.hardEdge,
+      child: e.isFromWeb ? Image.network(e.path) : Image.file(File(e.path)),
+    );
   }
 }
