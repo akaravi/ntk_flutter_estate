@@ -4,7 +4,7 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/widget/contract_widget.dart';
 
 import 'estate_detail_screen.dart';
-
+import 'package:get_time_ago/get_time_ago.dart';
 class EstatePropertyAdapter extends BaseEntityAdapter<EstatePropertyModel> {
   EstatePropertyAdapter._(
       {super.key, required super.model, required super.stateCreator});
@@ -26,13 +26,9 @@ class EstatePropertyAdapter extends BaseEntityAdapter<EstatePropertyModel> {
 
 class _EstatePropertyVerticalAdapterState
     extends BaseEntityAdapterEstate<EstatePropertyAdapter> {
-  static double width = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (width == 0) {
-      width = MediaQuery.of(context).size.width * (3 / 8);
-    }
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
@@ -59,14 +55,15 @@ class _EstatePropertyVerticalAdapterState
                         borderRadius: BorderRadius.circular(8),
                         child: Image.network(
                           fit: BoxFit.fill,
-                          width: width,
+                          width: GlobalData.screenWidth * (3 / 8),
+                          height: GlobalData.screenWidth * (3 / 8),
                           widget.model.linkMainImageIdSrc!,
                         ),
                       ),
                       //shade
                       Positioned.fill(
-                          child: Container(
-                        color: Color(0x620B0505),
+                          child: Container(decoration: BoxDecoration(borderRadius:  BorderRadius.circular(8), color: Color(0x620B0505),),
+
                       )),
                       //location
                       Positioned(
@@ -164,7 +161,7 @@ class _EstatePropertyVerticalAdapterState
   List<Widget> gePropertyWidget() {
     List<Widget> p = [];
     var textStyle = TextStyle();
-    var dayStyle = TextStyle();
+    var dayStyle = TextStyle(color:GlobalColor.extraTimeAgoColor);
     if (widget.model.propertyTypeLanduse != null) {
       p.add(Expanded(
         child: Container(
@@ -184,8 +181,7 @@ class _EstatePropertyVerticalAdapterState
           margin: EdgeInsets.all(1),
           alignment: Alignment.center,
           child: Text(
-              widget.model.propertyTypeLanduse?.titlePartition ??
-                  " : ${widget.model.partition?.toString() ?? ""}",
+              "${widget.model.propertyTypeLanduse?.titlePartition ??""} : ${widget.model.partition?.toString() ?? ""}",
               style: textStyle),
         ),
       ));
@@ -195,16 +191,24 @@ class _EstatePropertyVerticalAdapterState
         child: Container(
           margin: EdgeInsets.all(1),
           alignment: Alignment.center,
-          child: Text("${widget.model.area} ${GlobalString.meter}",
+          child: Text("${((widget.model.area??0) % 1 == 0 ? widget.model.area?.toInt() : widget.model.area)} ${GlobalString.meter}",
               style: textStyle),
         ),
       ));
     }
+      p.add(Expanded(
+        child: Container(
+          margin: EdgeInsets.all(1),
+          alignment: Alignment.center,
+          child: Text( GetTimeAgo.parse(widget.model.createdDate??DateTime.now()),
+              style: dayStyle),
+        ),
+      ));
     return p;
   }
 
   String pictureCount() {
-    return (widget.model.linkExtraImageIdsSrc?.length ?? 1).toString();
+    return (1+((widget.model.linkExtraImageIdsSrc?.length) ?? 0)).toString();
   }
 
 //see detail

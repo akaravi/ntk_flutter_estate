@@ -17,6 +17,8 @@ import 'package:ntk_flutter_estate/screen/test_scroll.dart';
 import 'package:ntk_flutter_estate/screen/test_widget.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
+import 'package:get_time_ago/get_time_ago.dart';
+import 'package:ntk_flutter_estate/widget/time_ago.dart';
 import 'screen/auth/auth_sms_screen.dart';
 import 'screen/generalized/sub_empty_screen.dart';
 import 'screen/add/user_location_on_map_screen.dart';
@@ -30,7 +32,7 @@ void main() async {
       //read static data of app
       NTKApplication.get(packageName: "ntk.android.estate.APPNTK");
       await MyApplicationPreference().read();
-
+      GetTimeAgo.setCustomLocaleMessages('fa', PersianTimeAgo());
       //main thread of creating app
       runApp(const MyApp());
     },
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+GetTimeAgo.setDefaultLocale('fa');
     return MaterialApp(
       supportedLocales: const [Locale("fa"), Locale("en")],
       localizationsDelegates: const [

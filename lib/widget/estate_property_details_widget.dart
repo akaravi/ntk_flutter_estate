@@ -49,7 +49,8 @@ class EstatePropertyDetailWidget extends StatelessWidget {
     return Column(
       children: [
         Text(detailGroup.title ?? ""),
-        GridView.builder( shrinkWrap: true,
+        GridView.builder(
+            shrinkWrap: true,
             itemCount: detailGroup.propertyDetails?.length,
             itemBuilder: (context, index) => ItemTile(
                 detailGroup.propertyDetails?[index] ??
@@ -62,11 +63,20 @@ class EstatePropertyDetailWidget extends StatelessWidget {
   }
 
   Widget ItemTile(EstatePropertyDetailModel propertyDetail) {
+    String iconFont = propertyDetail.iconFont ?? "";
+    String icon = iconFont.replaceFirst(
+        iconFont.substring(0, iconFont.indexOf("-") + 1), "fas fa-");
     return Row(
       children: [
-        FaIcon(propertyDetail.iconFont??""),
+        // {
+        //   " + iconFont.replace(iconFont.substring(0,iconFont.indexOf(" -
+        //       ")+1), "
+        //   faw - ") + "
+        // }
+        // "
+        FaIcon(FaIconData.fromName(icon).name),
         Text(propertyDetail.title ?? ""),
-        Text(propertyDetail.value??"")
+        Text(propertyDetail.value ?? "")
       ],
     );
   }

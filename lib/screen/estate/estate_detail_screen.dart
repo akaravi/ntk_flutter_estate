@@ -119,38 +119,40 @@ class _DetailState extends State<_Detail> {
             visible: widget.sliderVisibillity,
             child: slider(),
             replacement: map()),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24.0)),
-                  elevation: 17,
-                  backgroundColor: GlobalColor.colorPrimary),
-              onPressed: () {
-                widget.sliderVisibillity = !widget.sliderVisibillity;
-                setState(() {});
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                      widget.sliderVisibillity
-                          ? GlobalString.slider
-                          : GlobalString.mapLocation,
-                      style: const TextStyle(
-                          color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
-                  SizedBox(width: 50),
-                  Icon(widget.sliderVisibillity ? Icons.map : Icons.photo,
-                      color: GlobalColor.colorTextOnPrimary),
-                ],
+        if (widget.model.geolocationlongitude != null)
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.0)),
+                    elevation: 17,
+                    backgroundColor: GlobalColor.colorPrimary),
+                onPressed: () {
+                  widget.sliderVisibillity = !widget.sliderVisibillity;
+                  setState(() {});
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        widget.sliderVisibillity
+                            ? GlobalString.mapLocation
+                            : GlobalString.slider,
+                        style: const TextStyle(
+                            color: GlobalColor.colorTextOnPrimary,
+                            fontSize: 16)),
+                    SizedBox(width: 50),
+                    Icon(widget.sliderVisibillity ? Icons.map : Icons.photo,
+                        color: GlobalColor.colorTextOnPrimary),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
@@ -167,11 +169,12 @@ class _DetailState extends State<_Detail> {
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'javad',
+          userAgentPackageName: 'ntkCorp',
         ),
         MarkerLayer(markers: [
           Marker(
-            point: LatLng(30, 40),
+            point: LatLng(widget.model.geolocationlatitude ?? 0,
+                widget.model.geolocationlongitude ?? 0),
             width: 80,
             height: 80,
             builder: (context) => FlutterLogo(),
