@@ -14,12 +14,12 @@ class ImageSilder extends StatefulWidget {
 
               Container(
                 decoration: BoxDecoration(
-                    color: Colors.amber
+                    color: Colors.amber.withOpacity(.3)
                 ),
             width: double.infinity,
             child: Image.network(
               item,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           //         Positioned(
