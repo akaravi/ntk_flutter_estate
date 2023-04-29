@@ -162,6 +162,11 @@ class GlobalString {
       "برای ثبت ملک نیاز است که به حساب خود وارد شوید. آیا مایلید به صفحه ی ورود هدایت شوید؟";
   static const String yes = "بله";
   static const String error = "خطا";
+  static const String cantBeEmpty = "باید مقدار داشته باشد";
   static const String projects2 = "";
+
+  static String? atleast6digit;
+  static String? enterMobileCorrect;
+
 
 }

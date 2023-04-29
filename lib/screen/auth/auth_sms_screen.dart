@@ -1,6 +1,7 @@
 import 'package:base/src/index.dart';
 
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/controller/auth_sms_controller.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:lottie/lottie.dart';
@@ -17,7 +18,7 @@ class AuthSmsScreen extends StatefulWidget {
 
 class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
   //controller object for login form
-  final registerMobileController = RegisterWithMobileController();
+  final registerMobileController = AuthSmsController();
 
   bool mobileNotValid = false;
   bool captchaNotValid = false;
@@ -126,7 +127,7 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
                           ),
                         ),
                         onPressed: () => registerMobileController.notInterested(
-                            context, MainScreenController()),
+                            context),
                       ),
                     ),
                   ),
@@ -142,7 +143,7 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
 
   @override
   loadCaptcha(CaptchaModel chModel) {
-    return registerMobileController.loadCaptcha;
+     registerMobileController.model=chModel;
   }
 
   registerClicked() async {

@@ -1,10 +1,11 @@
 import 'package:base/src/index.dart';
-
 import 'package:flutter/material.dart';
-import 'package:ntk_flutter_estate/controller/main_controller.dart';
-import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ntk_flutter_estate/controller/auth_sms_confrim_controller.dart';
+import 'package:ntk_flutter_estate/controller/auth_sms_controller.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
+
 import 'base_auth.dart';
 
 class AuthSmsConfirmScreen extends StatefulWidget {
@@ -22,13 +23,13 @@ class AuthSmsConfirmScreen extends StatefulWidget {
 
 class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
   //controller object for login form
-  late final RegisterVerifyMobileController verifyController;
+  late final AuthSmsConfirmController verifyController;
 
   bool smsNotValid = false;
   bool captchaNotValid = false;
 
   _AuthSmsConfirmScreenState(String mobile) : super() {
-    verifyController = RegisterVerifyMobileController(mobile);
+    verifyController = AuthSmsConfirmController(mobile);
   }
 
   @override
@@ -129,8 +130,8 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
                       ),
                     ),
                     onPressed: () =>
-                        RegisterWithMobileController.registerMobileWithPage(
-                            context, AuthSmsScreen()),
+                        AuthSmsController.registerMobileWithPage(
+                            context),
                   ),
                 ),
               ),
@@ -183,7 +184,7 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
 
   @override
   loadCaptcha(CaptchaModel chModel) {
-    return verifyController.loadCaptcha;
+     verifyController.model=chModel;
   }
 
   registerClicked() async {

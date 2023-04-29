@@ -74,13 +74,13 @@ abstract class AuthScreen<T extends StatefulWidget> extends State<T> {
 
 
   Widget getCaptchaWidget(TextEditingController captchaTextController,
-      {Function(CaptchaModel chModel)? func}) {
+      {void Function(CaptchaModel chModel)? func}) {
     func ??= loadCaptcha;
     return captchaInputLayout(captchaTextController, func);
   }
 
   static captchaInputLayout(TextEditingController captchaTextController,
-      Function(CaptchaModel chModel) func) {
+      void Function(CaptchaModel chModel)? func) {
     Color gray=GlobalColor.colorTextPrimary.withOpacity(.8);
     return Container(
       decoration: BoxDecoration(
@@ -124,5 +124,5 @@ abstract class AuthScreen<T extends StatefulWidget> extends State<T> {
     );
   }
 
-  Function loadCaptcha(CaptchaModel chModel);
+   void loadCaptcha(CaptchaModel chModel);
 }
