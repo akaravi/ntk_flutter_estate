@@ -11,6 +11,7 @@ import 'package:flutter_html/flutter_html.dart';
 import '/widget/estate_property_details_widget.dart';
 import '/widget/image_slider.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+
 class EstateDetailScreen extends StatelessWidget {
   EstateDetailController modelController;
 
@@ -73,9 +74,9 @@ class _DetailState extends State<_Detail> {
           SliverToBoxAdapter(
             child: Card(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-              children: [
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
                   //estate id
                   Row(
                     children: [
@@ -85,8 +86,9 @@ class _DetailState extends State<_Detail> {
                             color: GlobalColor.colorTextPrimary, fontSize: 13),
                       ),
                       const Spacer(),
-                       Text(
-                     GetTimeAgo.parse(widget.model.createdDate??DateTime.now()),
+                      Text(
+                        GetTimeAgo.parse(
+                            widget.model.createdDate ?? DateTime.now()),
                         style: const TextStyle(
                             color: GlobalColor.extraTimeAgoColor, fontSize: 13),
                       ),
@@ -106,9 +108,9 @@ class _DetailState extends State<_Detail> {
                   EstatePropertyDetailWidget.forView(
                       widget.model.propertyDetailGroups ?? [],
                       widget.model.propertyDetailValues ?? [])
-              ],
-            ),
-                )),
+                ],
+              ),
+            )),
           ),
         ],
       ),
@@ -118,7 +120,8 @@ class _DetailState extends State<_Detail> {
   Widget header() {
     return Stack(
       children: [
-        SizedBox(height: 250,
+        SizedBox(
+          height: 250,
           child: Visibility(
               visible: widget.sliderVisibillity,
               child: slider(),
@@ -158,6 +161,20 @@ class _DetailState extends State<_Detail> {
               ),
             ),
           ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+                ((widget.model.linkLocationIdParentTitle ?? "") +
+                    (widget.model.linkLocationIdParentTitle == null
+                        ? ""
+                        : " - ") +
+                    (widget.model.linkLocationIdTitle ?? "")),
+                style: const TextStyle(
+                    color: GlobalColor.colorTextOnPrimary, fontSize: 13)),
+          ),
+        ),
       ],
     );
   }
@@ -200,9 +217,9 @@ class _DetailState extends State<_Detail> {
   }
 
   dotSpace() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0,bottom: 8),
-      child: const DashSeparator(
+    return const Padding(
+      padding: EdgeInsets.only(top: 8.0, bottom: 8),
+      child: DashSeparator(
         color: GlobalColor.colorPrimary,
         height: 1,
       ),

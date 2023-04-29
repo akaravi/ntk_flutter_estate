@@ -2,6 +2,8 @@ import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_font_awesome_web_names/flutter_font_awesome.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:collection/collection.dart';
 
 //for view on estate detail screen for properties of each Estate
 class EstatePropertyDetailWidget extends StatelessWidget {
@@ -46,38 +48,70 @@ class EstatePropertyDetailWidget extends StatelessWidget {
   }
 
   Widget createRow(EstatePropertyDetailGroupModel detailGroup) {
-    return Column(
-      children: [
-        Text(detailGroup.title ?? ""),
-        GridView.builder(
-            shrinkWrap: true,
-            itemCount: detailGroup.propertyDetails?.length,
-            itemBuilder: (context, index) => ItemTile(
-                detailGroup.propertyDetails?[index] ??
-                    new EstatePropertyDetailModel()),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            )),
-      ],
-    );
+    return Column(mainAxisSize: MainAxisSize.max,children: [
+      Container(width:double.infinity,color:GlobalColor.colorAccent.withOpacity(.1),child: Text(detailGroup.title ?? "")),
+      Wrap(
+        children: [
+          ...(detailGroup.propertyDetails ?? []).mapIndexed(
+            (index, item) => ItemTile(detailGroup.propertyDetails?[index] ??
+                EstatePropertyDetailModel()),)
+        ],
+      )
+    ]);
   }
 
   Widget ItemTile(EstatePropertyDetailModel propertyDetail) {
     String iconFont = propertyDetail.iconFont ?? "";
     String icon = iconFont.replaceFirst(
         iconFont.substring(0, iconFont.indexOf("-") + 1), "fas fa-");
-    return Row(
-      children: [
-        // {
-        //   " + iconFont.replace(iconFont.substring(0,iconFont.indexOf(" -
-        //       ")+1), "
-        //   faw - ") + "
-        // }
-        // "
-        FaIcon(FaIconData.fromName(icon).name),
-        Text(propertyDetail.title ?? ""),
-        Text(propertyDetail.value ?? "")
-      ],
+    return Container(width: -20+GlobalData.screenWidth/2,padding: EdgeInsets.only(bottom: 4,top: 4),
+      child: Row(
+        children: [
+          // {
+          //   " + iconFont.replace(iconFont.substring(0,iconFont.indexOf(" -
+          //       ")+1), "
+          //   faw - ") + "
+          // }
+          // "
+          FaIcon(FaIconData.fromName(icon).name,
+              size: 20,
+              color: propertyDetail.iconColor != null
+                  ? ((propertyDetail.iconColor ?? "#000").toColor())
+                  : GlobalColor.colorAccent),
+          SizedBox(
+            width: 4,
+          ),
+          Text(propertyDetail.title ?? "",style: TextStyle(fontSize: 13),),
+          Text(" : "),
+          if ((propertyDetail.value ?? "") == "true")
+            const Icon(
+              Icons.check_box,size: 13,
+              color: GlobalColor.colorAccentDark,
+            )
+          else if ((propertyDetail.value ?? "") == "false")
+            const Icon(size: 13,
+              Icons.close,
+              color: GlobalColor.colorAccentDark,
+            )
+          else
+            Flexible(
+              child: Text(propertyDetail.value ?? "",style: TextStyle(fontSize: 11), maxLines: 2,
+                overflow: TextOverflow.ellipsis,),
+            )
+        ],
+      ),
     );
+  }
+}
+
+extension ColorExtension on String {
+  toColor() {
+    var hexColor = this.replaceAll("#", "");
+    if (hexColor.length == 6) {
+      hexColor = "FF" + hexColor;
+    }
+    if (hexColor.length == 8) {
+      return Color(int.parse("0x$hexColor"));
+    }
   }
 }
