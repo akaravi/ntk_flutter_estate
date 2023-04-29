@@ -39,8 +39,8 @@ class NeedAuthorization {
                         BorderRadius.circular(8.0)),
                     backgroundColor: GlobalColor.colorPrimary,
                   ),
-                      onPressed: () => LoginController.loginInPage(
-                          context: context, newLogin: AuthSmsScreen()),
+                      onPressed: () =>BaseController().replacePage(
+                          context: context, newScreen: AuthSmsScreen()),
                       child: const Text(
                         GlobalString.yes,
                         style: TextStyle(color: GlobalColor.colorTextOnPrimary),
