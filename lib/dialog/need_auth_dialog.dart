@@ -9,22 +9,23 @@ class NeedAuthorization {
       context: context,
       builder: (context) {
         return Center(
-          child: Container(margin: EdgeInsets.only(right: 32,left: 32),
+          child: Container(
+            margin: EdgeInsets.only(right: 32, left: 32),
             padding: const EdgeInsets.all(8),
             decoration: const BoxDecoration(
                 color: GlobalColor.colorBackground,
                 borderRadius: BorderRadius.all(Radius.circular(8))),
-            child: Column(mainAxisSize: MainAxisSize.min,children: [
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
               const Icon(
                 Icons.error_outline,
                 size: 45,
                 color: GlobalColor.colorError,
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 8.0,bottom: 24),
+                padding: EdgeInsets.only(top: 8.0, bottom: 24),
                 child: Text(
                   GlobalString.error,
-                  style: TextStyle(fontSize: 18,color: GlobalColor.colorError),
+                  style: TextStyle(fontSize: 18, color: GlobalColor.colorError),
                 ),
               ),
               const Text(
@@ -33,28 +34,36 @@ class NeedAuthorization {
               ),
               Row(
                 children: [
-                  Spacer(),  TextButton(    style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(8.0)),
-                    backgroundColor: GlobalColor.colorPrimary,
-                  ),
-                      onPressed: () =>BaseController().replacePage(
-                          context: context, newScreen: AuthSmsScreen()),
+                  Spacer(),
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                        backgroundColor: GlobalColor.colorPrimary,
+                      ),
+                      onPressed: () {
+                        //close dialog
+                        BaseController().close(context);
+                        BaseController().replacePage(
+                            context: context, newScreen: AuthSmsScreen());
+                      },
                       child: const Text(
                         GlobalString.yes,
                         style: TextStyle(color: GlobalColor.colorTextOnPrimary),
                       )),
                   Spacer(flex: 2),
                   OutlinedButton(
-                      style: OutlinedButton.styleFrom(backgroundColor: GlobalColor.colorTextOnPrimary,
-                        side: const BorderSide(width: 1.0, color: GlobalColor.colorPrimary),
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: GlobalColor.colorTextOnPrimary,
+                        side: const BorderSide(
+                            width: 1.0, color: GlobalColor.colorPrimary),
                       ),
                       onPressed: () => BaseController().close(context),
                       child: const Text(
                         GlobalString.notInterested,
                         style: TextStyle(color: GlobalColor.colorPrimary),
-                      )), Spacer(),
+                      )),
+                  Spacer(),
                 ],
               )
             ]),

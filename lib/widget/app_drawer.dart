@@ -53,6 +53,15 @@ class AppDrawer extends StatelessWidget {
                                           BorderRadius.circular(32.0)),
                                   backgroundColor: GlobalColor.colorAccent,
                                 ),
+                                onPressed: userModel.isLogin
+                                    ? () => ProfileController.page(context)
+                                    : () {
+                                        //close dialog
+                                        BaseController().close(context);
+                                        BaseController().replacePage(
+                                            context: context,
+                                            newScreen: AuthSmsScreen());
+                                      },
                                 child: Container(
                                   padding: EdgeInsets.only(left: 18, right: 18),
                                   child: Row(
@@ -77,12 +86,7 @@ class AppDrawer extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                ),
-                                onPressed: () => userModel.isLogin
-                                    ? ProfileController.page(context)
-                                    : BaseController().replacePage(
-                                        context: context,
-                                        newScreen: AuthSmsScreen()))
+                                ))
                           ],
                         ))
                   ]..addAll(_DrawerItem.drawerItems(
@@ -90,7 +94,7 @@ class AppDrawer extends StatelessWidget {
                       .map((element) => ListTile(
                             onTap: element.onClick != null
                                 ? () => element.onClick!(context)
-                                :  () =>BaseController().newPage(
+                                : () => BaseController().newPage(
                                     context: context,
                                     newScreen: element.page ?? Container()),
                             title: Text(
