@@ -4,6 +4,7 @@ import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/controller/new_customer_order_controller.dart';
 import 'package:ntk_flutter_estate/controller/new_estate_controller.dart';
 import 'package:ntk_flutter_estate/controller/search_controller.dart';
+import 'package:ntk_flutter_estate/dialog/need_auth_dialog.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/company/comany_list_screen.dart';
@@ -130,76 +131,93 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          Container(
-            color: GlobalColor.colorSemiBackground,
-          ),
-          FutureBuilder<MainContentModel>(
-              future: MainScreenController().getMainData(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Widget> mainData =
-                      MainData(context, snapshot.data ?? MainContentModel());
-                  return ListView(
-                    children: mainData,
-                  );
-                }
-                return ShimmerOnMain();
-              }),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
-              child: Row(children: [
-                //add new
-                Expanded(
-                  child: TextButton(
-                    key: globalKey,
-                    style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24.0)),
-                        elevation: 17,
-                        backgroundColor: GlobalColor.colorAccent),
-                    onPressed: _showOverLay,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Text(GlobalString.addDotDotDot,
-                            style: TextStyle(
-                                color: GlobalColor.colorPrimary, fontSize: 16)),
-                        SizedBox(width: 50),
-                        Icon(
-                          Icons.add,
-                          color: GlobalColor.colorPrimary,
-                          size: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                      elevation: MaterialStateProperty.all(17),
-                      backgroundColor:
-                          MaterialStateProperty.all(GlobalColor.colorAccent),
-                      shape: MaterialStateProperty.all(const CircleBorder())),
-                  onPressed: () => SearchController.start(context),
-                  child: const Icon(
-                    Icons.search,
-                    color: GlobalColor.colorPrimary,
-                    size: 28,
-                  ),
-                ),
-              ]),
-            ),
-          )
-        ],
-      ),
+      body: Stack(children: [
+        Container(
+          color: GlobalColor.colorSemiBackground,
+        ),
+        FutureBuilder<MainContentModel>(
+            future: MainScreenController().getMainData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Widget> mainData =
+                    MainData(context, snapshot.data ?? MainContentModel());
+                return ListView(
+                  children: mainData,
+                );
+              }
+              return ShimmerOnMain();
+            }),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          left: 0,
+          child:
+              //add new
+              FutureBuilder<UserModel>(
+                  future: MainScreenController().getUserInfo(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 12),
+                          child: Row(children: [
+                            Expanded(
+                              child: TextButton(
+                                key: globalKey,
+                                style: TextButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(24.0)),
+                                    elevation: 17,
+                                    backgroundColor: GlobalColor.colorAccent),
+                                onPressed: (snapshot.data?.isLogin ?? false)
+                                    ? _showOverLay
+                                    : NeedAuthorization().show(context),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: const [
+                                    Text(GlobalString.addDotDotDot,
+                                        style: TextStyle(
+                                            color: GlobalColor.colorPrimary,
+                                            fontSize: 16)),
+                                    SizedBox(width: 50),
+                                    Icon(
+                                      Icons.add,
+                                      color: GlobalColor.colorPrimary,
+                                      size: 28,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(17),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      GlobalColor.colorAccent),
+                                  shape: MaterialStateProperty.all(
+                                      const CircleBorder())),
+                              onPressed: () => SearchController.start(context),
+                              child: const Icon(
+                                Icons.search,
+                                color: GlobalColor.colorPrimary,
+                                size: 28,
+                              ),
+                            ),
+                          ]));
+                    }
+                    return const SizedBox(
+                      width: 100,
+                      height: 5,
+                      child: LinearProgressIndicator(
+                          backgroundColor: GlobalColor.colorPrimary,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              GlobalColor.colorAccent)),
+                    );
+                  }),
+        )
+      ]),
     );
   }
 
@@ -430,7 +448,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               Positioned(
                 left: offset.dx + renderBox.size.width / 3,
                 bottom: renderBox.size.height + 16,
-                child:   ScaleTransition(scale:animation[0] ,
+                child: ScaleTransition(
+                  scale: animation[0],
                   child: Container(
                     decoration: const BoxDecoration(
                         color: GlobalColor.colorBackground,
@@ -449,7 +468,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                           const Duration(microseconds: 100))
                                       .whenComplete(
                                           () => animationController!.reverse())
-                                      .whenComplete(() => overlayEntry!.remove())
+                                      .whenComplete(
+                                          () => overlayEntry!.remove())
                                       .whenComplete(() => i == 0
                                           ? NewEstateController.start(context)
                                           : NewCustomerOrderController.start(
