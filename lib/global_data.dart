@@ -22,7 +22,7 @@ class GlobalColor {
   static const Color colorSemiBackground = Color(0xffd8d7d7);
   static const Color colorError = Color(0xFFB71C1C);
   static const Color colorShimmer = Color(0xffffebb1);
-  static const Color extraTimeAgoColor=Colors.lightBlue;
+  static const Color extraTimeAgoColor = Colors.lightBlue;
 
   static MaterialColor getMaterialColor(Color color) {
     final Map<int, Color> shades = {
@@ -156,8 +156,12 @@ class GlobalString {
   static const String errorInUpload = "خطا در اپلود";
   static const String noImageAdded = "فایلی انتخاب نشده است";
   static const String duplicateFileUpload = "فایل انتخاب شده تکراری است";
-  static  const String  delete = "حذف";
+  static const String delete = "حذف";
   static const String slider = "تصاویر";
+  static const String needLogin =
+      "برای ثبت ملک نیاز است که به حساب خود وارد شوید. آیا مایلید به صفحه ی ورود هدایت شوید؟";
+  static const String yes = "بله";
+  static const String error = "خطا";
   static const String projects2 = "";
 
 }

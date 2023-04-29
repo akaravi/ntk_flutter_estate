@@ -1,6 +1,7 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
+import 'package:ntk_flutter_estate/dialog/need_auth_dialog.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
@@ -87,10 +88,11 @@ class AppDrawer extends StatelessWidget {
                   ]..addAll(_DrawerItem.drawerItems(
                           userModel.isLogin, userModel.allowDirectShareApp)
                       .map((element) => ListTile(
-                            onTap: () => (element.forExit ?? false)
-                                ? FlutterExitApp.exitApp()
-                                : BaseController().newPage(
-                                    context: context, newScreen: element.page),
+                            onTap: element.onClick != null
+                                ? () => element.onClick!(context)
+                                :  () =>BaseController().newPage(
+                                    context: context,
+                                    newScreen: element.page ?? Container()),
                             title: Text(
                               element.name,
                               style: const TextStyle(
@@ -128,25 +130,36 @@ class AppDrawer extends StatelessWidget {
 class _DrawerItem {
   String name;
   String icon;
-  Widget page;
-  bool? forExit;
+  Widget? page;
+  void Function(BuildContext c)? onClick;
 
   _DrawerItem({required this.name, required this.icon, required this.page});
 
-  _DrawerItem.exit({required this.name, required this.icon})
-      : forExit = true,
-        page = Container();
+  _DrawerItem.onTap(
+      {required this.name, required this.icon, required this.onClick});
 
   static List<_DrawerItem> drawerItems(bool isLogin, bool allowDirectShareApp) {
     List<_DrawerItem> items = [];
-    items.add(_DrawerItem(
-        name: GlobalString.myEstate,
-        icon: "assets/drawable/my_estate.png",
-        page: MyEstateListScreen.withFilterScreen()));
-    items.add(_DrawerItem(
-        name: GlobalString.myRequests,
-        icon: "assets/drawable/order2.png",
-        page: CustomerOrderListScreen.withFilterScreen()));
+    items.add(isLogin
+        ? _DrawerItem(
+            name: GlobalString.myEstate,
+            icon: "assets/drawable/my_estate.png",
+            page: MyEstateListScreen.withFilterScreen())
+        : _DrawerItem.onTap(
+            name: GlobalString.myEstate,
+            icon: "assets/drawable/my_estate.png",
+            onClick: (c) => NeedAuthorization().show(c),
+          ));
+    items.add(isLogin
+        ? _DrawerItem(
+            name: GlobalString.myRequests,
+            icon: "assets/drawable/order2.png",
+            page: CustomerOrderListScreen.withFilterScreen())
+        : _DrawerItem.onTap(
+            name: GlobalString.myRequests,
+            icon: "assets/drawable/order2.png",
+            onClick: (c) => NeedAuthorization().show(c),
+          ));
     items.add(_DrawerItem(
         name: GlobalString.favoriteList,
         icon: "assets/drawable/favorites_folder.png",
@@ -194,9 +207,12 @@ class _DrawerItem {
           page: const TestScreen()));
     }
     if (isLogin) {
-      items.add(_DrawerItem.exit(
+      items.add(_DrawerItem.onTap(
         name: GlobalString.exit,
         icon: "assets/drawable/exit.png",
+        onClick: (c) {
+          FlutterExitApp.exitApp();
+        },
       ));
     }
     return items;
