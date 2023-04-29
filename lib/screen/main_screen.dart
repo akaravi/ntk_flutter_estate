@@ -171,8 +171,8 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                     elevation: 17,
                                     backgroundColor: GlobalColor.colorAccent),
                                 onPressed: (snapshot.data?.isLogin ?? false)
-                                    ? _showOverLay
-                                    : NeedAuthorization().show(context),
+                                    ? () => _showOverLay
+                                    : () => NeedAuthorization().show(context),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.center,
