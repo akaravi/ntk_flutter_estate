@@ -33,22 +33,18 @@ class NewEstateState extends State<NewEstateScreen> {
           onPressed: () => BaseController().close(context),
         ),
       ),
-      body: Container(width: MediaQuery
-          .of(context)
-          .size
-          .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height, color: GlobalColor.colorSemiBackground,
-        child:
-        Stack(children: [
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: GlobalColor.colorSemiBackground,
+        child: Stack(children: [
           Positioned.fill(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
                 padding: EdgeInsets.only(bottom: 78),
-                child: currentSub(),),
+                child: currentSub(),
+              ),
             ),
           ),
           Positioned(
@@ -56,8 +52,7 @@ class NewEstateState extends State<NewEstateScreen> {
               left: 12,
               right: 12,
               child: Row(children: [nextButton(), Spacer(), prevButton()]))
-        ]
-        ),
+        ]),
       ),
     );
     // Stack(children: [
@@ -128,13 +123,17 @@ class NewEstateState extends State<NewEstateScreen> {
     return TextButton(
       style: TextButton.styleFrom(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
           elevation: 10,
           backgroundColor: GlobalColor.colorPrimary),
       onPressed: () {
-        if (widget.controller.isValid(context,index)) {
+        if (widget.controller.isValid(context, index)) {
           index++;
-          setState(() {});
+          if (index < 6) {
+            setState(() {});
+          } else {
+            widget.controller.createModel(context);
+          }
         }
       },
       child: Text(index != 5 ? GlobalString.continueStr : GlobalString.add,
@@ -154,8 +153,8 @@ class NewEstateState extends State<NewEstateScreen> {
             style: TextStyle(color: GlobalColor.colorPrimary),
           ),
           onPressed: () {
-              index--;
-              setState(() {});
+            index--;
+            setState(() {});
           });
     } else {
       return Container();

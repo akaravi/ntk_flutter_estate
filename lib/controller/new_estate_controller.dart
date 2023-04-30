@@ -7,6 +7,7 @@ import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:ntk_flutter_estate/screen/add/user_location_on_map_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
@@ -75,6 +76,30 @@ class NewEstateController {
         return sub5Validation(context);
     }
     return true;
+  }
+
+  createModel(BuildContext context) async {
+    item.propertyDetailGroups = null;
+    item.uploadFileGUID = [];
+    if (mainImage != null &&
+        mainImage?.guId != null &&
+        (mainImage?.guId.isNotEmpty ?? false)) {
+      item.uploadFileGUID?.add(mainImage?.guId ?? "");
+    }
+    for (ImageUpload x in otherImage) {
+      item.uploadFileGUID?.add(x?.guId ?? "");
+      for (EstateContractModel model in item.contracts ?? []) {
+        model.linkCoreCurrencyId = selectedCurrency.id;
+      }
+      SubLoadingScreen.showProgress(context);
+      var errorException = await EstatePropertyService().add(item);
+      SubLoadingScreen.dismiss(context);
+      if (errorException.isSuccess) {
+        Navigator.of(context).pop();
+      } else {
+        toast(context, errorException.errorMessage ?? GlobalString.error);
+      }
+    }
   }
 
   Future<Sub2Data> subTowLoad() async {
