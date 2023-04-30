@@ -21,7 +21,7 @@ class MainScreenController extends BaseMainController {
     user.userId =
     userId > 0 ? ("${GlobalString.userID} $userId") : GlobalString.noUserID;
     user.isLogin = userId > 0;
-    user.name = userId > 0 ? GlobalString.guest : GlobalString.mobile;
+    user.name = userId > 0 ?GlobalString.mobile+: GlobalString.guest ;
     user.allowDirectShareApp = false; //todo
     return user;
   }

@@ -4,7 +4,8 @@ import 'package:ntk_flutter_estate/controller/auth_sms_confrim_controller.dart';
 import 'package:ntk_flutter_estate/controller/auth_text_error_controller.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
-class AuthSmsController extends AuthTextErrorController{
+
+class AuthSmsController extends AuthTextErrorController {
   ///last captcha get form url
   late CaptchaModel model;
 
@@ -22,10 +23,11 @@ class AuthSmsController extends AuthTextErrorController{
   // }
 
   ///start registering with verify mobile number with sms
-  static void registerMobileWithPage(BuildContext context,) {
-    Future.microtask(() =>
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => AuthSmsScreen())));
+  static void registerMobileWithPage(
+    BuildContext context,
+  ) {
+    Future.microtask(() => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => AuthSmsScreen())));
   }
 
   ///dispose all instance of controller on exit
@@ -46,11 +48,15 @@ class AuthSmsController extends AuthTextErrorController{
     return await sendCode(mobile, captchaText, captchaKey);
   }
 
+  String mobile() {
+    return userNameTextController.text;
+  }
+
   ///when user want to login with one step verifying mobile number
   ///also provided that enter verify-sms code correctly
   /// if detect mobile number api return entered mobile number to continue
-  Future<String> sendCode(String mobile, String captchaText,
-      String captchaKey) async {
+  Future<String> sendCode(
+      String mobile, String captchaText, String captchaKey) async {
     AuthUserSignInBySmsDtoModel req = AuthUserSignInBySmsDtoModel()
       ..mobile = mobile
       ..captchaText = captchaText
@@ -77,9 +83,9 @@ class AuthSmsController extends AuthTextErrorController{
     return textEmptyError(captchaTextController);
   }
 
-  
-
-  void notInterested(BuildContext context, ) {
+  void notInterested(
+    BuildContext context,
+  ) {
     MainScreenController().startScreen(context);
   }
 

@@ -170,8 +170,9 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
       var mobile = await registerMobileController.signupMobileWithSms();
       //dismiss loading dialog
       myDialogs.dismiss(context);
-      //go to main page
+      //go to verify page
       if (mobile.isNotEmpty) {
+        LoginCache().setMobile(registerMobileController.mobile());
         registerMobileController.verifyMobile(context, mobile);
       }
     } catch (exp) {

@@ -63,7 +63,7 @@ class GlobalString {
   static const String meter = "متر";
   static const String estateId = "شماره ملک";
   static const String login = "ورود";
-  static const String profile = "پروفایل";
+  static const String profile = "حساب کاربری";
   static const String myEstate = "املاک من";
   static const String myRequests = "درخواست های من";
   static const String favoriteList = "لیست علاقه مندی";
