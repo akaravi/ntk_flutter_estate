@@ -87,18 +87,18 @@ class NewEstateController {
       item.uploadFileGUID?.add(mainImage?.guId ?? "");
     }
     for (ImageUpload x in otherImage) {
-      item.uploadFileGUID?.add(x?.guId ?? "");
-      for (EstateContractModel model in item.contracts ?? []) {
-        model.linkCoreCurrencyId = selectedCurrency.id;
-      }
-      SubLoadingScreen.showProgress(context);
-      var errorException = await EstatePropertyService().add(item);
-      SubLoadingScreen.dismiss(context);
-      if (errorException.isSuccess) {
-        Navigator.of(context).pop();
-      } else {
-        toast(context, errorException.errorMessage ?? GlobalString.error);
-      }
+      item.uploadFileGUID?.add(x.guId ?? "");
+    }
+    for (EstateContractModel model in item.contracts ?? []) {
+      model.linkCoreCurrencyId = selectedCurrency.id;
+    }
+    SubLoadingScreen.showProgress(context);
+    var errorException = await EstatePropertyService().add(item);
+    SubLoadingScreen.dismiss(context);
+    if (errorException.isSuccess) {
+      Navigator.of(context).pop();
+    } else {
+      toast(context, errorException.errorMessage ?? GlobalString.error);
     }
   }
 

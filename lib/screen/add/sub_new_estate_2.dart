@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';
@@ -42,8 +43,8 @@ class _ContainerState extends State<SubNewEstate2> {
                     .toList());
           }
           return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+              width: GlobalData.screenWidth,
+              height: GlobalData.screenHeight,
               child: const SubLoadingScreen());
         });
   }
