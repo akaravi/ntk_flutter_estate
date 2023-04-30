@@ -1,11 +1,12 @@
 import 'dart:io';
-
+import 'package:latlong2/latlong.dart';
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
 import 'package:motion_toast/motion_toast.dart';
+import 'package:ntk_flutter_estate/screen/add/user_location_on_map_screen.dart';
 
 class NewEstateController {
   EstatePropertyModel item;
@@ -306,8 +307,19 @@ class NewEstateController {
       toast(context, GlobalString.errorInUpload);
       return false;
     }
-    otherImage.add( ImageUpload(file.path, res.fileKey ?? "0", false));
+    otherImage.add(ImageUpload(file.path, res.fileKey ?? "0", false));
     return true;
+  }
+
+  Future<bool> selectLocation(BuildContext context) async {
+    LatLng? latLng = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => LiveLocationPage()));
+    if (latLng != null) {
+      item.geolocationlatitude = latLng.latitude;
+      item.geolocationlongitude = latLng.longitude;
+      return true;
+    }
+    return false;
   }
 }
 

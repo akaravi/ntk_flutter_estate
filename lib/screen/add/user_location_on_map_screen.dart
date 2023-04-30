@@ -225,7 +225,9 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text(GlobalString.noLocSelected),
                     ));
+                    return;
                   }
+                  Navigator.of(context).pop(selectLatLng);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),

@@ -136,8 +136,12 @@ class _Container1State extends State<SubNewEstate3> {
                       borderRadius: BorderRadius.circular(12.0)),
                   elevation: 10,
                   backgroundColor: GlobalColor.colorAccent),
-              onPressed: () {
-                //todo
+              onPressed: () async {
+                bool locSelected =
+                    await widget.controller.selectLocation(context);
+                if (locSelected) {
+                  setState(() {});
+                }
               },
               child: const Text(GlobalString.selectLoc,
                   style: TextStyle(
