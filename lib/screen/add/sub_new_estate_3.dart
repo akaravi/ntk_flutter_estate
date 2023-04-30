@@ -102,8 +102,12 @@ class _Container1State extends State<SubNewEstate3> {
               height: 350,
               child: FlutterMap(
                   options: MapOptions(
+                    interactiveFlags: InteractiveFlag.none,
                     maxZoom: 12,
-                    center: LatLng(51.5, -0.09),
+                    center: LatLng(
+                      widget.controller.item.geolocationlatitude ?? 32.661343,
+                      widget.controller.item.geolocationlongitude ?? 51.680374,
+                    ),
                     zoom: 12,
                     minZoom: 12,
                   ),
