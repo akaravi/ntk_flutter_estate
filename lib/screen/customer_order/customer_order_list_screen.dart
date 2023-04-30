@@ -10,7 +10,7 @@ class CustomerOrderListScreen
     extends EntityListScreen<EstateCustomerOrderModel> {
   CustomerOrderListScreen.withFilterScreen({super.key})
       : super.withFilterScreen(
-          title: GlobalString.myEstate,
+          title: GlobalString.myRequests,
           controller: CustomerOrderController(),
         );
 }

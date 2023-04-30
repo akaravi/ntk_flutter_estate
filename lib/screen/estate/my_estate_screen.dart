@@ -22,13 +22,10 @@ class _Adapter extends StatelessWidget {
 
   _Adapter({required this.model});
 
-  static double width = 0;
 
   @override
   Widget build(BuildContext context) {
-    if (width == 0) {
-      width = MediaQuery.of(context).size.width * (3 / 8);
-    }
+
     return Card(
       elevation: 12,
       shape: RoundedRectangleBorder(
@@ -53,7 +50,7 @@ class _Adapter extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
                         fit: BoxFit.fill,
-                        width: width,
+                        width: GlobalData.screenWidth/2,
                         model.linkMainImageIdSrc!,
                       ),
                     ),

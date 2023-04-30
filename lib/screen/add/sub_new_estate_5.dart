@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import '../../controller/new_estate_controller.dart';
 import 'package:base/src/index.dart';
@@ -116,10 +117,12 @@ class _Container1State extends State<SubNewEstate5> {
         .files;
     // var upload =await ChunkedUploader()
     //     .upload(filePlatform: file.elementAt(0) );
+    SubLoadingScreen.showProgress(context);
     if (await widget.controller
         .uploadMainImage(context: context, file: File(file.first.path ?? ""))) {
       setState(() {});
     }
+    SubLoadingScreen.dismiss(context);
   }
 
   selectOtherImage() async {
@@ -129,10 +132,12 @@ class _Container1State extends State<SubNewEstate5> {
       onFileLoading: (FilePickerStatus status) => print(status),
     ))!
         .files;
+    SubLoadingScreen.showProgress(context);
     if (await widget.controller.uploadOtherImage(
         context: context, file: File(file.first.path ?? ""))) {
       setState(() {});
     }
+    SubLoadingScreen.dismiss(context);
   }
 
   imageWidget(ImageUpload e, {required void Function() onDelete}) {

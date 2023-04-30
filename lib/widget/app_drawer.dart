@@ -96,7 +96,7 @@ class AppDrawer extends StatelessWidget {
                                 ? () => element.onClick!(context)
                                 : () => BaseController().newPage(
                                     context: context,
-                                    newScreen: element.page ?? Container()),
+                                    newScreen: (element.page!())),
                             title: Text(
                               element.name,
                               style: const TextStyle(
@@ -134,7 +134,7 @@ class AppDrawer extends StatelessWidget {
 class _DrawerItem {
   String name;
   String icon;
-  Widget? page;
+  Widget Function()? page;
   void Function(BuildContext c)? onClick;
 
   _DrawerItem({required this.name, required this.icon, required this.page});
@@ -148,7 +148,7 @@ class _DrawerItem {
         ? _DrawerItem(
             name: GlobalString.myEstate,
             icon: "assets/drawable/my_estate.png",
-            page: MyEstateListScreen.withFilterScreen())
+            page: () => MyEstateListScreen.withFilterScreen())
         : _DrawerItem.onTap(
             name: GlobalString.myEstate,
             icon: "assets/drawable/my_estate.png",
@@ -158,7 +158,7 @@ class _DrawerItem {
         ? _DrawerItem(
             name: GlobalString.myRequests,
             icon: "assets/drawable/order2.png",
-            page: CustomerOrderListScreen.withFilterScreen())
+            page: () => CustomerOrderListScreen.withFilterScreen())
         : _DrawerItem.onTap(
             name: GlobalString.myRequests,
             icon: "assets/drawable/order2.png",
@@ -167,48 +167,48 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.favoriteList,
         icon: "assets/drawable/favorites_folder.png",
-        page: FavoriteListScreen.withFilterScreen()));
+        page: () => FavoriteListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.news,
         icon: "assets/drawable/news2.png",
-        page: NewsListScreen.withFilterScreen()));
+        page: () => NewsListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.article,
         icon: "assets/drawable/article_place_holder.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.ticket,
         icon: "assets/drawable/inbox.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.polling,
         icon: "assets/drawable/polling2.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.inbox,
         icon: "assets/drawable/notification2.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.faq,
         icon: "assets/drawable/faq2.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.feedback,
         icon: "assets/drawable/feedback2.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.aboutUs,
         icon: "assets/drawable/about_us2.png",
-        page: const TestScreen()));
+        page: () => const TestScreen()));
     items.add(_DrawerItem(
         name: GlobalString.help,
         icon: "assets/drawable/intro2.png",
-        page: IntroScreen(asHelpScreen: true)));
+        page: () => IntroScreen(asHelpScreen: true)));
     if (allowDirectShareApp) {
       items.add(_DrawerItem(
           name: GlobalString.inviteFriend,
           icon: "assets/drawable/invite2.png",
-          page: const TestScreen()));
+          page: () => const TestScreen()));
     }
     if (isLogin) {
       items.add(_DrawerItem.onTap(

@@ -125,6 +125,12 @@ class _ListWithFilterState extends State<EntityListScreen> {
       floatingActionButton: widget.floatingActionButton(context),
     );
   }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    widget.controller.dispose();
+  }
 }
 
 class _GridListFilterState extends State<EntityListScreen> {

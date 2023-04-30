@@ -35,7 +35,7 @@ class IntroScreen extends StatelessWidget {
     );
   }
 
-  createSlides(List<ApplicationIntroModel>? data) {
+  List<Slide> createSlides(List<ApplicationIntroModel>? data) {
     List<Slide> list = [];
     data = data ?? [];
     for (var element in data) {
