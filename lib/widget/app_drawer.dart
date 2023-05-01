@@ -7,6 +7,8 @@ import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_scr
 import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
 import 'package:ntk_flutter_estate/screen/estate/my_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/test_wdiget.dart';
+import 'package:ntk_flutter_estate/screen/generalized/about_us_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/faq_screen.dart';
 import 'package:ntk_flutter_estate/screen/generalized/intro_screen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 
@@ -191,7 +193,7 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.faq,
         icon: "assets/drawable/faq2.png",
-        page: () => const TestScreen()));
+        page: () => FaqScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.feedback,
         icon: "assets/drawable/feedback2.png",
@@ -199,7 +201,7 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.aboutUs,
         icon: "assets/drawable/about_us2.png",
-        page: () => const TestScreen()));
+        page: () => const AboutUsScreen()));
     items.add(_DrawerItem(
         name: GlobalString.help,
         icon: "assets/drawable/intro2.png",

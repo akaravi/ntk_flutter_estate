@@ -163,10 +163,19 @@ class GlobalString {
   static const String yes = "بله";
   static const String error = "خطا";
   static const String cantBeEmpty = "باید مقدار داشته باشد";
+
+  static const String atleast6digit="حداقل شش رقمی باشد";
+  static const String enterMobileCorrect="شماره تلفم خود را به صورت صحیح وارد کنید";
+
+  static const String contactUs="تماس با ما";
+
+  static const String  telephone="َشماره تلفن تماس";
+  static const String  fax="ََشماره فکس";
+  static const String  email="ایمیل";
+  static const String submit = "ثبت";
   static const String projects2 = "";
 
-  static String? atleast6digit;
-  static String? enterMobileCorrect;
+  static const String build="نسخه ی کنونی";
 
 
 }
