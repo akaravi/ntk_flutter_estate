@@ -2,6 +2,7 @@ import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:ntk_flutter_estate/dialog/need_auth_dialog.dart';
+import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/customer_order_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/favorite_estate_list_creen.dart';
@@ -9,8 +10,11 @@ import 'package:ntk_flutter_estate/screen/estate/my_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/test_wdiget.dart';
 import 'package:ntk_flutter_estate/screen/generalized/about_us_screen.dart';
 import 'package:ntk_flutter_estate/screen/generalized/faq_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/feedback_dialog.dart';
 import 'package:ntk_flutter_estate/screen/generalized/intro_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/polling_screeen.dart';
 import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
+import 'package:ntk_flutter_estate/screen/ticketing/ticket_lsit_screen.dart';
 
 import '../controller/main_controller.dart';
 import '../controller/profile_controller.dart';
@@ -177,15 +181,15 @@ class _DrawerItem {
     items.add(_DrawerItem(
         name: GlobalString.article,
         icon: "assets/drawable/article_place_holder.png",
-        page: () => const TestScreen()));
+        page: () => ArticleListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.ticket,
         icon: "assets/drawable/inbox.png",
-        page: () => const TestScreen()));
+        page: () => TicketListScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.polling,
         icon: "assets/drawable/polling2.png",
-        page: () => const TestScreen()));
+        page: () => PollingScreen.withFilterScreen()));
     items.add(_DrawerItem(
         name: GlobalString.inbox,
         icon: "assets/drawable/notification2.png",
@@ -194,10 +198,10 @@ class _DrawerItem {
         name: GlobalString.faq,
         icon: "assets/drawable/faq2.png",
         page: () => FaqScreen.withFilterScreen()));
-    items.add(_DrawerItem(
+    items.add(_DrawerItem.onTap(
         name: GlobalString.feedback,
         icon: "assets/drawable/feedback2.png",
-        page: () => const TestScreen()));
+        onClick: (c) => FeedBackDialog.show(c)));
     items.add(_DrawerItem(
         name: GlobalString.aboutUs,
         icon: "assets/drawable/about_us2.png",
@@ -216,7 +220,8 @@ class _DrawerItem {
       items.add(_DrawerItem.onTap(
         name: GlobalString.exit,
         icon: "assets/drawable/exit.png",
-        onClick: (c) {
+        onClick: (c) async {
+          await LoginCache().exit();
           FlutterExitApp.exitApp();
         },
       ));

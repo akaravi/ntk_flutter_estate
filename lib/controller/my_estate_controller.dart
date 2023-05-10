@@ -1,5 +1,6 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/screen/generalized/dialogs.dart';
 
 
 class MyEstateController extends BaseListController<EstatePropertyModel> {
@@ -26,6 +27,10 @@ class MyEstateController extends BaseListController<EstatePropertyModel> {
     } else {
       return BaseEstateModelAdapter(model: m);
     }
+  }
+
+  static void delete(BuildContext context,EstatePropertyModel model) {
+    DeleteDialog().showConfirm( context: context, delete: ()async => EstatePropertyService().delete(model));
   }
 }
 

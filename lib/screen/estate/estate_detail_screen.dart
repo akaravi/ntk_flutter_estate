@@ -97,7 +97,7 @@ class _DetailState extends State<_Detail> {
                   dotSpace(),
                   //prices
                   Column(
-                    children: ContractWidget().getPriceWidget(widget.model),
+                    children: ContractWidget().getPriceWidget(widget.model,showAll: true),
                   ),
                   dotSpace(),
                   //description

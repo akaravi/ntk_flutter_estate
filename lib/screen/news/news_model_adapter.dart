@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/news/news_detail_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsModelAdapter extends BaseEntityAdapter<NewsContentModel> {
@@ -24,7 +25,8 @@ class NewsModelAdapter extends BaseEntityAdapter<NewsContentModel> {
   }
 
   detailScreen(BuildContext context) {
-    //todo
+    BaseController().newPage(
+        context: context, newScreen: NewsDetailScreen(id: model.id ?? 0));
   }
 }
 
@@ -36,7 +38,7 @@ class _NewsModelAdapterState extends BaseEntityAdapterEstate<NewsModelAdapter> {
         borderRadius: BorderRadius.circular(6),
       ),
       child: InkWell(
-        onTap: () async => _launchURL(context),
+        onTap: () async => widget.detailScreen(context),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
@@ -47,7 +49,7 @@ class _NewsModelAdapterState extends BaseEntityAdapterEstate<NewsModelAdapter> {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     fit: BoxFit.contain,
-                    width: 300,
+                    width: GlobalData.screenWidth,
                     widget.model.linkMainImageIdSrc!,
                   ),
                 ),
@@ -94,18 +96,18 @@ class _NewsModelAdapterState extends BaseEntityAdapterEstate<NewsModelAdapter> {
     );
   }
 
-  Future<void> _launchURL(BuildContext context) async {
-    final url = 'https://raywenderlich.com/redirect?uri=${widget.model.source}';
-    if (Platform.isIOS || await canLaunch(url)) {
-      await launch(url);
-    } else {
-      // Scaffold.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Could\'nt launch the article\'s URL.'),
-      //   ),
-      // );
-    }
-  }
+  // Future<void> _launchURL(BuildContext context) async {
+  //   final url = 'https://raywenderlich.com/redirect?uri=${widget.model.source}';
+  //   if (Platform.isIOS || await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     // Scaffold.of(context).showSnackBar(
+  //     //   const SnackBar(
+  //     //     content: Text('Could\'nt launch the article\'s URL.'),
+  //     //   ),
+  //     // );
+  //   }
+  // }
 }
 
 class _NewsModelAdapterForMainState
@@ -129,7 +131,8 @@ class _NewsModelAdapterForMainState
                     borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(12),
                         topLeft: Radius.circular(12)),
-                    child: Image.network(width:MainScreenSize().newsItemWidth ,
+                    child: Image.network(
+                      width: MainScreenSize().newsItemWidth,
                       height: MainScreenSize().newsItemHeight,
                       fit: BoxFit.fill,
                       widget.model.linkMainImageIdSrc!,

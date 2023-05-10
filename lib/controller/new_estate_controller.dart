@@ -32,6 +32,11 @@ class NewEstateController {
   bool depositPriceAgreement = false;
   bool periodPriceAgreement = false;
 
+  static start(BuildContext context) {
+    Future.microtask(() => Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => NewEstateScreen())));
+  }
+
   NewEstateController({EstatePropertyModel? model})
       : item = model ?? EstatePropertyModel();
 
@@ -41,14 +46,17 @@ class NewEstateController {
         await EstatePropertyTypeService().getAll(FilterModel()
           ..rowPerPage = 100
           ..currentPageNumber = 1);
+
     sub1data.typeUsagesList =
         await EstatePropertyTypeUsageService().getAll(FilterModel()
           ..rowPerPage = 100
           ..currentPageNumber = 1);
+
     sub1data.landUsesList =
         await EstatePropertyTypeLandUseService().getAll(FilterModel()
           ..rowPerPage = 100
           ..currentPageNumber = 1);
+
     return sub1data;
   }
 
@@ -131,11 +139,6 @@ class NewEstateController {
     return data;
   }
 
-  static start(BuildContext context) {
-    Future.microtask(() => Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => NewEstateScreen())));
-  }
-
   bool sub1Validation(BuildContext context) {
     if (item.propertyTypeUsage == null) {
       toast(context, GlobalString.insertTypeUsage);
@@ -174,12 +177,12 @@ class NewEstateController {
         in item.propertyDetailGroups ?? []) {
       (group.propertyDetails ?? [])
           .where((estatePropertyDetailModel) =>
-              estatePropertyDetailModel.value != null)
+              estatePropertyDetailModel.text.text.isNotEmpty)
           .toList()
           .forEach((estatePropertyDetailModel) {
         var v = EstatePropertyDetailValueModel()
-          ..id = estatePropertyDetailModel.id
-          ..value = estatePropertyDetailModel.value;
+          ..linkPropertyDetailId = estatePropertyDetailModel.id
+          ..value = estatePropertyDetailModel.text.text;
         item.propertyDetailValues?.add(v);
       });
     }
@@ -203,7 +206,9 @@ class NewEstateController {
       toast(context, GlobalString.insertLocation);
       return false;
     }
-
+    item.title=titleTextWidget.text;
+    item.description=descTextWidget.text;
+    item.address=addressTextWidget.text;
     return true;
   }
 

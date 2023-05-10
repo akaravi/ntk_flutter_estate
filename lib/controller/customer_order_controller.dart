@@ -1,13 +1,17 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/controller/edit_customer_order_controller.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 
+import '../screen/generalized/dialogs.dart';
 
-class CustomerOrderController extends BaseListController<EstateCustomerOrderModel> {
+class CustomerOrderController
+    extends BaseListController<EstateCustomerOrderModel> {
   Widget Function(BuildContext context, EstateCustomerOrderModel m, int index)?
       adapterCreatorFunction;
 
-  CustomerOrderController({ FilterModel? filter})
-      : super(filterModel: filter);
+  CustomerOrderController({FilterModel? filter}) : super(filterModel: filter);
 
   @override
   Future<List<EstateCustomerOrderModel>> service(FilterModel filter) {
@@ -20,12 +24,17 @@ class CustomerOrderController extends BaseListController<EstateCustomerOrderMode
   }
 
   @override
-  Widget widgetAdapter(BuildContext context, EstateCustomerOrderModel m, int index) {
+  Widget widgetAdapter(
+      BuildContext context, EstateCustomerOrderModel m, int index) {
     if (adapterCreatorFunction != null) {
       return adapterCreatorFunction!(context, m, index);
     } else {
       return _ModelAdapter(model: m);
     }
+  }
+
+  static delete(BuildContext context, EstateCustomerOrderModel model) {
+    DeleteDialog().showConfirm( context: context, delete: ()async => EstateCustomerOrderService().delete(model));
   }
 }
 
@@ -37,6 +46,68 @@ class _ModelAdapter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    throw Container();
+    return Card(
+      child: Column(children: [
+        Text(model.title ?? ""),
+        Row(
+          children: [
+            button(
+              title: GlobalString.result,
+              color: Colors.green,
+              icon: Icons.remove_red_eye_sharp,
+              onPressed: () => BaseController().newPage(
+                  context: context,
+                  newScreen: EstateListScreen.withOrder(id: model.id ?? "")),
+            ),
+            button(
+              title: GlobalString.edit,
+              color: GlobalColor.colorPrimary,
+              icon: Icons.edit,
+              onPressed: () =>
+                  EditCustomerOrderController.start(context, model.id ?? ""),
+            ),
+            button(
+              title: GlobalString.delete,
+              color: GlobalColor.colorError,
+              icon: Icons.delete,
+              onPressed: () =>CustomerOrderController.delete(context,model),
+            ),
+          ],
+        )
+      ]),
+    );
+  }
+
+  button(
+      {required title,
+      required color,
+      required icon,
+      required void Function() onPressed}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      child: Expanded(
+        child: TextButton(
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(width: 1.0, color: color),
+            ),
+            onPressed: onPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(color: color),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  icon,
+                  color: color,
+                )
+              ],
+            )),
+      ),
+    );
   }
 }

@@ -65,7 +65,7 @@ class _FaqVerticalAdapterState extends BaseEntityAdapterEstate<FaqAdapter> {
         child: Container(
             child: Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-      child: Text(title, style: TextStyle(color: GlobalColor.colorAccent)),
+      child: Text(title, style: TextStyle(color: GlobalColor.colorTextPrimary)),
     )));
   }
 }

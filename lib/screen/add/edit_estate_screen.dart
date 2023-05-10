@@ -1,23 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ntk_flutter_estate/controller/new_estate_controller.dart';
+import 'package:ntk_flutter_estate/controller/edit_estate_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:base/src/index.dart';
-
+import 'package:ntk_flutter_estate/screen/generalized/sub_error_screen.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
+import 'sub_new_estate_1.dart';
 import 'sub_new_estate_2.dart';
 import 'sub_new_estate_3.dart';
 import 'sub_new_estate_4.dart';
 import 'sub_new_estate_5.dart';
 
-class NewEstateScreen extends StatefulWidget {
-  NewEstateController controller = NewEstateController();
+class EditEstateScreen extends StatefulWidget {
+  String id;
+
+  EditEstateScreen({Key? key, required this.id}) : super(key: key);
+  EditEstateController controller = EditEstateController();
 
   @override
-  State<NewEstateScreen> createState() => NewEstateState();
+  State<EditEstateScreen> createState() => EditEstateState();
 }
 
-class NewEstateState extends State<NewEstateScreen> {
+class EditEstateState extends State<EditEstateScreen> {
   int index = 1;
 
   @override
@@ -33,51 +36,45 @@ class NewEstateState extends State<NewEstateScreen> {
           onPressed: () => BaseController().close(context),
         ),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: GlobalColor.colorSemiBackground,
-        child: Stack(children: [
-          Positioned.fill(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Container(
-                padding: EdgeInsets.only(bottom: 78),
-                child: currentSub(),
-              ),
-            ),
-          ),
-          Positioned(
-              bottom: 12,
-              left: 12,
-              right: 12,
-              child: Row(children: [nextButton(), Spacer(), prevButton()]))
-        ]),
-      ),
+      body: FutureBuilder<EstatePropertyModel>(
+          future: widget.controller.geModel(widget.id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: GlobalColor.colorSemiBackground,
+                child: Stack(children: [
+                  Positioned.fill(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Container(
+                        padding: EdgeInsets.only(bottom: 78),
+                        child: currentSub(),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 12,
+                      left: 12,
+                      right: 12,
+                      child:
+                          Row(children: [nextButton(), Spacer(), prevButton()]))
+                ]),
+              );
+            }
+            if (snapshot.hasError) {
+              return SubErrorScreen(
+                message: snapshot.error.toString(),
+                title: GlobalString.error,
+                tryAgainMethod: () {
+                  setState(() {});
+                },
+              );
+            }
+            return SubLoadingScreen();
+          }),
     );
-    // Stack(children: [
-    //   Positioned.fill(
-    //     child: CustomScrollView(
-    //         scrollDirection: Axis.vertical,
-    //         shrinkWrap: true,
-    //         slivers: [
-    //           SliverFillRemaining(
-    //             hasScrollBody: index == 2,
-    //             child: Container(
-    //                 color: GlobalColor.colorSemiBackground,
-    //                 padding: EdgeInsets.all(8),
-    //                 child: currentSub()),
-    //           ),
-    //         ]),
-    //   ),
-    //   Positioned(
-    //       bottom: 12,
-    //       left: 12,
-    //       right: 12,
-    //       child: Row(children: [nextButton(), Spacer(), prevButton()]))
-    // ])
-    // ,
-    // );
   }
 
   String getTitle() {
@@ -106,7 +103,7 @@ class NewEstateState extends State<NewEstateScreen> {
   currentSub() {
     switch (index) {
       case 1:
-        return SubNewEstate1(controller: widget.controller);
+        return SubNewEstate1(controller: widget.controller, editable: false);
       case 2:
         return SubNewEstate2(controller: widget.controller);
       case 3:
@@ -128,12 +125,11 @@ class NewEstateState extends State<NewEstateScreen> {
           backgroundColor: GlobalColor.colorPrimary),
       onPressed: () {
         if (widget.controller.isValid(context, index)) {
-          index=(++index);
+          index++;
           if (index < 6) {
             setState(() {});
           } else {
-            index=6;
-            widget.controller.createModel(context);
+            widget.controller.editModel(context);
           }
         }
       },

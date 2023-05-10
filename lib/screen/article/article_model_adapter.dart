@@ -5,6 +5,7 @@ import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:ntk_flutter_estate/screen/article/article_detail_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ArticleModelAdapter extends BaseEntityAdapter<ArticleContentModel> {
@@ -24,7 +25,8 @@ class ArticleModelAdapter extends BaseEntityAdapter<ArticleContentModel> {
   }
 
   detailScreen(BuildContext context) {
-    //todo
+    BaseController().newPage(
+        context: context, newScreen: ArticleDetailScreen(id: model.id ?? 0));
   }
 }
 
@@ -51,33 +53,51 @@ class _ArticleModelAdapterState
                         topLeft: Radius.circular(12)),
                     child: Image.network(
                       fit: BoxFit.fill,
-                      width: 250,
+                      width: GlobalData.screenWidth,
+                      height: 2 * GlobalData.screenHeight / 7,
                       widget.model.linkMainImageIdSrc!,
                     ),
                   ),
-                Text(
-                  widget.model.title!,
-                  maxLines: 1,
-                  style: const TextStyle(
-                      fontSize: 15, color: GlobalColor.colorTextPrimary),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    widget.model.title!,
+                    maxLines: 1,
+                    style: const TextStyle(
+                        fontSize: 15, color: GlobalColor.colorTextPrimary),
+                  ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      StarDisplay(
+                          ViewCount: widget.model.viewCount,
+                          ScoreSumPercent: widget.model.scoreSumPercent,
+                          color: GlobalColor.colorAccent),
+                      Spacer(
+                        flex: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Text(
+                          widget.model.viewCount.toString(),
+                          style: const TextStyle(
+                              fontSize: 15, color: GlobalColor.colorAccent),
+                        ),
+                      ),
+                      const Icon(
+                        Icons.remove_red_eye,
+                        size: 15,
+                        color: GlobalColor.colorAccent,
+                      ),
+                    ],
+                  ),
+                )
               ]),
         ),
       ),
     );
-  }
-
-  Future<void> _launchURL(BuildContext context) async {
-    final url = 'https://raywenderlich.com/redirect?uri=${widget.model.source}';
-    if (Platform.isIOS || await canLaunch(url)) {
-      await launch(url);
-    } else {
-      // Scaffold.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('Could\'nt launch the article\'s URL.'),
-      //   ),
-      // );
-    }
   }
 }
 
@@ -85,7 +105,8 @@ class _ArticleModelAdapterForMainState
     extends BaseEntityAdapterEstate<ArticleModelAdapter> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: GlobalData.screenWidth-80,
+    return SizedBox(
+      width: GlobalData.screenWidth - 80,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),

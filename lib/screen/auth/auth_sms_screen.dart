@@ -144,6 +144,7 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
   @override
   loadCaptcha(CaptchaModel chModel) {
      registerMobileController.model=chModel;
+
   }
 
   registerClicked() async {

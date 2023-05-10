@@ -25,8 +25,8 @@ class EntityListScreen<model> extends StatefulWidget {
       : stateCreator = (() => _ListWithFilterState());
 
   EntityListScreen.asGridScreen(
-      {required this.controller, required this.title, super.key})
-      : stateCreator = (() => _GridListFilterState());
+      {required this.controller, required this.title,required int crossAxs, super.key})
+      : stateCreator = (() => _GridListFilterState(crossAxs));
 
   EntityListScreen.horizontalListWidget(
       {required this.controller, required this.title, super.key})
@@ -134,6 +134,10 @@ class _ListWithFilterState extends State<EntityListScreen> {
 }
 
 class _GridListFilterState extends State<EntityListScreen> {
+  int crossAixes;
+
+  _GridListFilterState(this.crossAixes);
+
   @override
   void initState() {
     widget.controller.initPageController();
@@ -175,11 +179,11 @@ class _GridListFilterState extends State<EntityListScreen> {
           showNewPageErrorIndicatorAsGridChild: false,
           showNoMoreItemsIndicatorAsGridChild: false,
           pagingController: widget.controller.pagingController,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: .8,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            crossAxisCount: 3,
+            crossAxisCount: crossAixes,
           ),
           builderDelegate: PagedChildBuilderDelegate(
             itemBuilder: (context, item, index) =>

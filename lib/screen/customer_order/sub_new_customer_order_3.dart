@@ -40,7 +40,7 @@ class _Container1State extends State<SubNewCustomerOrder3> {
                       title: GlobalString.contractType,
                       widget: WrapWidgetModel<EstateContractTypeModel>(
                           models: snapshot.data?.contractsList ?? [],
-                          titleModelMethod: (item) => item?.title ?? "",
+                          titleModelMethod: (item) => item.title ?? "",
                           isSelected: (p0) =>
                               p0.id ==
                               widget.controller.selectedContractModel?.id,

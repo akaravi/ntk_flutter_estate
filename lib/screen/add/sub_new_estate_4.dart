@@ -37,7 +37,7 @@ class _Container1State extends State<SubNewEstate4> {
                       title: GlobalString.contractType,
                       widget: WrapWidgetModel<EstateContractTypeModel>(
                           models: snapshot.data?.contractsList ?? [],
-                          titleModelMethod: (item) => item?.title ?? "",
+                          titleModelMethod: (item) => item.title ?? "",
                           isSelected: (p0) =>
                               p0.id ==
                               widget.controller.selectedContractModel?.id,
@@ -143,7 +143,8 @@ class _Container1State extends State<SubNewEstate4> {
                           hintPriceMl: widget.controller.selectedContractModel
                                   ?.titlePeriodPrice ??
                               "",
-                          textController: widget.controller.periodPriceController,
+                          textController:
+                              widget.controller.periodPriceController,
                           value: widget.controller.periodPriceAgreement,
                           clickListener: () =>
                               widget.controller.periodPriceAgreement =
@@ -195,7 +196,10 @@ class _Container1State extends State<SubNewEstate4> {
               ]),
             ]);
           }
-          return SubLoadingScreen();
+          return SizedBox(
+              width: GlobalData.screenWidth,
+              height: GlobalData.screenHeight,
+              child: const SubLoadingScreen());
         });
   }
 
@@ -279,7 +283,7 @@ class _Container1State extends State<SubNewEstate4> {
                           if (e.salePrice != null && e.salePrice != 0)
                             TextSpan(
                               text: ThousandsSeparatorString.stringValue(
-                                  e.salePrice ?? 0),
+                                  e.salePrice?.toInt() ?? 0),
                             ),
                           if (e.salePrice != null &&
                               e.salePrice != 0 &&
@@ -299,7 +303,7 @@ class _Container1State extends State<SubNewEstate4> {
                           if (e.rentPrice != null && e.rentPrice != 0)
                             TextSpan(
                                 text: ThousandsSeparatorString.stringValue(
-                                    e.rentPrice ?? 0)),
+                                    e.rentPrice?.toInt() ?? 0)),
                           if (e.rentPrice != null &&
                               e.rentPrice != 0 &&
                               (e.rentPriceByAgreement ?? false))
@@ -318,7 +322,7 @@ class _Container1State extends State<SubNewEstate4> {
                           if (e.depositPrice != null && e.depositPrice != 0)
                             TextSpan(
                                 text: ThousandsSeparatorString.stringValue(
-                                    e.depositPrice ?? 0)),
+                                    e.depositPrice?.toInt() ?? 0)),
                           if (e.depositPrice != null &&
                               e.depositPrice != 0 &&
                               (e.depositPriceByAgreement ?? false))
@@ -337,7 +341,7 @@ class _Container1State extends State<SubNewEstate4> {
                           if (e.periodPrice != null && e.periodPrice != 0)
                             TextSpan(
                                 text: ThousandsSeparatorString.stringValue(
-                                    e.periodPrice ?? 0)),
+                                    e.periodPrice?.toInt() ?? 0)),
                           if (e.periodPrice != null &&
                               e.periodPrice != 0 &&
                               (e.periodPriceByAgreement ?? false))
@@ -352,7 +356,7 @@ class _Container1State extends State<SubNewEstate4> {
             ),
           ),
         ),
-       Expanded(child: Container()),
+        Expanded(child: Container()),
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: InkWell(

@@ -27,7 +27,7 @@ class LandUsedListScreen
   );
 
   LandUsedListScreen.gridView({super.key})
-      : super.asGridScreen(
+      : super.asGridScreen(crossAxs: 3,
   title: GlobalString.landUsedList,
   controller: EstateLandUsedListController(
   adapterCreatorFunction: (context, m, index) =>

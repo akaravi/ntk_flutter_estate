@@ -8,8 +8,12 @@ import '../../controller/new_estate_controller.dart';
 import 'package:intl/intl.dart';
 
 class SubNewEstate1 extends SubNewEstateBase {
-  SubNewEstate1({Key? key, required NewEstateController controller})
-      : super(key: key, controller: controller);
+  bool editable;
+
+  SubNewEstate1(
+      {Key? key, required NewEstateController controller, bool? editable})
+      : editable = editable ?? true,
+        super(key: key, controller: controller);
 
   @override
   State<SubNewEstate1> createState() => _Container1State();
@@ -32,6 +36,7 @@ class _Container1State extends State<SubNewEstate1> {
                   widget.box(
                       title: GlobalString.estateTypeUsage,
                       widget: WrapWidgetModel<EstatePropertyTypeUsageModel>(
+                        selectable: widget.editable,
                         selectMethod: (item) {
                           setState(() {
                             widget.controller.item.propertyTypeUsage = item;
@@ -51,6 +56,7 @@ class _Container1State extends State<SubNewEstate1> {
                     widget.box(
                         title: GlobalString.estateType,
                         widget: WrapWidgetModel<EstatePropertyTypeLanduseModel>(
+                          selectable: widget.editable,
                           selectMethod: (item) {
                             setState(() {
                               widget.controller.item.propertyTypeLanduse = item;
@@ -239,7 +245,7 @@ mixin Sub {
     if (minMax.min != null && minMax.min != 0) {
       _txt.text = GlobalString.from + priceFormat(minMax.min ?? 0);
     }
-    if (minMax.max!= null &&minMax.max != 0) {
+    if (minMax.max != null && minMax.max != 0) {
       _txt.text = _txt.text + GlobalString.to + priceFormat((minMax.max) ?? 0);
     }
     return Container(
@@ -287,6 +293,7 @@ mixin Sub {
     return NumberFormat("###,###,###,###,###,###").format(price);
   }
 }
+
 class MinMax {
   num? min;
   num? max;

@@ -160,22 +160,33 @@ class GlobalString {
   static const String slider = "تصاویر";
   static const String needLogin =
       "برای ثبت ملک نیاز است که به حساب خود وارد شوید. آیا مایلید به صفحه ی ورود هدایت شوید؟";
-  static const String yes = "بله";
+
+  static const String yes = "بلی";
   static const String error = "خطا";
   static const String cantBeEmpty = "باید مقدار داشته باشد";
+  static const String atleast6digit = "حداقل شش رقمی باشد";
+  static const String enterMobileCorrect =
+      "شماره تلفم خود را به صورت صحیح وارد کنید";
 
-  static const String atleast6digit="حداقل شش رقمی باشد";
-  static const String enterMobileCorrect="شماره تلفم خود را به صورت صحیح وارد کنید";
-
-  static const String contactUs="تماس با ما";
-
-  static const String  telephone="َشماره تلفن تماس";
-  static const String  fax="ََشماره فکس";
-  static const String  email="ایمیل";
+  static const String contactUs = "تماس با ما";
+  static const String telephone = "َشماره تلفن تماس";
+  static const String fax = "ََشماره فکس";
+  static const String email = "ایمیل";
   static const String submit = "ثبت";
+  static const String build = "نسخه ی کنونی";
+  static const String successfullyAddVote = "نظر شما با موفقیت ثبت شد";
+  static const String ticketing = "پشتیبانی";
+  static const String newTicket = "تیکت جدید";
+  static const String fullName = "نام و نام خانوادگی";
+  static const String edit = "ویرایش";
+  static const String history = "تاریخچه";
+  static const String share = "اشتراک گذاری";
+  static const String no = "خیر";
+  static const String alert = "هشدار";
+  static const String visitCount = "تعداد مشاهدات";
   static const String projects2 = "";
 
-  static const String build="نسخه ی کنونی";
+  static String deleteConfirm = "آیا نسبت به حذف این مورد مطمئن هستید؟ ";
 
-
+  static const String result = "نتایج";
 }

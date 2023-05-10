@@ -250,17 +250,23 @@ class _EstatePropertyHorizontalAdapterState
                     ),
                     //title and price container
                     Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            widget.model.title!,
-                            maxLines: 1,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: GlobalColor.colorTextPrimary),
-                          ),
-                          ...ContractWidget().getPriceWidget(widget.model)
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                widget.model.title!,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: GlobalColor.colorTextPrimary),
+                              ),
+                            ),
+                            ...ContractWidget().getPriceWidget(widget.model)
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -6,25 +6,25 @@ import 'package:ntk_flutter_estate/widget/dash_separator.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:ntk_flutter_estate/widget/image_slider.dart';
 
-class NewsDetailScreen extends StatelessWidget {
-  NewsDetailController modelController;
+class ArticleDetailScreen extends StatelessWidget {
+  ArticleDetailController modelController;
 
-  NewsDetailScreen({Key? key, required int id})
-      : modelController = NewsDetailController(id: id),
+  ArticleDetailScreen({Key? key, required int id})
+      : modelController = ArticleDetailController(id: id),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //body
-      body: StreamBuilder<ErrorException<NewsContentModel>>(
+      body: StreamBuilder<ErrorException<ArticleContentModel>>(
           stream: modelController.loadEntity(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               //get progress send
               var errorException = snapshot.data;
               //if progress is complete go to next Page
-              return _Detail(errorException?.item ?? NewsContentModel());
+              return _Detail(errorException?.item ?? ArticleContentModel());
             } else if (snapshot.hasError) {
               return const Center(
                 child: Text('محددا تلاش کنید'),
@@ -37,7 +37,7 @@ class NewsDetailScreen extends StatelessWidget {
 }
 
 class _Detail extends StatefulWidget {
-  NewsContentModel model;
+  ArticleContentModel model;
   bool sliderVisibillity = true;
 
   _Detail(this.model, {Key? key}) : super(key: key);

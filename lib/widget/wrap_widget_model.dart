@@ -11,6 +11,7 @@ class WrapWidgetModel<model> extends StatefulWidget {
   Color colorSelectedText;
   Color borderColor;
   int index;
+  bool clickable;
 
   WrapWidgetModel(
       {Key? key,
@@ -21,12 +22,14 @@ class WrapWidgetModel<model> extends StatefulWidget {
       Color? colorSelectedText,
       Color? colorSelectedBackground,
       Color? borderColor,
+      bool? selectable,
       bool Function(model)? isSelected})
       : colorSelectedBackground =
             colorSelectedBackground ?? GlobalColor.colorAccent,
         colorSelectedText = colorSelectedText ?? GlobalColor.colorOnAccent,
         colorBackground = colorBackground ?? GlobalColor.colorBackground,
         borderColor = borderColor ?? GlobalColor.colorPrimary,
+        clickable = selectable ?? true,
         index = isSelected != null ? models.indexWhere(isSelected) : -1,
         super(key: key);
 
@@ -67,11 +70,13 @@ class _WrapWidgetModelState<model> extends State<WrapWidgetModel<model>> {
                         fontSize: 14)),
               ),
               onTap: () {
-                if (selectedIndex != index) {
-                  setState(() {
-                    selectedIndex = index;
-                    widget.selectMethod(item);
-                  });
+                if (widget.clickable) {
+                  if (selectedIndex != index) {
+                    setState(() {
+                      selectedIndex = index;
+                      widget.selectMethod(item);
+                    });
+                  }
                 }
               });
         })

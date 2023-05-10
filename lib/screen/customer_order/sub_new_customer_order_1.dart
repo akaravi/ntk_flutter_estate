@@ -6,11 +6,15 @@ import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
-
 class SubNewCustomerOrder1 extends SubNewCustomerOrderBase {
+  bool editable;
+
   SubNewCustomerOrder1(
-      {Key? key, required NewCustomerOrderController controller})
-      : super(key: key, controller: controller);
+      {Key? key,
+      required NewCustomerOrderController controller,
+      bool? editable})
+      : editable = editable ?? true,
+        super(key: key, controller: controller);
 
   @override
   State<SubNewCustomerOrder1> createState() => _Container1State();
@@ -33,6 +37,7 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                   widget.box(
                       title: GlobalString.estateTypeUsage,
                       widget: WrapWidgetModel<EstatePropertyTypeUsageModel>(
+                        selectable: widget.editable,
                         selectMethod: (item) {
                           setState(() {
                             widget.controller.item.propertyTypeUsage = item;
@@ -40,7 +45,7 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                           });
                         },
                         isSelected: (element) =>
-                        element.id ==
+                            element.id ==
                             widget.controller.item.propertyTypeUsage?.id,
                         models: snapshot.data?.typeUsagesList ?? [],
                         titleModelMethod: (item) => item.title ?? "",
@@ -52,13 +57,14 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                     widget.box(
                         title: GlobalString.estateType,
                         widget: WrapWidgetModel<EstatePropertyTypeLanduseModel>(
+                          selectable: widget.editable,
                           selectMethod: (item) {
                             setState(() {
                               widget.controller.item.propertyTypeLanduse = item;
                             });
                           },
                           isSelected: (p0) =>
-                          p0.id ==
+                              p0.id ==
                               widget.controller.item.propertyTypeLanduse?.id,
                           models: widget.controller.usageList(snapshot.data),
                           titleModelMethod: (item) => item.title ?? "",
@@ -104,8 +110,10 @@ class _Container1State extends State<SubNewCustomerOrder1> {
                               "",
                           keyboardType: const TextInputType.numberWithOptions(
                               signed: false, decimal: false),
-                          textController: widget.controller.partitionController),
-                    const SizedBox(height: 8),  ]),
+                          textController:
+                              widget.controller.partitionController),
+                    const SizedBox(height: 8),
+                  ]),
               ],
             );
           }

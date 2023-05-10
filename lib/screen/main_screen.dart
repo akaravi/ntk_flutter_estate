@@ -399,7 +399,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               newScreen: ArticleListScreen.withFilterScreen())),
       //spacer because of see search and new... btn
       const SizedBox(
-        height: 120,
+        height: 90,
       )
     ];
   }

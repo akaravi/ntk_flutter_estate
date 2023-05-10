@@ -1,5 +1,6 @@
 import 'package:base/src/index.dart';
 import 'package:flutter/material.dart';
+import 'package:ntk_flutter_estate/controller/estate_list_with_order_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/landused/list_entity_screen.dart';
 
@@ -28,5 +29,14 @@ class EstateListScreen extends EntityListScreen<EstatePropertyModel> {
                   )),
         );
 
+  EstateListScreen.withOrder({super.key, required String id})
+      : super.withFilterScreen(
+    title: GlobalString.estate,
+    controller: EstateWithOrderController(id: id,
 
+        adapterCreatorFunction: (context, m, index) =>
+            EstatePropertyAdapter.verticalType(
+              model: m,
+            )),
+  );
 }

@@ -4,6 +4,7 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
 import 'package:motion_toast/motion_toast.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 class NewCustomerOrderController {
   EstateCustomerOrderModel item;
@@ -16,7 +17,6 @@ class NewCustomerOrderController {
   TextEditingController codeTextWidget = TextEditingController();
   TextEditingController titleTextWidget = TextEditingController();
   TextEditingController descTextWidget = TextEditingController();
-  TextEditingController addressTextWidget = TextEditingController();
   TextEditingController maxSalePriceController = TextEditingController();
   TextEditingController minSalePriceController = TextEditingController();
   TextEditingController maxRentPriceController = TextEditingController();
@@ -118,6 +118,7 @@ class NewCustomerOrderController {
     if (areaController.text.isNotEmpty) {
       item.area = double.parse(areaController.text);
     }
+    //for renewing details
     if (item.linkPropertyTypeLanduseId != null &&
         item.linkPropertyTypeLanduseId !=
             (item.propertyTypeLanduse?.id ?? "")) {
@@ -142,12 +143,12 @@ class NewCustomerOrderController {
         in item.propertyDetailGroups ?? []) {
       (group.propertyDetails ?? [])
           .where((estatePropertyDetailModel) =>
-              estatePropertyDetailModel.value != null)
+      estatePropertyDetailModel.text.text.isNotEmpty)
           .toList()
           .forEach((estatePropertyDetailModel) {
         var v = EstatePropertyDetailValueModel()
-          ..id = estatePropertyDetailModel.id
-          ..value = estatePropertyDetailModel.value;
+          ..linkPropertyDetailId = estatePropertyDetailModel.id
+          ..value = estatePropertyDetailModel.text.text;
         item.propertyDetailValues?.add(v);
       });
     }
@@ -163,15 +164,13 @@ class NewCustomerOrderController {
       toast(context, GlobalString.insertDesc);
       return false;
     }
-    if (addressTextWidget.text.isEmpty) {
-      toast(context, GlobalString.insertDesc);
-      return false;
-    }
-    if (item.linkLocationIds != null) {
+
+    if (item.linkLocationIds == null||(item.linkLocationIds??[]).isEmpty) {
       toast(context, GlobalString.insertLocation);
       return false;
     }
-
+    item.title=titleTextWidget.text;
+    item.description=descTextWidget.text;
     return true;
   }
 
@@ -180,6 +179,7 @@ class NewCustomerOrderController {
       toast(context, GlobalString.plzInsertContract);
       return false;
     }
+    item.linkContractTypeId=selectedContractModel?.id;
     //sale price
     if (selectedContractModel?.hasSalePrice ?? false) {
       //price is empty
@@ -238,6 +238,20 @@ class NewCustomerOrderController {
 
   void toast(BuildContext c, String detail) {
     MotionToast.error(description: Text(detail)).show(c);
+  }
+
+  Future<void> createModel(BuildContext context) async {
+    item.propertyDetailGroups = null;
+
+
+    SubLoadingScreen.showProgress(context);
+    var errorException = await EstateCustomerOrderService().add(item);
+    SubLoadingScreen.dismiss(context);
+    if (errorException.isSuccess) {
+      Navigator.of(context).pop();
+    } else {
+      toast(context, errorException.errorMessage ?? GlobalString.error);
+    }
   }
 }
 
