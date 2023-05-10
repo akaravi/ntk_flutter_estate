@@ -30,7 +30,7 @@ class LandUsePropertyAdapter
         ..value = model.id);
     BaseController().newPage(
         context: context,
-        newScreen: EstateListScreen.withFilterScreen(
+        newWidget: (context) =>  EstateListScreen.withFilterScreen(
           filter: filterModel,
         ));
   }

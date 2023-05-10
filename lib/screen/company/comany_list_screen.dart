@@ -51,7 +51,7 @@ class _CompanyAdapter extends StatelessWidget {
 
   detailScreen(BuildContext context) {
     BaseController().newPage(
-        context: context, newScreen: CompanyDetailScreen(id: model.id ?? ""));
+        context: context,  newWidget: (context) =>  CompanyDetailScreen(id: model.id ?? ""));
   }
 
 }

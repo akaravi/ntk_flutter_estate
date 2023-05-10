@@ -45,7 +45,7 @@ class NeedAuthorization {
                         //close dialog
                         BaseController().close(context);
                         BaseController().replacePage(
-                            context: context, newScreen: AuthSmsScreen());
+                            context: context,  newWidget: (context) =>  AuthSmsScreen());
                       },
                       child: const Text(
                         GlobalString.yes,

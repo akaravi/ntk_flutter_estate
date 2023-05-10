@@ -26,7 +26,7 @@ class NewsModelAdapter extends BaseEntityAdapter<NewsContentModel> {
 
   detailScreen(BuildContext context) {
     BaseController().newPage(
-        context: context, newScreen: NewsDetailScreen(id: model.id ?? 0));
+        context: context,  newWidget: (context) =>  NewsDetailScreen(id: model.id ?? 0));
   }
 }
 

@@ -26,7 +26,7 @@ class ArticleModelAdapter extends BaseEntityAdapter<ArticleContentModel> {
 
   detailScreen(BuildContext context) {
     BaseController().newPage(
-        context: context, newScreen: ArticleDetailScreen(id: model.id ?? 0));
+        context: context,  newWidget: (context) =>  ArticleDetailScreen(id: model.id ?? 0));
   }
 }
 

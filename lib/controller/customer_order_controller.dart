@@ -57,7 +57,7 @@ class _ModelAdapter extends StatelessWidget {
               icon: Icons.remove_red_eye_sharp,
               onPressed: () => BaseController().newPage(
                   context: context,
-                  newScreen: EstateListScreen.withOrder(id: model.id ?? "")),
+                  newWidget: (context) =>  EstateListScreen.withOrder(id: model.id ?? "")),
             ),
             button(
               title: GlobalString.edit,

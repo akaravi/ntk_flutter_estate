@@ -64,9 +64,9 @@ class _SplashScreenState extends State<SplashScreen>
             //if progress is complete go to next Page
             if (splashProgress.progress == 1) {
               SplashController().nextPage(context,
-                  intro: IntroScreen(),
-                  login: AuthSmsScreen(),
-                  main: MainScreen());
+                  intro:  (context) =>  IntroScreen(),
+                  login:(context) => AuthSmsScreen(),
+                  main: (context) =>MainScreen());
                   // main: TestScroll());
               // main: NewCustomerOrderScreen());
               // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));

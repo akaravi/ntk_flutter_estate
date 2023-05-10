@@ -50,6 +50,6 @@ class ProjectModelAdapter extends StatelessWidget {
 
   detailScreen(BuildContext context) {
     BaseController().newPage(
-        context: context, newScreen: ProjectDetailScreen(id: model.id ?? ""));
+        context: context,   newWidget: (context) =>  ProjectDetailScreen(id: model.id ?? ""));
   }
 }

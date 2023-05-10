@@ -66,7 +66,7 @@ class AppDrawer extends StatelessWidget {
                                         BaseController().close(context);
                                         BaseController().replacePage(
                                             context: context,
-                                            newScreen: AuthSmsScreen());
+                                            newWidget: (context) =>  AuthSmsScreen());
                                       },
                                 child: Container(
                                   padding: EdgeInsets.only(left: 18, right: 18),
@@ -102,7 +102,7 @@ class AppDrawer extends StatelessWidget {
                                 ? () => element.onClick!(context)
                                 : () => BaseController().newPage(
                                     context: context,
-                                    newScreen: (element.page!())),
+                                newWidget: (context) =>  (element.page!())),
                             title: Text(
                               element.name,
                               style: const TextStyle(

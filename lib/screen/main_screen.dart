@@ -244,7 +244,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
               ),
               title: GlobalString.landUsedList,
               seeAll: () => EstateLandUsedListController().newPage(
-                  context: context, newScreen: LandUsedListScreen.gridView()),
+                  context: context, newWidget: (context) => LandUsedListScreen.gridView()),
             )),
       ),
       //     //row sections
@@ -262,7 +262,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             title: GlobalString.newList,
             seeAll: () => EstateListController().newPage(
                 context: context,
-                newScreen: EstateListScreen.withFilterScreen(
+                newWidget: (context) => EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList1,
                 )))
       ],
@@ -286,7 +286,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             title: GlobalString.suggestedEstate,
             seeAll: () => EstateListController().newPage(
                 context: context,
-                newScreen: EstateListScreen.withFilterScreen(
+                newWidget: (context) =>  EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList2,
                 )))
       ],
@@ -310,7 +310,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
             title: GlobalString.dailyRent,
             seeAll: () => EstateListController().newPage(
                 context: context,
-                newScreen: EstateListScreen.withFilterScreen(
+                newWidget: (context) =>  EstateListScreen.withFilterScreen(
                   filter: mainContentModel.filterEstateList3,
                 )))
       ],
@@ -331,7 +331,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                     backgroundColor: GlobalColor.colorBackground),
                 onPressed: () => BaseController().newPage(
                     context: context,
-                    newScreen: CompanyListScreen.withFilterScreen()),
+                    newWidget: (context) =>  CompanyListScreen.withFilterScreen()),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -361,7 +361,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                     backgroundColor: GlobalColor.colorBackground),
                 onPressed: () => BaseController().newPage(
                     context: context,
-                    newScreen: ProjectListScreen.withFilterScreen()),
+                    newWidget: (context) =>  ProjectListScreen.withFilterScreen()),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -396,7 +396,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
           title: GlobalString.article,
           seeAll: () => ArticleController().newPage(
               context: context,
-              newScreen: ArticleListScreen.withFilterScreen())),
+              newWidget: (context) =>  ArticleListScreen.withFilterScreen())),
       //spacer because of see search and new... btn
       const SizedBox(
         height: 90,

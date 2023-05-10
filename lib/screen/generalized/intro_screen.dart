@@ -27,8 +27,9 @@ class IntroScreen extends StatelessWidget {
                 createSlides(snapshot.data),
                 key: ValueKey(0),
               );
-            } else
-              widget = SubLoadingScreen(key: ValueKey(1));
+            } else {
+              widget = const SubLoadingScreen(key: ValueKey(1));
+            }
             return AnimatedSwitcher(
                 duration: const Duration(seconds: 1), child: widget);
           }),
@@ -118,10 +119,10 @@ class IntroWidget extends StatelessWidget {
     //otherwise this page open from features click
     if (asHelpScreen) {
       IntroController().close(context);
-    }
-    else{
+    } else {
       Future.microtask(() {
-        IntroController().nextPage(context, newWidget: AuthSmsScreen());
+        IntroController()
+            .nextPage(context, newWidget: (context) => AuthSmsScreen());
       });
     }
   }
@@ -172,7 +173,7 @@ class IntroWidget extends StatelessWidget {
     return ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(const StadiumBorder()),
       backgroundColor:
-      MaterialStateProperty.all<Color>(GlobalColor.colorAccent),
+          MaterialStateProperty.all<Color>(GlobalColor.colorAccent),
     );
   }
 }
