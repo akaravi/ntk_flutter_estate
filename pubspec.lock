@@ -320,11 +320,12 @@ packages:
   get_time_ago:
     dependency: "direct dev"
     description:
-      name: get_time_ago
-      sha256: dbd81c7f508089b72298b1f24e4e3f67d9e6416f0fc4fe84c102f173e2fe64e7
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.8"
+      path: "."
+      ref: master
+      resolved-ref: bcf95d05d10a1efb0858076c58673a09d5ffb1e8
+      url: "https://github.com/idindevelop/get-time-ago"
+    source: git
+    version: "1.2.3"
   group_radio_button:
     dependency: "direct dev"
     description:

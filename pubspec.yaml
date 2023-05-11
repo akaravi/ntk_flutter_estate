@@ -72,7 +72,10 @@ dev_dependencies:
   #shimmer
   shimmer: ^2.0.0
   #time ago
-  get_time_ago: ^1.1.8
+  get_time_ago:
+    git:
+      url: https://github.com/idindevelop/get-time-ago
+      ref: master
   #feedback
   flutter_rating_bar: ^4.0.1
   #radio_group_v2:
