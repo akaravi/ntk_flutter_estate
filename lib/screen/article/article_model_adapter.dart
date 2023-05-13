@@ -116,7 +116,7 @@ class _ArticleModelAdapterForMainState
           child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (widget.model.linkMainImageIdSrc != null)
                   ClipRRect(
@@ -128,8 +128,9 @@ class _ArticleModelAdapterForMainState
                       widget.model.linkMainImageIdSrc!,
                     ),
                   ),
-                Center(
-                  child: Expanded(
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
                     child: Text(
                       widget.model.title!,
                       overflow: TextOverflow.ellipsis,

@@ -5,6 +5,7 @@ import 'package:ntk_flutter_estate/widget/contract_widget.dart';
 
 import 'estate_detail_screen.dart';
 import 'package:get_time_ago/get_time_ago.dart';
+
 class EstatePropertyAdapter extends BaseEntityAdapter<EstatePropertyModel> {
   EstatePropertyAdapter._(
       {super.key, required super.model, required super.stateCreator});
@@ -26,7 +27,6 @@ class EstatePropertyAdapter extends BaseEntityAdapter<EstatePropertyModel> {
 
 class _EstatePropertyVerticalAdapterState
     extends BaseEntityAdapterEstate<EstatePropertyAdapter> {
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -62,8 +62,11 @@ class _EstatePropertyVerticalAdapterState
                       ),
                       //shade
                       Positioned.fill(
-                          child: Container(decoration: BoxDecoration(borderRadius:  BorderRadius.circular(8), color: Color(0x620B0505),),
-
+                          child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Color(0x620B0505),
+                        ),
                       )),
                       //location
                       Positioned(
@@ -161,7 +164,7 @@ class _EstatePropertyVerticalAdapterState
   List<Widget> gePropertyWidget() {
     List<Widget> p = [];
     var textStyle = TextStyle();
-    var dayStyle = TextStyle(color:GlobalColor.extraTimeAgoColor);
+    var dayStyle = TextStyle(color: GlobalColor.extraTimeAgoColor);
     if (widget.model.propertyTypeLanduse != null) {
       p.add(Expanded(
         child: Container(
@@ -181,7 +184,7 @@ class _EstatePropertyVerticalAdapterState
           margin: EdgeInsets.all(1),
           alignment: Alignment.center,
           child: Text(
-              "${widget.model.propertyTypeLanduse?.titlePartition ??""} : ${widget.model.partition?.toString() ?? ""}",
+              "${widget.model.propertyTypeLanduse?.titlePartition ?? ""} : ${widget.model.partition?.toString() ?? ""}",
               style: textStyle),
         ),
       ));
@@ -191,24 +194,26 @@ class _EstatePropertyVerticalAdapterState
         child: Container(
           margin: EdgeInsets.all(1),
           alignment: Alignment.center,
-          child: Text("${((widget.model.area??0) % 1 == 0 ? widget.model.area?.toInt() : widget.model.area)} ${GlobalString.meter}",
+          child: Text(
+              "${((widget.model.area ?? 0) % 1 == 0 ? widget.model.area?.toInt() : widget.model.area)} ${GlobalString.meter}",
               style: textStyle),
         ),
       ));
     }
-      p.add(Expanded(
-        child: Container(
-          margin: EdgeInsets.all(1),
-          alignment: Alignment.center,
-          child: Text( GetTimeAgo.parse(widget.model.createdDate??DateTime.now()),
-              style: dayStyle),
-        ),
-      ));
+    p.add(Expanded(
+      child: Container(
+        margin: EdgeInsets.all(1),
+        alignment: Alignment.center,
+        child: Text(
+            GetTimeAgo.parse(widget.model.createdDate ?? DateTime.now()),
+            style: dayStyle),
+      ),
+    ));
     return p;
   }
 
   String pictureCount() {
-    return (1+((widget.model.linkExtraImageIdsSrc?.length) ?? 0)).toString();
+    return (1 + ((widget.model.linkExtraImageIdsSrc?.length) ?? 0)).toString();
   }
 
 //see detail
@@ -222,7 +227,8 @@ class _EstatePropertyHorizontalAdapterState
     extends _EstatePropertyVerticalAdapterState {
   @override
   Widget build(BuildContext context) {
-    return Container(margin: EdgeInsets.only(bottom: 8),
+    return Container(
+      margin: EdgeInsets.only(bottom: 8),
       child: Card(
           elevation: 30,
           shape: RoundedRectangleBorder(
@@ -242,32 +248,39 @@ class _EstatePropertyHorizontalAdapterState
                         child: Image.network(
                           fit: BoxFit.cover,
                           width: 2 * GlobalData.screenWidth / 5,
-                          height: 2*GlobalData.screenHeight / 7,
+                          height: 2 * GlobalData.screenHeight / 7,
                           widget.model.linkMainImageIdSrc!,
                         )),
                     const SizedBox(
                       width: 4,
                     ),
+
                     //title and price container
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                widget.model.title!,
-                                maxLines: 1,
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    color: GlobalColor.colorTextPrimary),
-                              ),
-                            ),
-                            ...ContractWidget().getPriceWidget(widget.model)
-                          ],
+                    Column(
+
+                      children: [  Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(
+                          widget.model.title!,
+                          maxLines: 1,
+                          style: const TextStyle(
+                              fontSize: 14, color: GlobalColor.colorTextPrimary),
                         ),
                       ),
+                        Container(    width: 2 * GlobalData.screenWidth / 5,
+                          height: -56+(1 * GlobalData.screenHeight / 7),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                ...ContractWidget().getPriceWidget(widget.model)
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
