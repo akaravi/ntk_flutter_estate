@@ -74,43 +74,47 @@ class _DetailState extends State<_Detail> {
           SliverToBoxAdapter(
             child: Card(
                 child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  //estate id
-                  Row(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
                     children: [
-                      Text(
-                        "${GlobalString.estateId} : ${widget.model.caseCode}",
-                        style: const TextStyle(
-                            color: GlobalColor.colorTextPrimary, fontSize: 13),
+                      //estate id
+                      Row(
+                        children: [
+                          Text(
+                            "${GlobalString.estateId} : ${widget.model
+                                .caseCode}",
+                            style: const TextStyle(
+                                color: GlobalColor.colorTextPrimary,
+                                fontSize: 13),
+                          ),
+                          const Spacer(),
+                          Text(
+                            GetTimeAgo.parse(
+                                widget.model.createdDate ?? DateTime.now()),
+                            style: const TextStyle(
+                                color: GlobalColor.extraTimeAgoColor,
+                                fontSize: 13),
+                          ),
+                        ],
                       ),
-                      const Spacer(),
-                      Text(
-                        GetTimeAgo.parse(
-                            widget.model.createdDate ?? DateTime.now()),
-                        style: const TextStyle(
-                            color: GlobalColor.extraTimeAgoColor, fontSize: 13),
+                      dotSpace(),
+                      //prices
+                      Column(
+                        children: ContractWidget().getPriceWidget(
+                            widget.model, showAll: true),
                       ),
+                      dotSpace(),
+                      //description
+                      Html(
+                        data: widget.model.description,
+                      ),
+                      dotSpace(),
+                      EstatePropertyDetailWidget.forView(
+                          widget.model.propertyDetailGroups ?? [],
+                          widget.model.propertyDetailValues ?? [])
                     ],
                   ),
-                  dotSpace(),
-                  //prices
-                  Column(
-                    children: ContractWidget().getPriceWidget(widget.model,showAll: true),
-                  ),
-                  dotSpace(),
-                  //description
-                  Html(
-                    data: widget.model.description,
-                  ),
-                  dotSpace(),
-                  EstatePropertyDetailWidget.forView(
-                      widget.model.propertyDetailGroups ?? [],
-                      widget.model.propertyDetailValues ?? [])
-                ],
-              ),
-            )),
+                )),
           ),
         ],
       ),
@@ -183,7 +187,8 @@ class _DetailState extends State<_Detail> {
     return FlutterMap(
       options: MapOptions(
         maxZoom: 12,
-        center: LatLng(51.5, -0.09),
+        center: LatLng(widget.model.geolocationlatitude ?? 0,
+            widget.model.geolocationlongitude ?? 0),
         zoom: 12,
         minZoom: 12,
       ),
