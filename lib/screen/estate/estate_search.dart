@@ -309,7 +309,7 @@ class MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(12.0)),
                     elevation: 10,
                     backgroundColor: GlobalColor.colorPrimary),
-                onPressed: () {},
+                onPressed: () => widget.controller.search(context),
                 child: const Text(GlobalString.searchResult,
                     style: TextStyle(
                         color: GlobalColor.colorTextOnPrimary, fontSize: 16)),
