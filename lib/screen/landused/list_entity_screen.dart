@@ -92,14 +92,14 @@ class _ListWithFilterState extends State<EntityListScreen> {
           widget.title,
           style: const TextStyle(color: GlobalColor.colorAccent),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.tune),
-            onPressed: () {
-              widget.controller.showFilters(context);
-            },
-          )
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.tune),
+        //     onPressed: () {
+        //       widget.controller.showFilters(context);
+        //     },
+        //   )
+        // ],
       ),
       body: RefreshIndicator(
         onRefresh: () => Future.sync(
@@ -161,14 +161,14 @@ class _GridListFilterState extends State<EntityListScreen> {
           widget.title,
           style: const TextStyle(color: GlobalColor.colorAccent),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.tune),
-            onPressed: () {
-              widget.controller.showFilters(context);
-            },
-          )
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.tune),
+        //     onPressed: () {
+        //       widget.controller.showFilters(context);
+        //     },
+        //   )
+        // ],
       ),
       body: RefreshIndicator(
         onRefresh: () => Future.sync(

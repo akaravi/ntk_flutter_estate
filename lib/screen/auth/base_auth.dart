@@ -56,6 +56,7 @@ abstract class AuthScreen<T extends StatefulWidget> extends State<T> {
             color:gray.withOpacity(0.5),
             margin: const EdgeInsets.only(left: 00.0, right: 10.0),
           ),
+          SizedBox(width: 4,),
           Expanded(
             child: TextField(
               controller: textFieldController,
@@ -106,7 +107,7 @@ abstract class AuthScreen<T extends StatefulWidget> extends State<T> {
               width: 1.0,
               color:gray.withOpacity(0.5),
               margin: const EdgeInsets.only(left: 00.0, right: 10.0),
-            ),
+            ),  SizedBox(width: 4,),
             Expanded(
               child: TextField(
                 controller: captchaTextController,

@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
 import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
@@ -26,15 +27,22 @@ import 'screen/test.dart';
 void main() async {
   //prevent from crash on start
   await runZonedGuarded(
-    () async {
+        () async {
       WidgetsFlutterBinding.ensureInitialized();
       //read static data of app
       NTKApplication.get(packageName: "ntk.android.estate.APPNTK");
       await MyApplicationPreference().read();
-      //main thread of creating app
-      runApp(const MyApp());
+      await SentryFlutter.init(
+            (options) {
+          options.dsn = 'https://cea3c8047b464cda860ebf53e16a0a15@o1135344.ingest.sentry.io/4505177627164672';
+          // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+          // We recommend adjusting this value in production.
+          options.tracesSampleRate = 1.0;
+        },
+        appRunner: () => runApp(MyApp()),
+      );
     },
-    (error, st) => print(error),
+        (error, st) => print(error),
   );
 }
 
@@ -44,7 +52,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-GetTimeAgo.setDefaultLocale('fa');
+    GetTimeAgo.setDefaultLocale('fa');
     return MaterialApp(
       supportedLocales: const [Locale("fa"), Locale("en")],
       localizationsDelegates: const [
@@ -62,7 +70,7 @@ GetTimeAgo.setDefaultLocale('fa');
       // home: TestCheck()
       // home: const TestScroll(),
       // home: const TestCheck(),
-      home: SplashScreen(),
+      home:  SplashScreen(),
       // home:  MainScreen(),
       // home:  SubEmptyScreen(title: "موردی یافت نشد"),
       // home: AuthSmsConfirmScreen("09132131542"),

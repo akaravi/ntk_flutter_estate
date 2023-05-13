@@ -15,18 +15,55 @@ import '../auth/auth_sms_screen.dart';
 import 'intro_screen.dart';
 import '../news/news_list_screen.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  Widget build(BuildContext context) {
+        return StreamBuilder<SplashProgress>(
+        stream: SplashController().initApp(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            //get progress send
+            var splashProgress = snapshot.data ?? SplashProgress.ifNull();
+            //if progress is complete go to next Page
+            if (splashProgress.progress == 1) {
+              SplashController().nextPage(context,
+                  intro: (context) => IntroScreen(),
+                  login: (context) => AuthSmsScreen(),
+                  main: (context) => MainScreen());
+              // main: TestScroll());
+              // main: NewCustomerOrderScreen());
+              // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
+              // main: NewsListScreen.withFilterScreen());
+            } else {
+              return _Splash(splashProgress);
+            }
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('محددا تلاش کنید'),
+            );
+          }
+          return Container();
+        });
+  }
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _Splash extends StatefulWidget {
+  SplashProgress data;
+
+  _Splash(this.data,{Key? key}) : super(key: key);
+
+  @override
+  _SplashState createState() => _SplashState(SplashController());
+}
+
+class _SplashState extends State<_Splash>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
-
+  SplashController wdigetController;
+  _SplashState(this.wdigetController);
   @override
   void initState() {
     super.initState();
@@ -55,32 +92,7 @@ class _SplashScreenState extends State<SplashScreen>
       GlobalData.screenWidth = MediaQuery.of(context).size.width;
       GlobalData.screenHeight = MediaQuery.of(context).size.height;
     }
-    return StreamBuilder<SplashProgress>(
-        stream: SplashController().initApp(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            //get progress send
-            var splashProgress = snapshot.data ?? SplashProgress.ifNull();
-            //if progress is complete go to next Page
-            if (splashProgress.progress == 1) {
-              SplashController().nextPage(context,
-                  intro:  (context) =>  IntroScreen(),
-                  login:(context) => AuthSmsScreen(),
-                  main: (context) =>MainScreen());
-                  // main: TestScroll());
-              // main: NewCustomerOrderScreen());
-              // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
-              // main: NewsListScreen.withFilterScreen());
-            } else {
-              return splash(splashProgress);
-            }
-          } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('محددا تلاش کنید'),
-            );
-          }
-          return Container();
-        });
+    return splash(widget.data);
   }
 
   Widget splash(SplashProgress data) {
@@ -89,8 +101,10 @@ class _SplashScreenState extends State<SplashScreen>
       repeat: false,
       fit: BoxFit.fill,
     );
-
     final logo = Lottie.asset('assets/lottie/splash_logo.json');
+
+    // final background = Container(color: Colors.lightBlue,);
+    // final logo = Container(color: Colors.lightBlue,);
 
     var cortTextStyle = const TextStyle(
       fontSize: 12,

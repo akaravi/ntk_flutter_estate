@@ -42,13 +42,15 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
             color: Colors.white,
           ),
           child: Stack(
-            children: [  Positioned.fill(
-              child: Lottie.asset(
-                'assets/lottie/auth_sms.json',
-                repeat: true,reverse: true,
-                fit: BoxFit.fill,
+            children: [
+              Positioned.fill(
+                child: Lottie.asset(
+                  'assets/lottie/auth_sms.json',
+                  repeat: true,
+                  reverse: true,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
@@ -91,49 +93,44 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
                   Container(
                     margin: const EdgeInsets.only(top: 20.0),
                     padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Expanded(
-                      child: TextButton(
-                          style: TextButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4.0)),
-                            backgroundColor: GlobalColor.colorPrimary,
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            alignment: Alignment.center,
-                            child: const Text(GlobalString.confirmMobile,
-                                style: TextStyle(
-                                    color: GlobalColor.colorTextOnPrimary,
-                                    fontSize: 16)),
-                          ),
-                          onPressed: () => registerClicked()),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20.0, bottom: 20),
-                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Expanded(
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(
-                              width: 1.0, color: GlobalColor.colorAccent),
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0)),
+                          backgroundColor: GlobalColor.colorPrimary,
                         ),
                         child: Container(
                           padding: const EdgeInsets.only(left: 20.0),
                           alignment: Alignment.center,
-                          child: const Text(
-                            GlobalString.notInterested,
-                            style: TextStyle(color: GlobalColor.colorAccent),
-                          ),
+                          child: const Text(GlobalString.confirmMobile,
+                              style: TextStyle(
+                                  color: GlobalColor.colorTextOnPrimary,
+                                  fontSize: 16)),
                         ),
-                        onPressed: () => registerMobileController.notInterested(
-                            context),
+                        onPressed: () => registerClicked()),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20.0, bottom: 20),
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                            width: 1.0, color: GlobalColor.colorAccent),
                       ),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          GlobalString.notInterested,
+                          style: TextStyle(color: GlobalColor.colorAccent),
+                        ),
+                      ),
+                      onPressed: () =>
+                          registerMobileController.notInterested(context),
                     ),
                   ),
                 ],
               ),
-
             ],
           ),
         ),
@@ -143,8 +140,7 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
 
   @override
   loadCaptcha(CaptchaModel chModel) {
-     registerMobileController.model=chModel;
-
+    registerMobileController.model = chModel;
   }
 
   registerClicked() async {

@@ -94,45 +94,41 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
               Container(
                 margin: const EdgeInsets.only(top: 10.0),
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Expanded(
-                  child: TextButton(
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0)),
-                        backgroundColor: GlobalColor.colorPrimary,
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        alignment: Alignment.center,
-                        child: const Text(GlobalString.confirmMobile,
-                            style: TextStyle(
-                                color: GlobalColor.colorTextOnPrimary,
-                                fontSize: 16)),
-                      ),
-                      onPressed: () => registerClicked()),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 10.0, bottom: 10),
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                child: Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                          width: 1.0, color: GlobalColor.colorAccent),
+                child: TextButton(
+                    style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0)),
+                      backgroundColor: GlobalColor.colorPrimary,
                     ),
                     child: Container(
                       padding: const EdgeInsets.only(left: 20.0),
                       alignment: Alignment.center,
-                      child: const Text(
-                        GlobalString.changeNumber,
-                        style: TextStyle(color: GlobalColor.colorAccent),
-                      ),
+                      child: const Text(GlobalString.confirmMobile,
+                          style: TextStyle(
+                              color: GlobalColor.colorTextOnPrimary,
+                              fontSize: 16)),
                     ),
-                    onPressed: () =>
-                        AuthSmsController.registerMobileWithPage(
-                            context),
+                    onPressed: () => registerClicked()),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 10.0, bottom: 10),
+                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                        width: 1.0, color: GlobalColor.colorAccent),
                   ),
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      GlobalString.changeNumber,
+                      style: TextStyle(color: GlobalColor.colorAccent),
+                    ),
+                  ),
+                  onPressed: () =>
+                      AuthSmsController.registerMobileWithPage(
+                          context),
                 ),
               ),
               Container(
