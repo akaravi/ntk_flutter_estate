@@ -104,9 +104,9 @@ class LocationModelSelectorDialog {
                         itemAsString: (item) => item.title ?? "",
                         onChanged: (newValue) {
                           controller.selectedCountry = newValue!;
-                          controller.selectedProvince=null;
-                          controller.selectedCity=null;
-                          controller.selectedArea=null;
+                          controller.selectedProvince = null;
+                          controller.selectedCity = null;
+                          controller.selectedArea = null;
                           setState(() {});
                         }),
                   );
@@ -119,7 +119,8 @@ class LocationModelSelectorDialog {
               FutureBuilder<List<CoreLocationModel>>(
                 future: controller.getAllProvince(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
                     return Padding(
                       padding: const EdgeInsets.only(
                           top: verticalPadding / 2,
@@ -127,6 +128,7 @@ class LocationModelSelectorDialog {
                           right: horizontalPadding,
                           left: horizontalPadding),
                       child: DropdownSearch<CoreLocationModel>(
+                          selectedItem: controller.selectedProvince,
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                               dropdownSearchDecoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -147,8 +149,8 @@ class LocationModelSelectorDialog {
                           itemAsString: (item) => item.title ?? "",
                           onChanged: (newValue) {
                             controller.selectedProvince = newValue!;
-                            controller.selectedCity=null;
-                            controller.selectedArea=null;
+                            controller.selectedCity = null;
+                            controller.selectedArea = null;
                             setState(() {});
                           }),
                     );
@@ -161,14 +163,15 @@ class LocationModelSelectorDialog {
               FutureBuilder<List<CoreLocationModel>>(
                 future: controller.getAllCity(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
                     return Padding(
                       padding: const EdgeInsets.only(
                           top: verticalPadding / 2,
                           bottom: verticalPadding / 2,
                           right: horizontalPadding,
                           left: horizontalPadding),
-                      child: DropdownSearch<CoreLocationModel>(
+                      child: DropdownSearch<CoreLocationModel>(   selectedItem: controller.selectedCity,
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                               dropdownSearchDecoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -189,7 +192,7 @@ class LocationModelSelectorDialog {
                           itemAsString: (item) => item.title ?? "",
                           onChanged: (newValue) {
                             controller.selectedCity = newValue!;
-                            controller.selectedArea=null;
+                            controller.selectedArea = null;
 
                             setState(() {});
                           }),
@@ -203,14 +206,15 @@ class LocationModelSelectorDialog {
               FutureBuilder<List<CoreLocationModel>>(
                 future: controller.getAllArea(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
                     return Padding(
                       padding: const EdgeInsets.only(
                           top: verticalPadding / 2,
                           bottom: verticalPadding / 2,
                           right: horizontalPadding,
                           left: horizontalPadding),
-                      child: DropdownSearch<CoreLocationModel>(
+                      child: DropdownSearch<CoreLocationModel>(   selectedItem: controller.selectedArea,
                           dropdownDecoratorProps: const DropDownDecoratorProps(
                               dropdownSearchDecoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -321,11 +325,12 @@ class _LocationController {
   CoreLocationModel? selectedProvince;
   CoreLocationModel? selectedCity;
   CoreLocationModel? selectedArea;
-  late List<CoreLocationModel> countries;
-  late List<CoreLocationModel> provinces;
-  late List<CoreLocationModel> cities;
 
-  late List<CoreLocationModel> areas;
+  // late List<CoreLocationModel> countries;
+  // late List<CoreLocationModel> provinces;
+  // late List<CoreLocationModel> cities;
+  //
+  // late List<CoreLocationModel> areas;
 
   bool hasError = false;
 
