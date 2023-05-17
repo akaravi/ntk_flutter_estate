@@ -89,7 +89,7 @@ class _DetailState extends State<_Detail> {
                   dotSpace(),
                   //description
                   Html(
-                    data: widget.model.description,
+                    data: widget.model.body,
                   ),
                 ],
               ),

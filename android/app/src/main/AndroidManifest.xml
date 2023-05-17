@@ -10,7 +10,7 @@
         </intent>
     </queries>
     <application
-        android:label="ntk_flutter_estate"
+        android:label="املاک آلونک"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
