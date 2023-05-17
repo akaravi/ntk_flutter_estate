@@ -81,7 +81,10 @@ class SearchController {
   }
 
   search(BuildContext context) {
-    FilterModel filter = FilterModel();
+    FilterModel filter = FilterModel()
+      ..sortColumn = "createDate"
+      ..sortType = EnumSortType.descending;
+
     String title = textController.text.trim();
     if (title.isNotEmpty) {
       filter.addFilter(FilterDataModel().setPropertyName("Title")
