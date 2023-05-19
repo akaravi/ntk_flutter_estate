@@ -31,7 +31,7 @@ flutter pub upgrade
 flutter pub get
 
 
-
+flutter update-packages --force-upgrade
 
 ======================================================Flutter run key commands.
 r Hot reload.
