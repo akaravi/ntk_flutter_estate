@@ -1,0 +1,70 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Dart
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: 'dev'
+    - name: 'Run flutter pub get'
+      run: flutter pub get
+#    - name: 'Run Test(s)'
+#      run: flutter test
+    - name: Enable flutter web
+      run: flutter config --enable-web
+    - name: 'Build Web App'
+      run: flutter build web
+    - name: deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.API_TOKEN_GITHUB }}
+        publish_dir: ./build/web
+
+
+    - name: Push Publish To Other Git repo
+      if: success()
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+  
+      with:
+        source-directory: '/build/web'
+        destination-github-username: 'akaravi'
+        destination-repository-name: 'ntk_flutter_estate.Publish'
+        user-email: karavi.alireza@gmail.com
+        #destination-repository-username :
+        commit-message: See $GITHUB_REF
+        target-branch: main
+  
+    - name: Webhook Sms
+      uses: joelwmale/webhook-action@master
+      with:
+        url: 'https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}'
+        #headers: '{"repository": "joelwmale/webhook-action"}'
+        #body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
+    - name: Webhook Plesk
+      uses: joelwmale/webhook-action@master
+      with:
+        url: '${{vars.PLESK_WEBHOOK_ALONAK_APP}}'
+  
+    - name: Test get variable exported by push-to-another-repository
+      run: echo $DESTINATION_CLONED_DIRECTORY
+  
