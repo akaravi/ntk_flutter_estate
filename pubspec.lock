@@ -157,10 +157,10 @@ packages:
     dependency: transitive
     description:
       name: dio
-      sha256: "9fdbf71baeb250fc9da847f6cb2052196f62c19906a3657adfc18631a667d316"
+      sha256: "347d56c26d63519552ef9a569f2a593dda99a81fdbdff13c584b7197cfe05059"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.2"
   dropdown_search:
     dependency: "direct dev"
     description:
@@ -506,10 +506,11 @@ packages:
   ntk_cms_flutter_base:
     dependency: "direct dev"
     description:
-      path: "../ntk_flutter_base"
-      relative: true
-    source: path
-    version: "1.0.0+1"
+      name: ntk_cms_flutter_base
+      sha256: be12ecc565c2f0c38ebec93bce0d0edbbe32d98c12c5fbd524659b14a25bda58
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   numerus:
     dependency: transitive
     description:
