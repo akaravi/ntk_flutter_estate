@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:latlong2/latlong.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';

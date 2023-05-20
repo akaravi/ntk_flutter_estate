@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 class RecyclerItemModel{
   @JsonKey(name: 'Image')
   String? image;

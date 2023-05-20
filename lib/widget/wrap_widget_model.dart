@@ -1,4 +1,4 @@
-import 'package:base/src/models/entity/estate/estate_property_type_usage_model.dart';
+import 'package:ntk_cms_flutter_base/src/models/entity/estate/estate_property_type_usage_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:collection/collection.dart';

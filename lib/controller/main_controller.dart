@@ -1,8 +1,8 @@
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/model/row_model.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import '../screen/main_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/auth_sms_controller.dart';
 import 'package:ntk_flutter_estate/controller/auth_text_error_controller.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
 class AuthSmsConfirmController with AuthTextErrorController {

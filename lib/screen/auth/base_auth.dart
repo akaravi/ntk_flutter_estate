@@ -1,5 +1,5 @@
-import 'package:base/src/models/entity/base/captcha_model.dart';
-import 'package:base/src/view/capcha_widget.dart';
+import 'package:ntk_cms_flutter_base/src/models/entity/base/captcha_model.dart';
+import 'package:ntk_cms_flutter_base/src/view/capcha_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';

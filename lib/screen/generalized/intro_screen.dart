@@ -1,5 +1,5 @@
-import 'package:base/src/controller/base/intro_controller.dart';
-import 'package:base/src/models/entity/application/application_intro_model.dart';
+import 'package:ntk_cms_flutter_base/src/controller/base/intro_controller.dart';
+import 'package:ntk_cms_flutter_base/src/models/entity/application/application_intro_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:ntk_flutter_estate/global_data.dart';

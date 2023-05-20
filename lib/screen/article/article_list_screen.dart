@@ -1,6 +1,6 @@
-import 'package:base/src/models/entity/article/article_content_model.dart';
+import 'package:ntk_cms_flutter_base/src/models/entity/article/article_content_model.dart';
 import 'package:flutter/material.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/landused/list_entity_screen.dart';
 import 'package:ntk_flutter_estate/screen/article/article_model_adapter.dart';

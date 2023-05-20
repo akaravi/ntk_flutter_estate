@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/new_customer_order_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/widget/location_model_selector_widget.dart';
 
 class SubNewCustomerOrder4 extends SubNewCustomerOrderBase {

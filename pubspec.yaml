@@ -41,7 +41,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #base api
-  base:
+  ntk_cms_flutter_base:
     path: ..\ntk_flutter_base
   #locale
   flutter_localizations:

@@ -3,7 +3,7 @@ import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/from_to_bottom_sheet.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import '../../controller/new_estate_controller.dart';
 import 'package:intl/intl.dart';
 

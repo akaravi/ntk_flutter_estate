@@ -1,6 +1,6 @@
-import 'package:base/src/controller/ticket/new_ticket_controller.dart';
+import 'package:ntk_cms_flutter_base/src/controller/ticket/new_ticket_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 
 class NewTicketScreen extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_screen.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 
 class NeedAuthorization {
   show(BuildContext context) {

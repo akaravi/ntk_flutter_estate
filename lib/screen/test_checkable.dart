@@ -1,4 +1,4 @@
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/widget/location_model_selector_widget.dart';
 import 'package:ntk_flutter_estate/widget/property_detail_selector_widget.dart';

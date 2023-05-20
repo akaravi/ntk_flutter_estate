@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 

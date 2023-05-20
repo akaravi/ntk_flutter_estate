@@ -11,7 +11,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:ntk_flutter_estate/screen/add/user_location_on_map_screen.dart';
 import 'package:ntk_flutter_estate/widget/location_model_selector_widget.dart';
 import '../../controller/new_estate_controller.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 
 class SubNewEstate3 extends SubNewEstateBase {
   SubNewEstate3({Key? key, required NewEstateController controller})

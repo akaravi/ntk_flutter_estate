@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/search_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
 import 'package:expandable_widgets/expandable_widgets.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_4.dart';

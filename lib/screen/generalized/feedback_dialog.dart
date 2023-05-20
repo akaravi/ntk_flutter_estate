@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/widget/show_dialog_super.dart';
 
 class FeedBackDialog {

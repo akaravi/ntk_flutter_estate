@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/new_estate_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/add/edit_estate_screen.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:intl/intl.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:collection/collection.dart';

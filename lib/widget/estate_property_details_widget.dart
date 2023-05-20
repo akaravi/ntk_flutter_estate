@@ -1,4 +1,4 @@
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_font_awesome_web_names/flutter_font_awesome.dart';

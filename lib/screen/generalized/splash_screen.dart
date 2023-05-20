@@ -1,4 +1,4 @@
-import 'package:base/src/controller/base/splash_controller.dart';
+import 'package:ntk_cms_flutter_base/src/controller/base/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ntk_flutter_estate/global_data.dart';

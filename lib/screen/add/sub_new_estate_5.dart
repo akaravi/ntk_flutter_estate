@@ -9,9 +9,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import '../../controller/new_estate_controller.dart';
-import 'package:base/src/index.dart';
+import 'package:ntk_cms_flutter_base/src/index.dart';
 
-// import 'package:base/src/backend/api/file/dio_uploader.dart';
+// import 'package:ntk_cms_flutter_base/src/backend/api/file/dio_uploader.dart';
 class SubNewEstate5 extends SubNewEstateBase {
   SubNewEstate5({Key? key, required NewEstateController controller})
       : super(key: key, controller: controller);
