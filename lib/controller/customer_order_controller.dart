@@ -84,30 +84,28 @@ class _ModelAdapter extends StatelessWidget {
       required icon,
       required void Function() onPressed}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      child: Expanded(
-        child: TextButton(
-            style: OutlinedButton.styleFrom(
-              side: BorderSide(width: 1.0, color: color),
-            ),
-            onPressed: onPressed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(color: color),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Icon(
-                  icon,
-                  color: color,
-                )
-              ],
-            )),
-      ),
+      margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      child: TextButton(
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(width: 1.0, color: color),
+          ),
+          onPressed: onPressed,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(color: color),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Icon(
+                icon,
+                color: color,
+              )
+            ],
+          )),
     );
   }
 }

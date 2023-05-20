@@ -31,7 +31,10 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
     registerMobileController.dispose();
     super.dispose();
   }
-
+@override
+  void initState() {
+    CaptchaWidget.captcha=null;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,14 +46,14 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
           ),
           child: Stack(
             children: [
-              Positioned.fill(
-                child: Lottie.asset(
-                  'assets/lottie/auth_sms.json',
-                  repeat: true,
-                  reverse: true,
-                  fit: BoxFit.fill,
-                ),
-              ),
+              // Positioned.fill(
+              //   child: Lottie.asset(
+              //     'assets/lottie/auth_sms.json',
+              //     repeat: true,
+              //     reverse: true,
+              //     fit: BoxFit.fill,
+              //   ),
+              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,

@@ -31,7 +31,10 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
   _AuthSmsConfirmScreenState(String mobile) : super() {
     verifyController = AuthSmsConfirmController(mobile);
   }
-
+  @override
+  void initState() {
+    CaptchaWidget.captcha=null;
+  }
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -49,14 +52,14 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
           color: Colors.white,
         ),
         child: Stack(children: [
-          Positioned.fill(
-            child: Lottie.asset(
-              'assets/lottie/auth_confirm_sms.json',
-              repeat: true,
-              reverse: true,
-              fit: BoxFit.fill,
-            ),
-          ),
+          // Positioned.fill(
+          //   child: Lottie.asset(
+          //     'assets/lottie/auth_confirm_sms.json',
+          //     repeat: true,
+          //     reverse: true,
+          //     fit: BoxFit.fill,
+          //   ),
+          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,

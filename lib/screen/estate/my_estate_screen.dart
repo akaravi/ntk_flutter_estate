@@ -78,15 +78,12 @@ class _Adapter extends StatelessWidget {
                 width: 4,
               ),
               //title and price container
-              Expanded(
+            FittedBox(
+                fit: BoxFit.scaleDown,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      model.title??"",
-                      maxLines: 1,
-                      style: const TextStyle(
-                          fontSize: 14, color: GlobalColor.colorTextPrimary),
-                    ),
+
                     ...ContractWidget().getPriceWidget(model)
                   ],
                 ),
@@ -161,31 +158,29 @@ class _Adapter extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       width: GlobalData.screenWidth / 3,
-      child: Expanded(
-        child: TextButton(
-            style: TextButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                elevation: 10,
-                backgroundColor: color),
-            onPressed: onPressed,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(color: GlobalColor.colorTextOnPrimary),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Icon(
-                  icon,
-                  color: GlobalColor.colorTextOnPrimary,
-                )
-              ],
-            )),
-      ),
+      child: TextButton(
+          style: TextButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0)),
+              elevation: 10,
+              backgroundColor: color),
+          onPressed: onPressed,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(color: GlobalColor.colorTextOnPrimary),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Icon(
+                icon,
+                color: GlobalColor.colorTextOnPrimary,
+              )
+            ],
+          )),
     );
   }
 }

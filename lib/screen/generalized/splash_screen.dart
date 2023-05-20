@@ -7,6 +7,7 @@ import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_scre
 import 'package:ntk_flutter_estate/screen/estate/estate_detail_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
+import 'package:ntk_flutter_estate/screen/generalized/sub_error_screen.dart';
 import 'package:ntk_flutter_estate/screen/main_screen.dart';
 import 'package:ntk_flutter_estate/screen/test_scroll.dart';
 
@@ -20,7 +21,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return StreamBuilder<SplashProgress>(
+    return StreamBuilder<SplashProgress>(
         stream: SplashController().initApp(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -40,8 +41,12 @@ class SplashScreen extends StatelessWidget {
               return _Splash(splashProgress);
             }
           } else if (snapshot.hasError) {
-            return const Center(
-              child: Text('محددا تلاش کنید'),
+            return Scaffold(
+              body: SubErrorScreen(
+                title: snapshot.error.toString(),
+                tryAgainMethod: () =>
+                    SplashController().restart(context, (C) => SplashScreen()),
+              ),
             );
           }
           return Container();
@@ -52,18 +57,19 @@ class SplashScreen extends StatelessWidget {
 class _Splash extends StatefulWidget {
   SplashProgress data;
 
-  _Splash(this.data,{Key? key}) : super(key: key);
+  _Splash(this.data, {Key? key}) : super(key: key);
 
   @override
   _SplashState createState() => _SplashState(SplashController());
 }
 
-class _SplashState extends State<_Splash>
-    with SingleTickerProviderStateMixin {
+class _SplashState extends State<_Splash> with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
   SplashController wdigetController;
+
   _SplashState(this.wdigetController);
+
   @override
   void initState() {
     super.initState();

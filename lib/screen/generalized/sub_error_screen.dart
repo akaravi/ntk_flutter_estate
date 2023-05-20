@@ -20,53 +20,60 @@ class SubErrorScreen extends StatelessWidget {
 
   return  Padding(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 25),
-            height: MediaQuery.of(context).size.height / 6,
-            child: Lottie.asset(
-              'assets/lottie/sub_error.json',
-              repeat: true,
-            ),
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          Text(title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: GlobalColor.colorTextPrimary, fontSize: 14)),
-          if (message != null)
-            const SizedBox(
-              height: 16,
-            ),
-          if (message != null)
-            Text(message ?? '',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    color: GlobalColor.colorTextPrimary, fontSize: 12)),
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: MaterialButton(
-              onPressed: tryAgainMethod,
-              child: Column(
-                children: const [
-                  Text(GlobalString.reTry ?? "",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: GlobalColor.colorOnAccent,
-                      )),
-                  Icon(
-                    Icons.error,
-                    color: GlobalColor.colorOnAccent,
-                  ),
-                ],
+      child: Center(
+        child: Column(mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 25),
+              height: MediaQuery.of(context).size.height / 6,
+              child: Lottie.asset(
+                'assets/lottie/sub_error.json',
+                repeat: true,
               ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 32,
+            ),
+            Text(title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    color: GlobalColor.colorTextPrimary, fontSize: 14)),
+            if (message != null)
+              const SizedBox(
+                height: 16,
+              ),
+            if (message != null)
+              Text(message ?? '',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: GlobalColor.colorTextPrimary, fontSize: 12)),
+            const SizedBox(
+              height: 16,
+            ), TextButton(style: TextButton.styleFrom(
+                shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+                elevation: 10,
+                backgroundColor: GlobalColor.colorPrimary),
+              onPressed: tryAgainMethod,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Text(GlobalString.reTry ?? "",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: GlobalColor.colorOnAccent,
+                        )),
+                    Icon(
+                      Icons.error,
+                      color: GlobalColor.colorOnAccent,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
