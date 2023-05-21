@@ -33,6 +33,12 @@ flutter pub get
 
 flutter update-packages --force-upgrade
 
+====================================================== ساخت ریلیز
+flutter build web --release
+flutter build apk --release
+======================================================
+
+
 ======================================================Flutter run key commands.
 r Hot reload.
 R Hot restart.
