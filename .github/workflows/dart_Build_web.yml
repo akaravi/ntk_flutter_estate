@@ -16,15 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     #runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: subosito/flutter-action@v1
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
       with:
-        channel: beta
-    - name: Web Config
-      run: flutter config --enable-web
+        channel: 'stable'
+
     - name: Download Dependencies
       run: flutter pub get
-    #- run: flutter test
+
     - name: Build
       run: flutter build web
 
