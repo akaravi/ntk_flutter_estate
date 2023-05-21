@@ -1,28 +1,12 @@
 import 'dart:async';
-import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get_time_ago/get_time_ago.dart';
 import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:ntk_flutter_estate/screen/add/new_estate_screen.dart';
-import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
-import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
-import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
-import 'package:ntk_flutter_estate/screen/generalized/intro_screen.dart' as d;
-import 'package:ntk_flutter_estate/screen/main_screen.dart';
-import 'package:ntk_flutter_estate/screen/news/news_list_screen.dart';
 import 'package:ntk_flutter_estate/screen/generalized/splash_screen.dart';
-import 'package:ntk_flutter_estate/screen/test2.dart';
-import 'package:ntk_flutter_estate/screen/test_checkable.dart';
-import 'package:ntk_flutter_estate/screen/test_scroll.dart';
-import 'package:ntk_flutter_estate/screen/test_widget.dart';
-import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
-
-import 'package:get_time_ago/get_time_ago.dart';
-import 'screen/auth/auth_sms_screen.dart';
-import 'screen/generalized/sub_empty_screen.dart';
-import 'screen/add/user_location_on_map_screen.dart';
-import 'screen/test.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
   //prevent from crash on start
@@ -65,18 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: GlobalColor.getMaterialColor(GlobalColor.colorPrimary),
       ),
-      // home: const TestWidget(),
-      // home:  EstateSearchScreen(),
-      // home: TestCheck()
-      // home: const TestScroll(),
-      // home: const TestCheck(),
       home:  SplashScreen(),
-      // home:  MainScreen(),
-      // home:  SubEmptyScreen(title: "موردی یافت نشد"),
-      // home: AuthSmsConfirmScreen("09132131542"),
-      // home: NewEstateScreen(),
-      // home: NewCustomerOrderScreen(),
-      // home: ( ArticleList()),
     );
   }
 }

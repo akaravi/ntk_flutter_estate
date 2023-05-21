@@ -1,20 +1,13 @@
-import 'package:ntk_cms_flutter_base/src/controller/base/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ntk_flutter_estate/screen/customer_order/new_customer_order_screen.dart';
-import 'package:ntk_flutter_estate/screen/estate/estate_detail_screen.dart';
-import 'package:ntk_flutter_estate/screen/estate/estate_list_screen.dart';
-import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
+import 'package:ntk_cms_flutter_base/src/controller/base/splash_controller.dart';
+import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_error_screen.dart';
 import 'package:ntk_flutter_estate/screen/main_screen.dart';
-import 'package:ntk_flutter_estate/screen/test_scroll.dart';
 
-import '../add/new_estate_screen.dart';
 import '../auth/auth_sms_screen.dart';
 import 'intro_screen.dart';
-import '../news/news_list_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -33,10 +26,6 @@ class SplashScreen extends StatelessWidget {
                   intro: (context) => IntroScreen(),
                   login: (context) => AuthSmsScreen(),
                   main: (context) => MainScreen());
-              // main: TestScroll());
-              // main: NewCustomerOrderScreen());
-              // main: EstateDetailScreen(id: "60eade4be4415b73ff48f8ef",));
-              // main: NewsListScreen.withFilterScreen());
             } else {
               return _Splash(splashProgress);
             }
@@ -109,8 +98,6 @@ class _SplashState extends State<_Splash> with SingleTickerProviderStateMixin {
     );
     final logo = Lottie.asset('assets/lottie/splash_logo.json');
 
-    // final background = Container(color: Colors.lightBlue,);
-    // final logo = Container(color: Colors.lightBlue,);
 
     var cortTextStyle = const TextStyle(
       fontSize: 12,
