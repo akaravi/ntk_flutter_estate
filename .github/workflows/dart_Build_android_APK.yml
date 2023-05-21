@@ -30,8 +30,8 @@ jobs:
         channel: 'stable'
 
     - name: flutter doctor
-      uses: flutter doctor -v
-      
+      run: flutter doctor -v
+
     - name: clean
       run: flutter clean
 
