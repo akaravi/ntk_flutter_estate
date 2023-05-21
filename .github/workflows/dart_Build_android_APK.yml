@@ -29,6 +29,9 @@ jobs:
       with:
         channel: 'stable'
 
+    - name: flutter doctor
+      uses: flutter doctor -v
+      
     - name: clean
       run: flutter clean
 
