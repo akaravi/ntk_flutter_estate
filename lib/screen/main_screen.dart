@@ -198,7 +198,7 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                       GlobalColor.colorAccent),
                                   shape: MaterialStateProperty.all(
                                       const CircleBorder())),
-                              onPressed: () => SearchController.start(context),
+                              onPressed: () => EstateSearchController.start(context),
                               child: const Icon(
                                 Icons.search,
                                 color: GlobalColor.colorPrimary,

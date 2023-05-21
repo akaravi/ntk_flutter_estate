@@ -5,7 +5,7 @@ import 'package:ntk_flutter_estate/screen/estate/estate_search.dart';
 
 import '../screen/add/sub_new_estate_1.dart';
 
-class SearchController {
+class EstateSearchController {
   TextEditingController textController = TextEditingController();
   TextEditingController areaController = TextEditingController();
   TextEditingController createdYearController = TextEditingController();

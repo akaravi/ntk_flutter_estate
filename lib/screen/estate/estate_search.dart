@@ -12,7 +12,7 @@ import 'package:ntk_flutter_estate/widget/wrap_widget_model.dart';
 import 'package:ntk_flutter_estate/screen/generalized/sub_loading_screen.dart';
 
 class EstateSearchScreen extends StatelessWidget {
-  SearchController controller = SearchController();
+  EstateSearchController controller = EstateSearchController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class EstateSearchScreen extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget with Sub {
-  SearchController controller;
+  EstateSearchController controller;
   SearchData data;
 
   double screenWidth = -1;
