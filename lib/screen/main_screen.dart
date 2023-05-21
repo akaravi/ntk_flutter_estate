@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/controller/new_customer_order_controller.dart';
 import 'package:ntk_flutter_estate/controller/new_estate_controller.dart';
-import 'package:ntk_flutter_estate/controller/search_controller.dart';
+import 'package:ntk_flutter_estate/controller/estate_search_controller.dart';
 import 'package:ntk_flutter_estate/dialog/need_auth_dialog.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_flutter_estate/screen/article/article_list_screen.dart';

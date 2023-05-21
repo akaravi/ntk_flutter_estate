@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ntk_flutter_estate/controller/search_controller.dart';
+import 'package:ntk_flutter_estate/controller/estate_search_controller.dart';
 import 'package:ntk_flutter_estate/global_data.dart';
 import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/add/sub_new_estate_1.dart';
