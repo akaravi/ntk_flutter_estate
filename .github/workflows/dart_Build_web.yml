@@ -20,6 +20,8 @@ jobs:
     - uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
+    - name: clean
+      run: flutter clean
 
     - name: Download Dependencies
       run: flutter pub get
