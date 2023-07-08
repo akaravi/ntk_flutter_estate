@@ -1,3 +1,10 @@
+======================================================ME RUN 
+======================================================ME RUN 
+flutter clean
+flutter pub get
+flutter analyze
+flutter run lib/main.dart
+======================================================
 flutter pub get 
 flutter pub run build_runner build --delete-conflicting-outputs
 flutter analyze
@@ -48,3 +55,4 @@ c Clear the screen
 q Quit (terminate the application on the device).
 
  Running with sound null safety 
+
