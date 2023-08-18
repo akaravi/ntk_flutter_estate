@@ -12,7 +12,7 @@ class TestCheck extends StatelessWidget {
       ..title = "javad"
       ..configValueForceUseDefaultValue = true
       ..configValueMultipleChoice = false
-      ..configValueDefaultValue = [
+      ..configValueDefaultValues = [
         "1",
         "3",
         "2",

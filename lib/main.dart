@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     GetTimeAgo.setDefaultLocale('fa');
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       supportedLocales: const [Locale("fa"), Locale("en")],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

@@ -14,6 +14,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //todo: for view full bug
+    bool viewStackTrace=false;
     return StreamBuilder<SplashProgress>(
         stream: SplashController().initApp(),
         builder: (context, snapshot) {
@@ -30,13 +32,25 @@ class SplashScreen extends StatelessWidget {
               return _Splash(splashProgress);
             }
           } else if (snapshot.hasError) {
-            return Scaffold(
-              body: SubErrorScreen(
-                title: snapshot.error.toString(),
-                tryAgainMethod: () =>
-                    SplashController().restart(context, (C) => SplashScreen()),
-              ),
-            );
+            if(viewStackTrace)
+            {
+              return Scaffold(
+                body: SubErrorScreen(
+                  title: snapshot.error.toString()+" stackTrace:"+snapshot.stackTrace.toString(),
+                  tryAgainMethod: () =>
+                      SplashController().restart(context, (C) => SplashScreen()),
+                ),
+              );
+            }else {
+              return Scaffold(
+                body: SubErrorScreen(
+                  title: snapshot.error.toString() ,
+                  tryAgainMethod: () =>
+                      SplashController().restart(
+                          context, (C) => SplashScreen()),
+                ),
+              );
+            }
           }
           return Container();
         });
