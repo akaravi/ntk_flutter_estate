@@ -1,6 +1,5 @@
 import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:flutter/material.dart';
-import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/screen/estate/estate_history_list_screen.dart';
 
 class HistoryListController

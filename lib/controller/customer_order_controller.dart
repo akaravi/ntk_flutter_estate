@@ -38,6 +38,7 @@ class CustomerOrderController
   }
 }
 
+// ignore: must_be_immutable
 class _ModelAdapter extends StatelessWidget {
   EstateCustomerOrderModel model;
 

@@ -43,8 +43,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #base api
-  ntk_cms_flutter_base: ^0.0.3
-    #path: ..\ntk_flutter_base
+  ntk_cms_flutter_base: #^0.0.7
+    path: ..\ntk_flutter_base
   #locale
   flutter_localizations:
     sdk: flutter
@@ -57,7 +57,7 @@ dev_dependencies:
   #image slider
   carousel_slider: ^4.2.1
   #html viewer
-  flutter_html: ^2.2.1
+  flutter_html: 3.0.0-beta.1 #^2.2.1
   #font awesome
   flutter_font_awesome_web_names:
     git:

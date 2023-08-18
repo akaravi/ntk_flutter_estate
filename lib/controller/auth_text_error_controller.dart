@@ -8,9 +8,9 @@ abstract class AuthTextErrorController {
       return GlobalString.cantBeEmpty;
     }
     if (text.length < 4) {
-      return  GlobalString.atleast6digit;
+      return GlobalString.atleast6digit;
     }
-
+    return "";
   }
 
   String? textEmptyError(TextEditingController controller) {
@@ -18,6 +18,7 @@ abstract class AuthTextErrorController {
     if (text.isEmpty) {
       return GlobalString.cantBeEmpty;
     }
+    return "";
   }
 
   String? loginUsernameError(TextEditingController controller) {
@@ -28,6 +29,7 @@ abstract class AuthTextErrorController {
     if (!isEmailValid(text) && !isMobileValid(text)) {
       return GlobalString.enterMobileCorrect;
     }
+    return "";
   }
 
   String? registerEmailError(TextEditingController controller) {
@@ -38,7 +40,9 @@ abstract class AuthTextErrorController {
     if (!isEmailValid(text)) {
       return 'enter your email address correctly';
     }
+    return "";
   }
+
   String? registerMobileError(TextEditingController controller) {
     var text = controller.text;
     if (text.isEmpty) {
@@ -47,6 +51,7 @@ abstract class AuthTextErrorController {
     if (!isMobileValid(text)) {
       return GlobalString.enterMobileCorrect;
     }
+    return "";
   }
 
   ///is password have complexity for setting

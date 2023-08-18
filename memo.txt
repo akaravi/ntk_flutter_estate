@@ -4,6 +4,8 @@ flutter clean
 flutter pub get
 flutter analyze
 flutter run lib/main.dart
+
+
 ======================================================
 flutter pub get 
 flutter pub run build_runner build --delete-conflicting-outputs
