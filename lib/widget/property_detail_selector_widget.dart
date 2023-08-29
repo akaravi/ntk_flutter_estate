@@ -220,12 +220,12 @@ class _SingleViewHolderState extends State<SingleViewHolder> {
         controller: widget.item.text,
         onTap: () async {
           var index = await ModalBottomSheetSingleList(
-              context, widget.item.configValueDefaultValue ?? []);
+              context, widget.item.configValueDefaultValues ?? []);
           print("index $index");
           if (index != null) {
             if (index != -1) {
               widget.item.text.text =
-                  (widget.item.configValueDefaultValue ?? [])[index];
+                  (widget.item.configValueDefaultValues ?? [])[index];
             } else {
               widget.item.text.text = "";
             }
@@ -316,13 +316,13 @@ class _MultipleViewHolder extends State<MultipleViewHolder> {
         controller: widget.item.text,
         onTap: () async {
           var index = await ModalBottomSheetMultiList(
-              context, widget.item.configValueDefaultValue ?? []);
+              context, widget.item.configValueDefaultValues ?? []);
           print("index $index");
           if (index != null) {
             if ((index as List<int>).isNotEmpty) {
               List<String> selected = [];
               for (int e in index) {
-                selected.add((widget.item.configValueDefaultValue ?? [])[e]);
+                selected.add((widget.item.configValueDefaultValues ?? [])[e]);
               }
               widget.item.text.text = selected.join(",");
             } else {
