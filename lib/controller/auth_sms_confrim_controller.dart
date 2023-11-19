@@ -4,12 +4,13 @@ import 'package:ntk_flutter_estate/controller/auth_text_error_controller.dart';
 import 'package:ntk_cms_flutter_base/src/index.dart';
 import 'package:ntk_flutter_estate/controller/main_controller.dart';
 import 'package:ntk_flutter_estate/screen/auth/auth_sms_confirm.dart';
+
 class AuthSmsConfirmController with AuthTextErrorController {
   ///entered mobile number that get from register page
   String mobileNumber;
 
   ///last captcha get form url
-  late CaptchaModel model;
+  CaptchaModel model;
 
   /// Create a text controller and use it to retrieve the current value
   /// of the TextField.
@@ -20,13 +21,21 @@ class AuthSmsConfirmController with AuthTextErrorController {
   bool hasTimerStopped = false;
 
   ///constructor
-  AuthSmsConfirmController(this.mobileNumber);
+  AuthSmsConfirmController(this.mobileNumber, this.model, String? captchaText) {
+    if (captchaText != null) {
+      captchaTextController.text = captchaText;
+    }
+  }
 
-  static void verifyPage(BuildContext context, String mobile) {
+  static void verifyPage(
+      BuildContext context, String mobile, CaptchaModel captcha,String captchaText) {
     Future.microtask(() => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => AuthSmsConfirmScreen(mobile))));
+            builder: (context) => AuthSmsConfirmScreen(
+                mobile: mobile,
+                model: captcha,
+                captchaText: captchaText))));
   }
 
   ///when user want to login with one step verifying mobile number
@@ -57,8 +66,6 @@ class AuthSmsConfirmController with AuthTextErrorController {
     return textEmptyError(captchaTextController);
   }
 
-
-
   ///load captcha on as model for use on api call
   Future<String> loadCaptcha() async {
     model = await AuthService().getCaptcha();
@@ -76,7 +83,8 @@ class AuthSmsConfirmController with AuthTextErrorController {
   }
 
   Future<bool> resendCode(CaptchaModel captcha, String text) async {
-    var s = await AuthSmsController().sendCode(mobileNumber,text,captcha.key??'');
+    var s = await AuthSmsController(null,null)
+        .sendCode(mobileNumber, text, captcha.key ?? '');
     //if not empty
     return s.isNotEmpty;
   }

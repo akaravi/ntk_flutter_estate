@@ -8,22 +8,30 @@ import 'package:lottie/lottie.dart';
 import 'base_auth.dart';
 
 class AuthSmsScreen extends StatefulWidget {
+  String? captchaText;
+  CaptchaModel? captcha;
+
   AuthSmsScreen({
+    this.captcha,
+    this.captchaText,
     Key? key,
   });
 
   @override
-  State<AuthSmsScreen> createState() => _AuthSmsScreenState();
+  State<AuthSmsScreen> createState() =>
+      _AuthSmsScreenState(captcha, captchaText);
 }
 
 class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
   //controller object for login form
-  final registerMobileController = AuthSmsController();
+  final AuthSmsController registerMobileController;
 
   bool mobileNotValid = false;
   bool captchaNotValid = false;
 
-  _AuthSmsScreenState() : super();
+  _AuthSmsScreenState(CaptchaModel? captcha, String? captchaText)
+      : registerMobileController = AuthSmsController(captcha, captchaText),
+        super();
 
   @override
   void dispose() {
@@ -31,10 +39,12 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
     registerMobileController.dispose();
     super.dispose();
   }
-@override
+
+  @override
   void initState() {
-    CaptchaWidget.captcha=null;
+    CaptchaWidget.captcha = widget.captcha;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,12 +157,12 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
   }
 
   registerClicked() async {
-    if (registerMobileController.usernameErrorText() != null) {
+    if (registerMobileController.usernameErrorText() != "") {
       mobileNotValid = true;
     } else {
       mobileNotValid = false;
     }
-    if (registerMobileController.captchaErrorText() != null) {
+    if (registerMobileController.captchaErrorText() != "") {
       captchaNotValid = true;
     } else {
       captchaNotValid = false;
@@ -173,7 +183,11 @@ class _AuthSmsScreenState extends AuthScreen<AuthSmsScreen> {
       //go to verify page
       if (mobile.isNotEmpty) {
         LoginCache().setMobile(registerMobileController.mobile());
-        registerMobileController.verifyMobile(context, mobile);
+        registerMobileController.verifyMobile(
+            context,
+            mobile,
+            registerMobileController.model,
+            registerMobileController.captchaTextController.text);
       }
     } catch (exp) {
       //dismiss loading

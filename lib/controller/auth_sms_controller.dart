@@ -15,6 +15,15 @@ class AuthSmsController extends AuthTextErrorController {
   final TextEditingController passwordTextController = TextEditingController();
   final TextEditingController captchaTextController = TextEditingController();
 
+  AuthSmsController(CaptchaModel? captcha, String? captchaText) {
+    if (captcha != null) {
+      model = captcha;
+    }
+    if (captchaText != null) {
+      captchaTextController.text = captchaText;
+    }
+  }
+
   // ///start registering with verify mobile number with sms
   // static void registerMobile(BuildContext context) {
   //   Future.microtask(() =>
@@ -25,9 +34,11 @@ class AuthSmsController extends AuthTextErrorController {
   ///start registering with verify mobile number with sms
   static void registerMobileWithPage(
     BuildContext context,
+    CaptchaModel? captcha,
   ) {
     Future.microtask(() => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => AuthSmsScreen())));
+        MaterialPageRoute(
+            builder: (context) => AuthSmsScreen(captcha: captcha))));
   }
 
   ///dispose all instance of controller on exit
@@ -89,7 +100,7 @@ class AuthSmsController extends AuthTextErrorController {
     MainScreenController().startScreen(context);
   }
 
-  void verifyMobile(BuildContext context, String mobile) {
-    AuthSmsConfirmController.verifyPage(context, mobile);
+  void verifyMobile(BuildContext context, String mobile, CaptchaModel model,String captchaText) {
+    AuthSmsConfirmController.verifyPage(context, mobile, model,captchaText);
   }
 }

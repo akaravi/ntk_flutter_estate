@@ -10,15 +10,16 @@ import 'base_auth.dart';
 
 class AuthSmsConfirmScreen extends StatefulWidget {
   String mobile;
-
+  CaptchaModel model;
+  String captchaText;
   AuthSmsConfirmScreen(
-    this.mobile, {
+    { required this.model,required this.mobile,required this.captchaText,
     Key? key,
   });
 
   @override
   State<AuthSmsConfirmScreen> createState() =>
-      _AuthSmsConfirmScreenState(mobile);
+      _AuthSmsConfirmScreenState(mobile, model,captchaText);
 }
 
 class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
@@ -28,13 +29,15 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
   bool smsNotValid = false;
   bool captchaNotValid = false;
 
-  _AuthSmsConfirmScreenState(String mobile) : super() {
-    verifyController = AuthSmsConfirmController(mobile);
+  _AuthSmsConfirmScreenState(String mobile, CaptchaModel model,String captchaText) : super() {
+    verifyController = AuthSmsConfirmController(mobile, model,captchaText);
   }
+
   @override
   void initState() {
-    CaptchaWidget.captcha=null;
+    CaptchaWidget.captcha = verifyController.model;
   }
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -129,9 +132,8 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
                       style: TextStyle(color: GlobalColor.colorAccent),
                     ),
                   ),
-                  onPressed: () =>
-                      AuthSmsController.registerMobileWithPage(
-                          context),
+                  onPressed: () => AuthSmsController.registerMobileWithPage(
+                      context, verifyController.model),
                 ),
               ),
               Container(
@@ -183,16 +185,16 @@ class _AuthSmsConfirmScreenState extends AuthScreen<AuthSmsConfirmScreen> {
 
   @override
   loadCaptcha(CaptchaModel chModel) {
-     verifyController.model=chModel;
+    verifyController.model = chModel;
   }
 
   registerClicked() async {
-    if (verifyController.smsErrorText() != null) {
+    if (verifyController.smsErrorText() != "") {
       smsNotValid = true;
     } else {
       smsNotValid = false;
     }
-    if (verifyController.captchaErrorText() != null) {
+    if (verifyController.captchaErrorText() != "") {
       captchaNotValid = true;
     } else {
       captchaNotValid = false;
