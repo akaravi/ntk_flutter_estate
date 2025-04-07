@@ -18,3 +18,15 @@ To get started with this project, please follow the instructions below.
 1. Clone the repository:
    ```bash
    git clone <repository-url>
+
+2. go to folder
+   ```bash
+   cd <repository-name>
+
+3. Install the dependencies:
+   ```bash
+   flutter pub get
+
+4. To run the application, use the following command:
+   ```bash
+   flutter run
