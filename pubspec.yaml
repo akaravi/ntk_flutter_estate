@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dependency_overrides:
-  intl: ^0.18.1
+  intl: ^0.20.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,30 +49,30 @@ dev_dependencies:
   flutter_localizations:
     sdk: flutter
   #lottie
-  lottie: ^2.3.1
+  lottie: ^3.3.1
   #map
-  flutter_map: ^3.1.0
+  flutter_map: ^8.1.1
   #for user location
-  location: ^4.2.0
+  location: ^8.0.0
   #image slider
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   #html viewer
-  flutter_html: 3.0.0-beta.1 #^2.2.1
+  flutter_html: 3.0.0 #^2.2.1
   #font awesome
   flutter_font_awesome_web_names:
     git:
       url: https://github.com/Mythar/flutter_font_awesome_web_names
       ref: master
   #for exit app
-  flutter_exit_app: ^1.1.2
+  flutter_exit_app: ^1.1.4
   #expandable
-  expandable_widgets: ^1.0.2
+  expandable_widgets: ^1.0.3+1
   #dropdown
-  dropdown_search: ^5.0.6
+  dropdown_search: ^6.0.2
   #taost
-  motion_toast: ^2.6.6
+  motion_toast: ^2.12.1
   #shimmer
-  shimmer: ^2.0.0
+  shimmer: ^3.0.0
   #time ago
   get_time_ago:
     git:
@@ -83,13 +83,13 @@ dev_dependencies:
   #radio_group_v2:
   group_radio_button: ^1.3.0
   #  sentry
-  sentry_flutter: ^7.5.2
+  sentry_flutter: ^8.14.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

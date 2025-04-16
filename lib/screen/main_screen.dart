@@ -170,8 +170,9 @@ class _ScreenState extends State<_Screen> with TickerProviderStateMixin {
                                             BorderRadius.circular(24.0)),
                                     elevation: 17,
                                     backgroundColor: GlobalColor.colorAccent),
-                                onPressed: (snapshot.data?.isLogin ?? false)
-                                    ? () => _showOverLay()
+                                onPressed:
+                                (snapshot.data?.isLogin ?? false)
+                                  ? () => _showOverLay()
                                     : () => NeedAuthorization().show(context),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,

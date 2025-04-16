@@ -102,19 +102,19 @@ class _Container1State extends State<SubNewEstate3> {
               height: 350,
               child: FlutterMap(
                   options: MapOptions(
-                    interactiveFlags: InteractiveFlag.none,
+                    interactionOptions:InteractionOptions(flags: InteractiveFlag.none ) ,
                     maxZoom: 12,
-                    center: LatLng(
+                    initialCenter: LatLng(
                       widget.controller.item.geolocationlatitude ?? 32.661343,
                       widget.controller.item.geolocationlongitude ?? 51.680374,
                     ),
-                    zoom: 12,
+                    initialZoom: 12,
                     minZoom: 12,
-                  ),
-                  nonRotatedChildren: [
-                    LiveLocationPage.attributionWidgetDefault(
-                        alignment: Alignment.bottomCenter)
-                  ],
+                    ),
+                  // nonRotatedChildren: [
+                  //   LiveLocationPage.attributionWidgetDefault(
+                  //       alignment: Alignment.bottomCenter)
+                  // ],
                   children: [
                     TileLayer(
                       urlTemplate:
@@ -126,7 +126,7 @@ class _Container1State extends State<SubNewEstate3> {
                         point: LatLng(30, 40),
                         width: 80,
                         height: 80,
-                        builder: (context) => FlutterLogo(),
+                        child: FlutterLogo(),
                       )
                     ]),
                   ]),

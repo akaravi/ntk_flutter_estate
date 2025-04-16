@@ -36,11 +36,11 @@ class IntroScreen extends StatelessWidget {
     );
   }
 
-  List<Slide> createSlides(List<ApplicationIntroModel>? data) {
-    List<Slide> list = [];
+  List<ContentConfig> createSlides(List<ApplicationIntroModel>? data) {
+    List<ContentConfig> list = [];
     data = data ?? [];
     for (var element in data) {
-      Slide slide = Slide(
+      ContentConfig slide = ContentConfig(
         title: element.title,
         maxLineTitle: 2,
         styleTitle: const TextStyle(
@@ -54,17 +54,15 @@ class IntroScreen extends StatelessWidget {
           fontStyle: FontStyle.italic,
         ),
         marginDescription: const EdgeInsets.only(
-            left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-      );
-      if (element.linkMainImageIdSrc != null &&
-          (element.linkMainImageIdSrc?.isNotEmpty ?? false)) {
-        slide.centerWidget = Container(
-            constraints: const BoxConstraints(minHeight: 40, maxHeight: 200),
-            child: Image.network(
-              element.linkMainImageIdSrc ?? "",
-            ));
-      }
-      slide.description = element.description;
+            left: 20.0, right: 20.0, top: 20.0, bottom: 70.0)
+      ,centerWidget:(element.linkMainImageIdSrc != null &&
+      (element.linkMainImageIdSrc?.isNotEmpty ?? false))?Container(
+        constraints: const BoxConstraints(minHeight: 40, maxHeight: 200),
+        child: Image.network(
+          element.linkMainImageIdSrc ?? "",
+        )):Text('')
+      ,description: element.description);
+
       list.add(slide);
     }
     return list;
@@ -72,7 +70,7 @@ class IntroScreen extends StatelessWidget {
 }
 
 class IntroWidget extends StatelessWidget {
-  List<Slide> slides;
+  List<ContentConfig> slides;
 
   bool asHelpScreen;
 
@@ -83,7 +81,7 @@ class IntroWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroSlider(
       // List slides
-      slides: slides,
+      listContentConfig: slides,
 
       // Skip button
       renderSkipBtn: renderSkipBtn(),
@@ -97,20 +95,20 @@ class IntroWidget extends StatelessWidget {
       onDonePress: () => onDonePress(context),
       doneButtonStyle: myButtonStyle(),
       //prev btn
-      showPrevBtn: true,
+      isShowPrevBtn: true,
       renderPrevBtn: renderPrevBtn(),
       prevButtonStyle: myButtonStyle(),
 
       scrollPhysics: const BouncingScrollPhysics(),
       // Dot indicator
-      showDotIndicator: true,
-      colorDot: GlobalColor.colorAccent.withOpacity(.5),
-      colorActiveDot: GlobalColor.colorAccentDark,
-      sizeDot: 5.0,
+      // showDotIndicator: true,
+      // colorDot: GlobalColor.colorAccent.withOpacity(.5),
+      // colorActiveDot: GlobalColor.colorAccentDark,
+      // sizeDot: 5.0,
 
       // Show or hide status bar
-      hideStatusBar: true,
-      backgroundColorAllSlides: GlobalColor.colorBackground,
+      // hideStatusBar: true,
+      backgroundColorAllTabs: GlobalColor.colorBackground,
     );
   }
 

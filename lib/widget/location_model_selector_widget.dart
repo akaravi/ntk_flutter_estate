@@ -68,31 +68,76 @@ class LocationModelSelectorDialog {
     const double horizontalPadding = 20;
     return Material(
       borderRadius: BorderRadius.all(Radius.circular(8)),
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            //country
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          //country
+          FutureBuilder<List<CoreLocationModel>>(
+            future: controller.getAllCountry(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      top: verticalPadding,
+                      bottom: verticalPadding / 2,
+                      right: horizontalPadding,
+                      left: horizontalPadding),
+                  child: DropdownSearch<CoreLocationModel>(
+                      dropdownBuilder: (context, selectedItem) =>  InputDecorator(
+                          decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8))),
+                        label: Text(
+                          GlobalString.countryLoc,
+                          style: TextStyle(
+                              fontSize: 13, color: GlobalColor.colorAccent),
+                        ),
+                      )),
+                      popupProps: const PopupProps.menu(
+                        showSearchBox: true,
+                      ),
+                      compareFn: (item1, item2) => item1.id==item2.id,
+                      items: (filter, loadProps) => snapshot.data ?? [],
+                      itemAsString: (item) => item.title ?? "",
+                      onChanged: (newValue) {
+                        controller.selectedCountry = newValue!;
+                        controller.selectedProvince = null;
+                        controller.selectedCity = null;
+                        controller.selectedArea = null;
+                        setState(() {});
+                      }),
+                );
+              }
+              return indicator();
+            },
+          ),
+          //province
+          if (controller.selectedCountry != null)
             FutureBuilder<List<CoreLocationModel>>(
-              future: controller.getAllCountry(),
+              future: controller.getAllProvince(),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
                   return Padding(
                     padding: const EdgeInsets.only(
-                        top: verticalPadding,
+                        top: verticalPadding / 2,
                         bottom: verticalPadding / 2,
                         right: horizontalPadding,
                         left: horizontalPadding),
                     child: DropdownSearch<CoreLocationModel>(
-                        dropdownDecoratorProps: const DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                        selectedItem: controller.selectedProvince,decoratorProps:
+                         const DropDownDecoratorProps(
+                             decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 4),
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8))),
                           label: Text(
-                            GlobalString.countryLoc,
+                            GlobalString.provinceLoc,
                             style: TextStyle(
                                 fontSize: 13, color: GlobalColor.colorAccent),
                           ),
@@ -100,11 +145,11 @@ class LocationModelSelectorDialog {
                         popupProps: const PopupProps.menu(
                           showSearchBox: true,
                         ),
-                        items: snapshot.data ?? [],
+                        compareFn: (item1, item2) => item1.id==item2.id,
+                        items: (filter, loadProps) => snapshot.data ?? [],
                         itemAsString: (item) => item.title ?? "",
                         onChanged: (newValue) {
-                          controller.selectedCountry = newValue!;
-                          controller.selectedProvince = null;
+                          controller.selectedProvince = newValue!;
                           controller.selectedCity = null;
                           controller.selectedArea = null;
                           setState(() {});
@@ -114,181 +159,138 @@ class LocationModelSelectorDialog {
                 return indicator();
               },
             ),
-            //province
-            if (controller.selectedCountry != null)
-              FutureBuilder<List<CoreLocationModel>>(
-                future: controller.getAllProvince(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: verticalPadding / 2,
-                          bottom: verticalPadding / 2,
-                          right: horizontalPadding,
-                          left: horizontalPadding),
-                      child: DropdownSearch<CoreLocationModel>(
-                          selectedItem: controller.selectedProvince,
-                          dropdownDecoratorProps: const DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 4),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            label: Text(
-                              GlobalString.provinceLoc,
-                              style: TextStyle(
-                                  fontSize: 13, color: GlobalColor.colorAccent),
-                            ),
-                          )),
-                          popupProps: const PopupProps.menu(
-                            showSearchBox: true,
+          //city
+          if (controller.selectedProvince != null)
+            FutureBuilder<List<CoreLocationModel>>(
+              future: controller.getAllCity(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: verticalPadding / 2,
+                        bottom: verticalPadding / 2,
+                        right: horizontalPadding,
+                        left: horizontalPadding),
+                    child: DropdownSearch<CoreLocationModel>(   selectedItem: controller.selectedCity,
+                        decoratorProps: const DropDownDecoratorProps(
+                            decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 4),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          label: Text(
+                            GlobalString.cityLoc,
+                            style: TextStyle(
+                                fontSize: 13, color: GlobalColor.colorAccent),
                           ),
-                          items: snapshot.data ?? [],
-                          itemAsString: (item) => item.title ?? "",
-                          onChanged: (newValue) {
-                            controller.selectedProvince = newValue!;
-                            controller.selectedCity = null;
-                            controller.selectedArea = null;
-                            setState(() {});
-                          }),
-                    );
-                  }
-                  return indicator();
-                },
-              ),
-            //city
-            if (controller.selectedProvince != null)
-              FutureBuilder<List<CoreLocationModel>>(
-                future: controller.getAllCity(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: verticalPadding / 2,
-                          bottom: verticalPadding / 2,
-                          right: horizontalPadding,
-                          left: horizontalPadding),
-                      child: DropdownSearch<CoreLocationModel>(   selectedItem: controller.selectedCity,
-                          dropdownDecoratorProps: const DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 4),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            label: Text(
-                              GlobalString.cityLoc,
-                              style: TextStyle(
-                                  fontSize: 13, color: GlobalColor.colorAccent),
-                            ),
-                          )),
-                          popupProps: const PopupProps.menu(
-                            showSearchBox: true,
-                          ),
-                          items: snapshot.data ?? [],
-                          itemAsString: (item) => item.title ?? "",
-                          onChanged: (newValue) {
-                            controller.selectedCity = newValue!;
-                            controller.selectedArea = null;
+                        )),
+                        compareFn: (item1, item2) => item1.id==item2.id,
+                        popupProps: const PopupProps.menu(
+                          showSearchBox: true,
+                        ),
+                        items: (filter, loadProps) => snapshot.data ?? [],
+                        itemAsString: (item) => item.title ?? "",
+                        onChanged: (newValue) {
+                          controller.selectedCity = newValue!;
+                          controller.selectedArea = null;
 
-                            setState(() {});
-                          }),
-                    );
-                  }
-                  return indicator();
-                },
-              ),
-            //area
-            if (controller.selectedCity != null)
-              FutureBuilder<List<CoreLocationModel>>(
-                future: controller.getAllArea(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      snapshot.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: verticalPadding / 2,
-                          bottom: verticalPadding / 2,
-                          right: horizontalPadding,
-                          left: horizontalPadding),
-                      child: DropdownSearch<CoreLocationModel>(   selectedItem: controller.selectedArea,
-                          dropdownDecoratorProps: const DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 4),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8))),
-                            label: Text(
-                              GlobalString.areaLoc,
-                              style: TextStyle(
-                                  fontSize: 13, color: GlobalColor.colorAccent),
-                            ),
-                          )),
-                          popupProps: const PopupProps.menu(
-                            showSearchBox: true,
+                          setState(() {});
+                        }),
+                  );
+                }
+                return indicator();
+              },
+            ),
+          //area
+          if (controller.selectedCity != null)
+            FutureBuilder<List<CoreLocationModel>>(
+              future: controller.getAllArea(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: verticalPadding / 2,
+                        bottom: verticalPadding / 2,
+                        right: horizontalPadding,
+                        left: horizontalPadding),
+                    child: DropdownSearch<CoreLocationModel>(   selectedItem: controller.selectedArea,
+                        decoratorProps: const DropDownDecoratorProps(
+                            decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 4),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8))),
+                          label: Text(
+                            GlobalString.areaLoc,
+                            style: TextStyle(
+                                fontSize: 13, color: GlobalColor.colorAccent),
                           ),
-                          items: snapshot.data ?? [],
-                          itemAsString: (item) => item.title ?? "",
-                          onChanged: (newValue) {
-                            controller.selectedCity = newValue!;
-                            setState(() {});
-                          }),
-                    );
-                  }
-                  return indicator();
-                },
-              ),
-            //error show
-            if (controller.hasError)
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(GlobalString.plzSelectLocation,
-                    style: TextStyle(color: GlobalColor.colorError)),
-              ),
-            //buttons
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: verticalPadding, horizontal: horizontalPadding),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0)),
-                          elevation: 10,
-                          backgroundColor: GlobalColor.colorAccent),
-                      onPressed: () {
-                        var selectedLoc = controller.sendLocation();
-                        if (selectedLoc == null) {
-                          controller.hasError = true;
-                          setState(
-                            () {},
-                          );
-                        } else {
-                          Navigator.of(context).pop(selectedLoc);
-                        }
-                      },
-                      child: const Text(GlobalString.confirmLocation,
-                          style: TextStyle(
-                              color: GlobalColor.colorTextOnPrimary,
-                              fontSize: 16)),
-                    ),
+                        )),
+                        popupProps: const PopupProps.menu(
+                          showSearchBox: true,
+                        ),
+                        compareFn: (item1, item2) => item1.id==item2.id,
+                        items: (filter, loadProps) => snapshot.data ?? [],
+                        itemAsString: (item) => item.title ?? "",
+                        onChanged: (newValue) {
+                          controller.selectedCity = newValue!;
+                          setState(() {});
+                        }),
+                  );
+                }
+                return indicator();
+              },
+            ),
+          //error show
+          if (controller.hasError)
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(GlobalString.plzSelectLocation,
+                  style: TextStyle(color: GlobalColor.colorError)),
+            ),
+          //buttons
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: verticalPadding, horizontal: horizontalPadding),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                        elevation: 10,
+                        backgroundColor: GlobalColor.colorAccent),
+                    onPressed: () {
+                      var selectedLoc = controller.sendLocation();
+                      if (selectedLoc == null) {
+                        controller.hasError = true;
+                        setState(
+                          () {},
+                        );
+                      } else {
+                        Navigator.of(context).pop(selectedLoc);
+                      }
+                    },
+                    child: const Text(GlobalString.confirmLocation,
+                        style: TextStyle(
+                            color: GlobalColor.colorTextOnPrimary,
+                            fontSize: 16)),
                   ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  cancelButton(context)
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                cancelButton(context)
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

@@ -82,7 +82,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                   _mapController.move(
                       LatLng(_currentLocation!.latitude!,
                           _currentLocation!.longitude!),
-                      _mapController.zoom);
+                      _mapController.camera.zoom);
                 }
               });
             }
@@ -149,14 +149,15 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
             child: FlutterMap(
               mapController: _mapController,
               options: MapOptions(
-                center: LatLng(currentLatLng.latitude, currentLatLng.longitude),
-                zoom: 12,
+                initialCenter:
+                    LatLng(currentLatLng.latitude, currentLatLng.longitude),
+                initialZoom: 12,
                 onTap: (tapPos, latLng) {
-                  CustomPoint? pt1 = _mapController.latLngToScreenPoint(latLng);
+                  _mapController.move(latLng, _mapController.camera.zoom);
                   selectLatLng = latLng;
                   setState(() {});
                 },
-                interactiveFlags: interActiveFlags,
+                // interactionOptions: interActiveFlags,
               ),
               children: [
                 TileLayer(
@@ -169,38 +170,35 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                       height: 150,
                       width: 150,
                       point: currentLatLng,
-                      builder: (context) {
-                        return Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                width: 40,
-                                height: 40,
-                                decoration: new BoxDecoration(
-                                  color:
-                                      GlobalColor.colorAccent.withOpacity(.9),
-                                  shape: BoxShape.circle,
-                                ),
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 40,
+                              height: 40,
+                              decoration: new BoxDecoration(
+                                color: GlobalColor.colorAccent.withOpacity(.9),
+                                shape: BoxShape.circle,
                               ),
-                              const Text(
-                                GlobalString.estimateLoc,
-                                style: TextStyle(
-                                    color: GlobalColor.colorPrimary,
-                                    fontSize: 16),
-                              )
-                            ],
-                          ),
-                        );
-                      },
+                            ),
+                            const Text(
+                              GlobalString.estimateLoc,
+                              style: TextStyle(
+                                  color: GlobalColor.colorPrimary,
+                                  fontSize: 16),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   if (selectLatLng != null)
                     Marker(
                       width: 60,
                       height: 60,
                       point: selectLatLng ?? LatLng(0, 0),
-                      builder: (ctx) => const FlutterLogo(
+                      child: const FlutterLogo(
                         textColor: Colors.blue,
                         key: ObjectKey(Colors.blue),
                       ),
@@ -248,7 +246,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                 _mapController.move(
                     LatLng(_currentLocation!.latitude!,
                         _currentLocation!.longitude!),
-                    _mapController.zoom);
+                    _mapController.camera.zoom);
             },
             child: const Icon(Icons.location_searching));
       }),

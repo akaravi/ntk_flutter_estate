@@ -22,10 +22,13 @@ class EntityListScreen<model> extends StatefulWidget {
 
   EntityListScreen.withFilterScreen(
       {required this.controller, required this.title, super.key})
-      : stateCreator = (() => _ListWithFilterState());
+      : stateCreator = (() => _ListWithFilterState<model>());
 
   EntityListScreen.asGridScreen(
-      {required this.controller, required this.title,required int crossAxs, super.key})
+      {required this.controller,
+      required this.title,
+      required int crossAxs,
+      super.key})
       : stateCreator = (() => _GridListFilterState(crossAxs));
 
   EntityListScreen.horizontalListWidget(
@@ -41,40 +44,17 @@ class EntityListScreen<model> extends StatefulWidget {
       : title = "",
         stateCreator = (() => _ListOnlyState<model>(listItems ?? []));
 
-  // factory EntityListScreen.withFilterScreen(
-  //     {Key? key,
-  //     required BaseListController<model> controller,
-  //     required String title,
-  //     }) {
-  //   return EntityListScreen._(
-  //       controller: controller,
-  //       title: title,
-  //       stateCreator: () => _ListWithFilterState());
-  // }
-  //
-  // factory EntityListScreen.horizontalList(
-  //     {Key? key,
-  //     required BaseListController<model> controller,
-  //     required String title,
-  //     required}) {
-  //   return EntityListScreen._(
-  //       controller: controller,
-  //       title: title,
-  //       stateCreator: () => _HorizontalListState());
-  // }
 
   floatingActionButton(BuildContext context) {}
 }
 
 typedef ListStateCreator<T extends State<EntityListScreen>> = T Function();
 
-class _ListWithFilterState extends State<EntityListScreen> {
+class _ListWithFilterState<model> extends State<EntityListScreen> {
+
   @override
   void initState() {
     widget.controller.initPageController();
-    widget.controller.pagingController.addPageRequestListener((pageKey) {
-      widget.controller.fetchPage(pageKey);
-    });
     super.initState();
   }
 
@@ -102,29 +82,33 @@ class _ListWithFilterState extends State<EntityListScreen> {
         // ],
       ),
       body: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          () => widget.controller.pagingController.refresh(),
-        ),
-        child: PagedListView.separated(
-          pagingController: widget.controller.pagingController,
-          builderDelegate: PagedChildBuilderDelegate(
-            itemBuilder: (context, item, index) =>
-                widget.controller.widgetAdapter(context, item, index),
-            firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
-              error: widget.controller.pagingController.error,
-              onTryAgain: () => widget.controller.pagingController.refresh(),
-            ),
-            noItemsFoundIndicatorBuilder: (context) => const SubEmptyScreen(),
-          ),
-          padding: const EdgeInsets.all(8),
-          separatorBuilder: (context, index) => const SizedBox(
-            height: 16,
-          ),
-        ),
-      ),
+          onRefresh: () => Future.sync(
+                () => widget.controller.pagingController.refresh(),
+              ),
+          child: PagingListener(
+              controller: widget.controller.pagingController,
+              builder: (context, state, fetchNextPage) =>
+                  PagedListView(
+                    padding: const EdgeInsets.all(8),
+                    state: state,
+                    fetchNextPage: fetchNextPage,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      firstPageErrorIndicatorBuilder: (context) =>
+                          ErrorIndicator(
+                        error: widget.controller.pagingController.error,
+                        onTryAgain: () =>
+                            widget.controller.pagingController.refresh(),
+                      ),
+                      noItemsFoundIndicatorBuilder: (context) =>
+                          SubEmptyScreen(),
+                      itemBuilder: (context, item, index) =>
+                          widget.controller.widgetAdapter(context, item, index),
+                    ),
+                  ))),
       floatingActionButton: widget.floatingActionButton(context),
     );
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -141,9 +125,7 @@ class _GridListFilterState extends State<EntityListScreen> {
   @override
   void initState() {
     widget.controller.initPageController();
-    widget.controller.pagingController.addPageRequestListener((pageKey) {
-      widget.controller.fetchPage(pageKey);
-    });
+
     super.initState();
   }
 
@@ -174,11 +156,13 @@ class _GridListFilterState extends State<EntityListScreen> {
         onRefresh: () => Future.sync(
           () => widget.controller.pagingController.refresh(),
         ),
-        child: PagedGridView(
+        child:
+        PagedGridView(
+          state: widget.controller.pagingController.value,
           showNewPageProgressIndicatorAsGridChild: false,
           showNewPageErrorIndicatorAsGridChild: false,
           showNoMoreItemsIndicatorAsGridChild: false,
-          pagingController: widget.controller.pagingController,
+          fetchNextPage: widget.controller.pagingController.fetchNextPage,
           gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: .8,
             crossAxisSpacing: 10,
@@ -210,31 +194,30 @@ class _HorizontalListState extends State<EntityListScreen> {
   @override
   void initState() {
     widget.controller.initPageController();
-    widget.controller.pagingController.addPageRequestListener((pageKey) {
-      widget.controller.fetchPage(pageKey);
-    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView.separated(
-      scrollDirection: (isHorizontal ?? true) ? Axis.horizontal : Axis.vertical,
-      pagingController: widget.controller.pagingController,
-      builderDelegate: PagedChildBuilderDelegate(
-        itemBuilder: (context, item, index) =>
-            widget.controller.widgetAdapter(context, item, index),
-        firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
-          error: widget.controller.pagingController.error,
-          onTryAgain: () => widget.controller.pagingController.refresh(),
-        ),
-        noItemsFoundIndicatorBuilder: (context) => const SubEmptyScreen(),
-      ),
-      padding: const EdgeInsets.all(8),
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 16,
-      ),
-    );
+    return Text('');
+    //   PagedListView.separated(
+    //   scrollDirection: (isHorizontal ?? true) ? Axis.horizontal : Axis.vertical,
+    //   pagingController: widget.controller.pagingController,
+    //   builderDelegate: PagedChildBuilderDelegate(
+    //     itemBuilder: (context, item, index) =>
+    //         widget.controller.widgetAdapter(context, item, index),
+    //     firstPageErrorIndicatorBuilder: (context) => ErrorIndicator(
+    //       error: widget.controller.pagingController.error,
+    //       onTryAgain: () => widget.controller.pagingController.refresh(),
+    //     ),
+    //     noItemsFoundIndicatorBuilder: (context) => const SubEmptyScreen(),
+    //   ),
+    //   padding: const EdgeInsets.all(8),
+    //   separatorBuilder: (context, index) => const SizedBox(
+    //     height: 16,
+    //   ),
+    // );
   }
 }
 

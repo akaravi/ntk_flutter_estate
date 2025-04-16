@@ -30,16 +30,16 @@ class TestWidget extends StatelessWidget {
     return FlutterMap(
       options: MapOptions(
         maxZoom: 12,
-        center: LatLng(51.5, -0.09),
-        zoom: 12,
+        initialCenter: LatLng(51.5, -0.09),
+        initialZoom: 12,
         minZoom: 12,
       ),
-      nonRotatedChildren: [
-        AttributionWidget.defaultWidget(
-          source: 'OpenStreetMap contributors',
-          onSourceTapped: () {},
-        ),
-      ],
+      // nonRotatedChildren: [
+      //   AttributionWidget.defaultWidget(
+      //     source: 'OpenStreetMap contributors',
+      //     onSourceTapped: () {},
+      //   ),
+      // ],
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -50,7 +50,7 @@ class TestWidget extends StatelessWidget {
             width: 80,
             height: 80,
             point: LatLng(48.8566, 2.3522),
-            builder: (ctx) => const FlutterLogo(
+            child: const FlutterLogo(
               textColor: Colors.purple,
               key: ObjectKey(Colors.purple),
             ),

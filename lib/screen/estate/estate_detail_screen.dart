@@ -11,7 +11,7 @@ import 'package:flutter_html/flutter_html.dart';
 import '/widget/estate_property_details_widget.dart';
 import '/widget/image_slider.dart';
 import 'package:get_time_ago/get_time_ago.dart';
-
+import 'package:flutter_map/src/layer/marker_layer/marker_layer.dart' as marked;
 class EstateDetailScreen extends StatelessWidget {
   EstateDetailController modelController;
 
@@ -187,24 +187,24 @@ class _DetailState extends State<_Detail> {
     return FlutterMap(
       options: MapOptions(
         maxZoom: 12,
-        center: LatLng(widget.model.geolocationlatitude ?? 0,
+        initialCenter: LatLng(widget.model.geolocationlatitude ?? 0,
             widget.model.geolocationlongitude ?? 0),
-        zoom: 12,
+        initialZoom: 12,
         minZoom: 12,
       ),
-      nonRotatedChildren: [LiveLocationPage.attributionWidgetDefault()],
+      // nonRotatedChildren: [LiveLocationPage.attributionWidgetDefault()],
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'ntkCorp',
         ),
         MarkerLayer(markers: [
-          Marker(
+          marked.Marker(
             point: LatLng(widget.model.geolocationlatitude ?? 0,
                 widget.model.geolocationlongitude ?? 0),
             width: 80,
             height: 80,
-            builder: (context) => FlutterLogo(),
+            child:FlutterLogo(),
           )
         ]),
       ],
